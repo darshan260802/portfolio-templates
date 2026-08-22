@@ -6,7 +6,7 @@ export const manifest: TemplateManifest = {
 	description:
 		"A vivid, glassmorphic bento-grid portfolio with a living gradient backdrop — playful, colorful, built for designers and creatives who want to show personality.",
 	tags: ["colorful", "glassmorphism", "bento-grid", "playful", "creative"],
-	thumbnail: "/templates/prism/thumbnail.png",
+	thumbnail: "https://oalitktezxwewwttyfmk.supabase.co/storage/v1/object/public/project-assets/prism.png",
 	sections: ["profile", "socials", "experience", "projects", "skills"],
 	version: "0.1.0",
 };
