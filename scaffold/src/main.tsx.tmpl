@@ -1,0 +1,13 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import Template from "./templates/__TEMPLATE_ID__/Template";
+import data from "./data.json";
+
+const rootEl = document.getElementById("root");
+if (!rootEl) throw new Error("Root element #root not found");
+
+createRoot(rootEl).render(
+	<StrictMode>
+		<Template data={data} />
+	</StrictMode>,
+);

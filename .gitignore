@@ -1,0 +1,8 @@
+node_modules
+.prewarm
+*.log
+.DS_Store
+
+# dist/ is intentionally NOT ignored — it is committed. `bun install` does
+# not reliably run `prepare` for a `github:` dependency, so consumers need
+# the built output already in the repo. Run `bun run build` before pushing.

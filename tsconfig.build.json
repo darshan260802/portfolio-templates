@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "outDir": "dist/core",
+    "rootDir": "src",
+    "declaration": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["src/schema.ts", "src/meta.ts", "src/loaders.ts", "src/index.ts", "src/dist-modules.d.ts"]
+}
