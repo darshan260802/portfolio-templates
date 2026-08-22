@@ -1,5 +1,7 @@
 import type { PortfolioSection } from "./schema.js";
 import { manifest as auroraManifest } from "./templates/aurora/manifest.js";
+import { manifest as monolithManifest } from "./templates/monolith/manifest.js";
+import { manifest as prismManifest } from "./templates/prism/manifest.js";
 
 /**
  * Template metadata — id, name, thumbnail, which sections it renders.
@@ -22,7 +24,7 @@ export interface TemplateManifest {
 	version: string;
 }
 
-export const TEMPLATES: TemplateManifest[] = [auroraManifest];
+export const TEMPLATES: TemplateManifest[] = [auroraManifest, monolithManifest, prismManifest];
 
 export function getTemplateManifest(id: string): TemplateManifest | undefined {
 	return TEMPLATES.find((t) => t.id === id);

@@ -1,0 +1,394 @@
+/* Prism — vivid glassmorphic bento-grid portfolio. A living multi-color
+   mesh sits fixed behind the whole page, glimpsed through translucent
+   cards everywhere. Scoped entirely under .prism. */
+
+.prism {
+	--prism-accent: #7c5cff;
+	--prism-accent-2: #ff5c8a;
+	--prism-accent-3: #22d3c5;
+	--prism-bg: #f1f0fb;
+	--prism-card-bg: rgba(255, 255, 255, 0.6);
+	--prism-card-border: rgba(255, 255, 255, 0.5);
+	--prism-text: #1a1a2e;
+	--prism-text-muted: #5c5c7a;
+	--prism-font:
+		-apple-system, "SF Pro Display", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+
+	position: relative;
+	isolation: isolate;
+	font-family: var(--prism-font);
+	background: var(--prism-bg);
+	color: var(--prism-text);
+	line-height: 1.55;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+}
+
+.prism[data-theme="dark"] {
+	--prism-bg: #0f0e1a;
+	--prism-card-bg: rgba(30, 28, 50, 0.55);
+	--prism-card-border: rgba(255, 255, 255, 0.08);
+	--prism-text: #f1f0fb;
+	--prism-text-muted: #a8a6c4;
+	--prism-accent: #8f74ff;
+	--prism-accent-2: #ff6f9c;
+	--prism-accent-3: #2ee6d6;
+}
+
+.prism * {
+	box-sizing: border-box;
+}
+
+.prism a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Living mesh background */
+.prism-bg {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.prism-bg__blob {
+	position: absolute;
+	width: 46vw;
+	height: 46vw;
+	max-width: 640px;
+	max-height: 640px;
+	border-radius: 50%;
+	filter: blur(80px);
+	opacity: 0.55;
+}
+
+.prism-bg__blob--1 {
+	top: -10%;
+	left: -8%;
+	background: var(--prism-accent);
+}
+
+.prism-bg__blob--2 {
+	top: 20%;
+	right: -12%;
+	background: var(--prism-accent-2);
+}
+
+.prism-bg__blob--3 {
+	bottom: -15%;
+	left: 20%;
+	background: var(--prism-accent-3);
+}
+
+.prism-content {
+	position: relative;
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 0 1.5rem;
+}
+
+/* Glass card primitive */
+.prism-card {
+	background: var(--prism-card-bg);
+	border: 1px solid var(--prism-card-border);
+	border-radius: 28px;
+	backdrop-filter: blur(24px) saturate(160%);
+	-webkit-backdrop-filter: blur(24px) saturate(160%);
+	box-shadow: 0 8px 32px rgba(20, 10, 60, 0.08);
+}
+
+/* Chips */
+.prism-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.4rem 0.9rem;
+	border-radius: 999px;
+	font-size: 0.8rem;
+	font-weight: 500;
+	background: rgba(255, 255, 255, 0.5);
+	border: 1px solid var(--prism-card-border);
+	color: var(--prism-text);
+}
+
+.prism-chip--link:hover {
+	background: var(--prism-accent);
+	color: white;
+}
+
+.prism-chip[data-tone="0"] {
+	background: color-mix(in srgb, var(--prism-accent) 18%, transparent);
+	color: var(--prism-accent);
+	border-color: transparent;
+}
+
+.prism-chip[data-tone="1"] {
+	background: color-mix(in srgb, var(--prism-accent-2) 18%, transparent);
+	color: var(--prism-accent-2);
+	border-color: transparent;
+}
+
+.prism-chip[data-tone="2"] {
+	background: color-mix(in srgb, var(--prism-accent-3) 18%, transparent);
+	color: var(--prism-accent-3);
+	border-color: transparent;
+}
+
+.prism-badge {
+	display: inline-block;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 0.3rem 0.75rem;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--prism-accent) 15%, transparent);
+	color: var(--prism-accent);
+	margin-bottom: 0.75rem;
+}
+
+/* Hero */
+.prism-hero {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 1.5rem;
+	padding: 6rem 0 3rem;
+}
+
+.prism-hero__main {
+	padding: 3rem;
+}
+
+.prism-hero__avatar {
+	width: 84px;
+	height: 84px;
+	border-radius: 24px;
+	object-fit: cover;
+	margin-bottom: 1.25rem;
+}
+
+.prism-hero__name {
+	font-size: clamp(2.25rem, 5vw, 3.25rem);
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	margin: 0 0 0.5rem;
+}
+
+.prism-hero__headline {
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: var(--prism-accent);
+	margin: 0 0 1rem;
+}
+
+.prism-hero__bio {
+	color: var(--prism-text-muted);
+	max-width: 56ch;
+	margin: 0 0 1.5rem;
+}
+
+.prism-hero__socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+.prism-hero__side {
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.4rem;
+}
+
+.prism-hero__side-label {
+	font-size: 0.75rem;
+	color: var(--prism-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.prism-hero__side-value {
+	font-size: 1.15rem;
+	font-weight: 700;
+}
+
+/* Sections */
+.prism-section {
+	padding: 3rem 0;
+}
+
+.prism-section__title {
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	margin: 0 0 1.75rem;
+}
+
+.prism-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1.25rem;
+}
+
+.prism-experience-card {
+	padding: 1.75rem;
+}
+
+.prism-experience-card__role {
+	font-size: 1.1rem;
+	font-weight: 700;
+	margin: 0 0 0.2rem;
+}
+
+.prism-experience-card__company {
+	color: var(--prism-text-muted);
+	font-size: 0.9rem;
+	margin: 0 0 0.75rem;
+}
+
+.prism-experience-card__summary {
+	margin: 0 0 0.5rem;
+	font-size: 0.92rem;
+}
+
+.prism-experience-card__highlights {
+	margin: 0;
+	padding-left: 1.1rem;
+	color: var(--prism-text-muted);
+	font-size: 0.88rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+/* Bento project grid */
+.prism-bento {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.25rem;
+}
+
+.prism-project-card {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	grid-column: span 1;
+}
+
+.prism-project-card--featured {
+	grid-column: span 2;
+}
+
+.prism-project-card__media {
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+.prism-project-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.prism-project-card__body {
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	flex: 1;
+}
+
+.prism-project-card__title {
+	font-size: 1.1rem;
+	font-weight: 700;
+	margin: 0;
+}
+
+.prism-project-card__description {
+	color: var(--prism-text-muted);
+	font-size: 0.9rem;
+	margin: 0;
+	flex: 1;
+}
+
+.prism-project-card__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.prism-project-card__links {
+	display: flex;
+	gap: 1rem;
+	font-size: 0.85rem;
+	font-weight: 700;
+	color: var(--prism-accent);
+}
+
+/* Skills */
+.prism-skills {
+	padding: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+/* Footer */
+.prism-footer__card {
+	padding: 3.5rem 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 1.25rem;
+}
+
+.prism-footer__cta {
+	font-size: 1.75rem;
+	font-weight: 800;
+	color: var(--prism-accent);
+}
+
+.prism-footer__socials {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.6rem;
+}
+
+.prism-footer__copy {
+	color: var(--prism-text-muted);
+	font-size: 0.85rem;
+	margin: 0;
+}
+
+@media (max-width: 860px) {
+	.prism-hero {
+		grid-template-columns: 1fr;
+	}
+	.prism-bento {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.prism-project-card--featured {
+		grid-column: span 2;
+	}
+}
+
+@media (max-width: 560px) {
+	.prism-bento {
+		grid-template-columns: 1fr;
+	}
+	.prism-project-card--featured {
+		grid-column: span 1;
+	}
+	.prism-hero__main {
+		padding: 2rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.prism * {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}

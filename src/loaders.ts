@@ -18,4 +18,6 @@ export type TemplateComponent = ComponentType<{ data: PortfolioData }>;
 
 export const TEMPLATE_LOADERS: Record<string, () => Promise<{ default: TemplateComponent }>> = {
 	aurora: () => import("@pb/templates/dist/aurora/index.js"),
+	monolith: () => import("@pb/templates/dist/monolith/index.js"),
+	prism: () => import("@pb/templates/dist/prism/index.js"),
 };
