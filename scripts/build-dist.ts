@@ -56,14 +56,40 @@ async function buildTemplate(id: string): Promise<void> {
 				fileName: () => "index.js",
 			},
 			rollupOptions: {
-				external: [
-					"react",
-					"react-dom",
-					"react/jsx-runtime",
-					"react/jsx-dev-runtime",
-					"motion/react",
-					"motion",
-				],
+				external: (id: string) => {
+					if (
+						[
+							"react",
+							"react-dom",
+							"react/jsx-runtime",
+							"react/jsx-dev-runtime",
+							// React 19.2+ ships its compiler runtime helper (the
+							// `c()`/useMemoCache hook the compiler's output calls)
+							// as this subpath of "react" itself — NOT the separate
+							// `react-compiler-runtime` npm package, which the babel
+							// preset here doesn't use. It resolves to
+							// node_modules/react/compiler-runtime.js. Must be
+							// externalized alongside "react": bundling it pulls in
+							// react's own internal CJS build (compiler-runtime.js
+							// requires "react/cjs/react-compiler-runtime.*.js",
+							// which itself does a top-level `require("react")`),
+							// and since "react" is externalized, Rolldown wraps
+							// that inner require in a runtime interop shim that
+							// calls the real Node `require` — which doesn't exist
+							// in a browser, so the chunk crashes on load with
+							// "Calling `require` for react in an environment that
+							// doesn't expose the require function." Every consumer
+							// already has "react" installed, which ships this
+							// subpath for free — no extra dependency needed.
+							"react/compiler-runtime",
+							"motion/react",
+							"motion",
+						].includes(id)
+					) {
+						return true;
+					}
+					return false;
+				},
 			},
 		},
 	});

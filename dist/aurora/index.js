@@ -1,25 +1,8 @@
-import { motion as e } from "motion/react";
-import { jsx as t, jsxs as n } from "react/jsx-runtime";
-import './index.css';//#region \0rolldown/runtime.js
-var r = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t.exports), i = /* @__PURE__ */ ((e) => typeof require < "u" ? require : typeof Proxy < "u" ? new Proxy(e, { get: (e, t) => (typeof require < "u" ? require : e)[t] }) : e)(function(e) {
-	if (typeof require < "u") return require.apply(this, arguments);
-	throw Error("Calling `require` for \"" + e + "\" in an environment that doesn't expose the `require` function. See https://rolldown.rs/in-depth/bundling-cjs#require-external-modules for more details.");
-}), a = /* @__PURE__ */ r(((e) => {
-	var t = i("react").__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
-	e.c = function(e) {
-		return t.H.useMemoCache(e);
-	};
-})), o = /* @__PURE__ */ r(((e) => {
-	process.env.NODE_ENV !== "production" && (function() {
-		var t = i("react").__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
-		e.c = function(e) {
-			var n = t.H;
-			return n === null && console.error("Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem."), n.useMemoCache(e);
-		};
-	})();
-})), s = (/* @__PURE__ */ r(((e, t) => {
-	t.exports = process.env.NODE_ENV === "production" ? a() : o();
-})))(), c = {
+import { c as e } from "react/compiler-runtime";
+import { motion as t } from "motion/react";
+import { jsx as n, jsxs as r } from "react/jsx-runtime";
+import './index.css';//#region src/templates/aurora/sections/Hero.tsx
+var i = {
 	github: "GitHub",
 	linkedin: "LinkedIn",
 	twitter: "X / Twitter",
@@ -30,14 +13,14 @@ var r = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 	website: "Website",
 	other: "Link"
 };
-function l(r) {
-	let i = (0, s.c)(24), { profile: a, socials: o } = r, c;
-	i[0] === Symbol.for("react.memo_cache_sentinel") ? (c = /* @__PURE__ */ t("div", {
+function a(i) {
+	let a = e(24), { profile: s, socials: c } = i, l;
+	a[0] === Symbol.for("react.memo_cache_sentinel") ? (l = /* @__PURE__ */ n("div", {
 		className: "aurora-hero__glow",
 		"aria-hidden": "true"
-	}), i[0] = c) : c = i[0];
-	let l, d, f;
-	i[1] === Symbol.for("react.memo_cache_sentinel") ? (l = {
+	}), a[0] = l) : l = a[0];
+	let u, d, f;
+	a[1] === Symbol.for("react.memo_cache_sentinel") ? (u = {
 		opacity: 0,
 		y: 24
 	}, d = {
@@ -46,45 +29,45 @@ function l(r) {
 	}, f = {
 		duration: .6,
 		ease: "easeOut"
-	}, i[1] = l, i[2] = d, i[3] = f) : (l = i[1], d = i[2], f = i[3]);
+	}, a[1] = u, a[2] = d, a[3] = f) : (u = a[1], d = a[2], f = a[3]);
 	let p;
-	i[4] !== a.avatarUrl || i[5] !== a.fullName ? (p = a.avatarUrl && /* @__PURE__ */ t("img", {
+	a[4] !== s.avatarUrl || a[5] !== s.fullName ? (p = s.avatarUrl && /* @__PURE__ */ n("img", {
 		className: "aurora-hero__avatar",
-		src: a.avatarUrl,
-		alt: a.fullName
-	}), i[4] = a.avatarUrl, i[5] = a.fullName, i[6] = p) : p = i[6];
-	let m = a.fullName || "Your Name", h;
-	i[7] === m ? h = i[8] : (h = /* @__PURE__ */ t("h1", {
+		src: s.avatarUrl,
+		alt: s.fullName
+	}), a[4] = s.avatarUrl, a[5] = s.fullName, a[6] = p) : p = a[6];
+	let m = s.fullName || "Your Name", h;
+	a[7] === m ? h = a[8] : (h = /* @__PURE__ */ n("h1", {
 		className: "aurora-hero__name",
 		children: m
-	}), i[7] = m, i[8] = h);
+	}), a[7] = m, a[8] = h);
 	let g;
-	i[9] === a.headline ? g = i[10] : (g = a.headline && /* @__PURE__ */ t("p", {
+	a[9] === s.headline ? g = a[10] : (g = s.headline && /* @__PURE__ */ n("p", {
 		className: "aurora-hero__headline",
-		children: a.headline
-	}), i[9] = a.headline, i[10] = g);
+		children: s.headline
+	}), a[9] = s.headline, a[10] = g);
 	let _;
-	i[11] === a.bio ? _ = i[12] : (_ = a.bio && /* @__PURE__ */ t("p", {
+	a[11] === s.bio ? _ = a[12] : (_ = s.bio && /* @__PURE__ */ n("p", {
 		className: "aurora-hero__bio",
-		children: a.bio
-	}), i[11] = a.bio, i[12] = _);
+		children: s.bio
+	}), a[11] = s.bio, a[12] = _);
 	let v;
-	i[13] === a.location ? v = i[14] : (v = a.location && /* @__PURE__ */ t("p", {
+	a[13] === s.location ? v = a[14] : (v = s.location && /* @__PURE__ */ n("p", {
 		className: "aurora-hero__location",
-		children: a.location
-	}), i[13] = a.location, i[14] = v);
+		children: s.location
+	}), a[13] = s.location, a[14] = v);
 	let y;
-	i[15] === o ? y = i[16] : (y = o && o.length > 0 && /* @__PURE__ */ t("nav", {
+	a[15] === c ? y = a[16] : (y = c && c.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "aurora-hero__socials",
 		"aria-label": "Social links",
-		children: o.map(u)
-	}), i[15] = o, i[16] = y);
+		children: c.map(o)
+	}), a[15] = c, a[16] = y);
 	let b;
-	return i[17] !== v || i[18] !== y || i[19] !== p || i[20] !== h || i[21] !== g || i[22] !== _ ? (b = /* @__PURE__ */ n("header", {
+	return a[17] !== v || a[18] !== y || a[19] !== p || a[20] !== h || a[21] !== g || a[22] !== _ ? (b = /* @__PURE__ */ r("header", {
 		className: "aurora-hero",
-		children: [c, /* @__PURE__ */ n(e.div, {
+		children: [l, /* @__PURE__ */ r(t.div, {
 			className: "aurora-hero__content",
-			initial: l,
+			initial: u,
 			animate: d,
 			transition: f,
 			children: [
@@ -96,26 +79,26 @@ function l(r) {
 				y
 			]
 		})]
-	}), i[17] = v, i[18] = y, i[19] = p, i[20] = h, i[21] = g, i[22] = _, i[23] = b) : b = i[23], b;
+	}), a[17] = v, a[18] = y, a[19] = p, a[20] = h, a[21] = g, a[22] = _, a[23] = b) : b = a[23], b;
 }
-function u(e) {
-	return /* @__PURE__ */ t("a", {
+function o(e) {
+	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
 		className: "aurora-hero__social",
-		children: e.label ?? c[e.platform]
+		children: e.label ?? i[e.platform]
 	}, e.platform + e.url);
 }
 //#endregion
 //#region src/templates/aurora/sections/Experience.tsx
-function d(e) {
+function s(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function f(r) {
-	let i = (0, s.c)(5), { experience: a } = r, o;
-	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ t(e.h2, {
+function c(i) {
+	let a = e(5), { experience: o } = i, s;
+	a[0] === Symbol.for("react.memo_cache_sentinel") ? (s = /* @__PURE__ */ n(t.h2, {
 		className: "aurora-section__title",
 		initial: {
 			opacity: 0,
@@ -131,21 +114,21 @@ function f(r) {
 		},
 		transition: { duration: .5 },
 		children: "Experience"
-	}), i[0] = o) : o = i[0];
+	}), a[0] = s) : s = a[0];
 	let c;
-	i[1] === a ? c = i[2] : (c = a.map(p), i[1] = a, i[2] = c);
-	let l;
-	return i[3] === c ? l = i[4] : (l = /* @__PURE__ */ n("section", {
+	a[1] === o ? c = a[2] : (c = o.map(l), a[1] = o, a[2] = c);
+	let u;
+	return a[3] === c ? u = a[4] : (u = /* @__PURE__ */ r("section", {
 		className: "aurora-section",
 		id: "experience",
-		children: [o, /* @__PURE__ */ t("ol", {
+		children: [s, /* @__PURE__ */ n("ol", {
 			className: "aurora-timeline",
 			children: c
 		})]
-	}), i[3] = c, i[4] = l), l;
+	}), a[3] = c, a[4] = u), u;
 }
-function p(r, i) {
-	return /* @__PURE__ */ n(e.li, {
+function l(e, i) {
+	return /* @__PURE__ */ r(t.li, {
 		className: "aurora-timeline__item",
 		initial: {
 			opacity: 0,
@@ -163,48 +146,48 @@ function p(r, i) {
 			duration: .4,
 			delay: i * .06
 		},
-		children: [/* @__PURE__ */ t("div", {
+		children: [/* @__PURE__ */ n("div", {
 			className: "aurora-timeline__marker",
 			"aria-hidden": "true"
-		}), /* @__PURE__ */ n("div", {
+		}), /* @__PURE__ */ r("div", {
 			className: "aurora-timeline__body",
 			children: [
-				/* @__PURE__ */ n("div", {
+				/* @__PURE__ */ r("div", {
 					className: "aurora-timeline__heading",
-					children: [/* @__PURE__ */ t("h3", { children: r.role }), /* @__PURE__ */ t("span", {
+					children: [/* @__PURE__ */ n("h3", { children: e.role }), /* @__PURE__ */ n("span", {
 						className: "aurora-timeline__range",
-						children: d(r.range)
+						children: s(e.range)
 					})]
 				}),
-				/* @__PURE__ */ n("p", {
+				/* @__PURE__ */ r("p", {
 					className: "aurora-timeline__company",
-					children: [r.companyUrl ? /* @__PURE__ */ t("a", {
-						href: r.companyUrl,
+					children: [e.companyUrl ? /* @__PURE__ */ n("a", {
+						href: e.companyUrl,
 						target: "_blank",
 						rel: "noreferrer noopener",
-						children: r.company
-					}) : r.company, r.location ? ` · ${r.location}` : ""]
+						children: e.company
+					}) : e.company, e.location ? ` · ${e.location}` : ""]
 				}),
-				r.summary && /* @__PURE__ */ t("p", {
+				e.summary && /* @__PURE__ */ n("p", {
 					className: "aurora-timeline__summary",
-					children: r.summary
+					children: e.summary
 				}),
-				r.highlights && r.highlights.length > 0 && /* @__PURE__ */ t("ul", {
+				e.highlights && e.highlights.length > 0 && /* @__PURE__ */ n("ul", {
 					className: "aurora-timeline__highlights",
-					children: r.highlights.map(m)
+					children: e.highlights.map(u)
 				})
 			]
 		})]
-	}, r.id);
+	}, e.id);
 }
-function m(e) {
-	return /* @__PURE__ */ t("li", { children: e }, e);
+function u(e) {
+	return /* @__PURE__ */ n("li", { children: e }, e);
 }
 //#endregion
 //#region src/templates/aurora/sections/Projects.tsx
-function h(r) {
-	let i = (0, s.c)(5), { projects: a } = r, o;
-	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ t(e.h2, {
+function d(i) {
+	let a = e(5), { projects: o } = i, s;
+	a[0] === Symbol.for("react.memo_cache_sentinel") ? (s = /* @__PURE__ */ n(t.h2, {
 		className: "aurora-section__title",
 		initial: {
 			opacity: 0,
@@ -220,21 +203,21 @@ function h(r) {
 		},
 		transition: { duration: .5 },
 		children: "Projects"
-	}), i[0] = o) : o = i[0];
+	}), a[0] = s) : s = a[0];
 	let c;
-	i[1] === a ? c = i[2] : (c = a.map(g), i[1] = a, i[2] = c);
+	a[1] === o ? c = a[2] : (c = o.map(f), a[1] = o, a[2] = c);
 	let l;
-	return i[3] === c ? l = i[4] : (l = /* @__PURE__ */ n("section", {
+	return a[3] === c ? l = a[4] : (l = /* @__PURE__ */ r("section", {
 		className: "aurora-section",
 		id: "projects",
-		children: [o, /* @__PURE__ */ t("div", {
+		children: [s, /* @__PURE__ */ n("div", {
 			className: "aurora-grid",
 			children: c
 		})]
-	}), i[3] = c, i[4] = l), l;
+	}), a[3] = c, a[4] = l), l;
 }
-function g(r, i) {
-	return /* @__PURE__ */ n(e.article, {
+function f(e, i) {
+	return /* @__PURE__ */ r(t.article, {
 		className: "aurora-card",
 		initial: {
 			opacity: 0,
@@ -253,37 +236,37 @@ function g(r, i) {
 			delay: i * .05
 		},
 		whileHover: { y: -4 },
-		children: [r.imageUrl && /* @__PURE__ */ t("div", {
+		children: [e.imageUrl && /* @__PURE__ */ n("div", {
 			className: "aurora-card__media",
-			children: /* @__PURE__ */ t("img", {
-				src: r.imageUrl,
-				alt: r.title,
+			children: /* @__PURE__ */ n("img", {
+				src: e.imageUrl,
+				alt: e.title,
 				loading: "lazy"
 			})
-		}), /* @__PURE__ */ n("div", {
+		}), /* @__PURE__ */ r("div", {
 			className: "aurora-card__body",
 			children: [
-				/* @__PURE__ */ t("h3", {
+				/* @__PURE__ */ n("h3", {
 					className: "aurora-card__title",
-					children: r.title
+					children: e.title
 				}),
-				r.description && /* @__PURE__ */ t("p", {
+				e.description && /* @__PURE__ */ n("p", {
 					className: "aurora-card__description",
-					children: r.description
+					children: e.description
 				}),
-				r.tags && r.tags.length > 0 && /* @__PURE__ */ t("ul", {
+				e.tags && e.tags.length > 0 && /* @__PURE__ */ n("ul", {
 					className: "aurora-card__tags",
-					children: r.tags.map(_)
+					children: e.tags.map(p)
 				}),
-				/* @__PURE__ */ n("div", {
+				/* @__PURE__ */ r("div", {
 					className: "aurora-card__links",
-					children: [r.liveUrl && /* @__PURE__ */ t("a", {
-						href: r.liveUrl,
+					children: [e.liveUrl && /* @__PURE__ */ n("a", {
+						href: e.liveUrl,
 						target: "_blank",
 						rel: "noreferrer noopener",
 						children: "Live"
-					}), r.repoUrl && /* @__PURE__ */ t("a", {
-						href: r.repoUrl,
+					}), e.repoUrl && /* @__PURE__ */ n("a", {
+						href: e.repoUrl,
 						target: "_blank",
 						rel: "noreferrer noopener",
 						children: "Source"
@@ -291,14 +274,14 @@ function g(r, i) {
 				})
 			]
 		})]
-	}, r.id);
+	}, e.id);
 }
-function _(e) {
-	return /* @__PURE__ */ t("li", { children: e }, e);
+function p(e) {
+	return /* @__PURE__ */ n("li", { children: e }, e);
 }
 //#endregion
 //#region src/templates/aurora/sections/Skills.tsx
-function v(e) {
+function m(e) {
 	let t = /* @__PURE__ */ new Map();
 	for (let n of e) {
 		let e = n.category ?? "Skills", r = t.get(e) ?? [];
@@ -306,11 +289,11 @@ function v(e) {
 	}
 	return t;
 }
-function y(r) {
-	let i = (0, s.c)(15), { skills: a } = r, o, c, l, u, d;
-	if (i[0] !== a) {
-		let n = v(a);
-		l = "aurora-section", u = "skills", i[6] === Symbol.for("react.memo_cache_sentinel") ? (d = /* @__PURE__ */ t(e.h2, {
+function h(i) {
+	let a = e(15), { skills: o } = i, s, c, l, u, d;
+	if (a[0] !== o) {
+		let e = m(o);
+		l = "aurora-section", u = "skills", a[6] === Symbol.for("react.memo_cache_sentinel") ? (d = /* @__PURE__ */ n(t.h2, {
 			className: "aurora-section__title",
 			initial: {
 				opacity: 0,
@@ -326,37 +309,37 @@ function y(r) {
 			},
 			transition: { duration: .5 },
 			children: "Skills"
-		}), i[6] = d) : d = i[6], o = "aurora-skills", c = Array.from(n.entries()).map(b), i[0] = a, i[1] = o, i[2] = c, i[3] = l, i[4] = u, i[5] = d;
-	} else o = i[1], c = i[2], l = i[3], u = i[4], d = i[5];
+		}), a[6] = d) : d = a[6], s = "aurora-skills", c = Array.from(e.entries()).map(g), a[0] = o, a[1] = s, a[2] = c, a[3] = l, a[4] = u, a[5] = d;
+	} else s = a[1], c = a[2], l = a[3], u = a[4], d = a[5];
 	let f;
-	i[7] !== o || i[8] !== c ? (f = /* @__PURE__ */ t("div", {
-		className: o,
+	a[7] !== s || a[8] !== c ? (f = /* @__PURE__ */ n("div", {
+		className: s,
 		children: c
-	}), i[7] = o, i[8] = c, i[9] = f) : f = i[9];
+	}), a[7] = s, a[8] = c, a[9] = f) : f = a[9];
 	let p;
-	return i[10] !== l || i[11] !== u || i[12] !== d || i[13] !== f ? (p = /* @__PURE__ */ n("section", {
+	return a[10] !== l || a[11] !== u || a[12] !== d || a[13] !== f ? (p = /* @__PURE__ */ r("section", {
 		className: l,
 		id: u,
 		children: [d, f]
-	}), i[10] = l, i[11] = u, i[12] = d, i[13] = f, i[14] = p) : p = i[14], p;
+	}), a[10] = l, a[11] = u, a[12] = d, a[13] = f, a[14] = p) : p = a[14], p;
 }
-function b(e) {
-	let [r, i] = e;
-	return /* @__PURE__ */ n("div", {
+function g(e) {
+	let [t, i] = e;
+	return /* @__PURE__ */ r("div", {
 		className: "aurora-skills__group",
-		children: [/* @__PURE__ */ t("h3", {
+		children: [/* @__PURE__ */ n("h3", {
 			className: "aurora-skills__category",
-			children: r
-		}), /* @__PURE__ */ t("ul", {
+			children: t
+		}), /* @__PURE__ */ n("ul", {
 			className: "aurora-skills__list",
-			children: i.map(x)
+			children: i.map(_)
 		})]
-	}, r);
+	}, t);
 }
-function x(n) {
-	return /* @__PURE__ */ t(e.li, {
+function _(e) {
+	return /* @__PURE__ */ n(t.li, {
 		className: "aurora-skills__pill",
-		"data-level": n.level,
+		"data-level": e.level,
 		initial: {
 			opacity: 0,
 			scale: .9
@@ -370,28 +353,28 @@ function x(n) {
 			amount: .6
 		},
 		transition: { duration: .25 },
-		children: n.name
-	}, n.id);
+		children: e.name
+	}, e.id);
 }
 //#endregion
 //#region src/templates/aurora/sections/Footer.tsx
-function S(e) {
-	let r = (0, s.c)(11), { profile: i, socials: a } = e, o;
-	r[0] === Symbol.for("react.memo_cache_sentinel") ? (o = (/* @__PURE__ */ new Date()).getFullYear(), r[0] = o) : o = r[0];
-	let c = o, l;
-	r[1] === i.email ? l = r[2] : (l = i.email && /* @__PURE__ */ t("a", {
+function v(t) {
+	let i = e(11), { profile: a, socials: o } = t, s;
+	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
+	let c = s, l;
+	i[1] === a.email ? l = i[2] : (l = a.email && /* @__PURE__ */ n("a", {
 		className: "aurora-footer__email",
-		href: `mailto:${i.email}`,
-		children: i.email
-	}), r[1] = i.email, r[2] = l);
+		href: `mailto:${a.email}`,
+		children: a.email
+	}), i[1] = a.email, i[2] = l);
 	let u;
-	r[3] === a ? u = r[4] : (u = a && a.length > 0 && /* @__PURE__ */ t("nav", {
+	i[3] === o ? u = i[4] : (u = o && o.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "aurora-footer__socials",
 		"aria-label": "Social links",
-		children: a.map(C)
-	}), r[3] = a, r[4] = u);
-	let d = i.fullName || "Your Name", f;
-	r[5] === d ? f = r[6] : (f = /* @__PURE__ */ n("p", {
+		children: o.map(y)
+	}), i[3] = o, i[4] = u);
+	let d = a.fullName || "Your Name", f;
+	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ r("p", {
 		className: "aurora-footer__copy",
 		children: [
 			"© ",
@@ -399,19 +382,19 @@ function S(e) {
 			" ",
 			d
 		]
-	}), r[5] = d, r[6] = f);
+	}), i[5] = d, i[6] = f);
 	let p;
-	return r[7] !== l || r[8] !== u || r[9] !== f ? (p = /* @__PURE__ */ n("footer", {
+	return i[7] !== l || i[8] !== u || i[9] !== f ? (p = /* @__PURE__ */ r("footer", {
 		className: "aurora-footer",
 		children: [
 			l,
 			u,
 			f
 		]
-	}), r[7] = l, r[8] = u, r[9] = f, r[10] = p) : p = r[10], p;
+	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
 }
-function C(e) {
-	return /* @__PURE__ */ t("a", {
+function y(e) {
+	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
@@ -420,38 +403,38 @@ function C(e) {
 }
 //#endregion
 //#region src/templates/aurora/Template.tsx
-function w(e) {
-	let r = (0, s.c)(22), { data: i } = e, a = i.theme?.mode === "light" ? "light" : "dark", o = i.theme?.accentColor ?? "#7c3aed", c;
-	r[0] === o ? c = r[1] : (c = { "--aurora-accent": o }, r[0] = o, r[1] = c);
-	let u = c, d;
-	r[2] !== i.profile || r[3] !== i.socials ? (d = /* @__PURE__ */ t(l, {
-		profile: i.profile,
-		socials: i.socials
-	}), r[2] = i.profile, r[3] = i.socials, r[4] = d) : d = r[4];
-	let p;
-	r[5] === i.experience ? p = r[6] : (p = i.experience && i.experience.length > 0 && /* @__PURE__ */ t(f, { experience: i.experience }), r[5] = i.experience, r[6] = p);
+function b(t) {
+	let i = e(22), { data: o } = t, s = o.theme?.mode === "light" ? "light" : "dark", l = o.theme?.accentColor ?? "#7c3aed", u;
+	i[0] === l ? u = i[1] : (u = { "--aurora-accent": l }, i[0] = l, i[1] = u);
+	let f = u, p;
+	i[2] !== o.profile || i[3] !== o.socials ? (p = /* @__PURE__ */ n(a, {
+		profile: o.profile,
+		socials: o.socials
+	}), i[2] = o.profile, i[3] = o.socials, i[4] = p) : p = i[4];
 	let m;
-	r[7] === i.projects ? m = r[8] : (m = i.projects && i.projects.length > 0 && /* @__PURE__ */ t(h, { projects: i.projects }), r[7] = i.projects, r[8] = m);
+	i[5] === o.experience ? m = i[6] : (m = o.experience && o.experience.length > 0 && /* @__PURE__ */ n(c, { experience: o.experience }), i[5] = o.experience, i[6] = m);
 	let g;
-	r[9] === i.skills ? g = r[10] : (g = i.skills && i.skills.length > 0 && /* @__PURE__ */ t(y, { skills: i.skills }), r[9] = i.skills, r[10] = g);
+	i[7] === o.projects ? g = i[8] : (g = o.projects && o.projects.length > 0 && /* @__PURE__ */ n(d, { projects: o.projects }), i[7] = o.projects, i[8] = g);
 	let _;
-	r[11] !== i.profile || r[12] !== i.socials ? (_ = /* @__PURE__ */ t(S, {
-		profile: i.profile,
-		socials: i.socials
-	}), r[11] = i.profile, r[12] = i.socials, r[13] = _) : _ = r[13];
-	let v;
-	return r[14] !== a || r[15] !== u || r[16] !== d || r[17] !== p || r[18] !== m || r[19] !== g || r[20] !== _ ? (v = /* @__PURE__ */ n("div", {
+	i[9] === o.skills ? _ = i[10] : (_ = o.skills && o.skills.length > 0 && /* @__PURE__ */ n(h, { skills: o.skills }), i[9] = o.skills, i[10] = _);
+	let y;
+	i[11] !== o.profile || i[12] !== o.socials ? (y = /* @__PURE__ */ n(v, {
+		profile: o.profile,
+		socials: o.socials
+	}), i[11] = o.profile, i[12] = o.socials, i[13] = y) : y = i[13];
+	let b;
+	return i[14] !== s || i[15] !== f || i[16] !== p || i[17] !== m || i[18] !== g || i[19] !== _ || i[20] !== y ? (b = /* @__PURE__ */ r("div", {
 		className: "aurora",
-		"data-theme": a,
-		style: u,
+		"data-theme": s,
+		style: f,
 		children: [
-			d,
 			p,
 			m,
 			g,
-			_
+			_,
+			y
 		]
-	}), r[14] = a, r[15] = u, r[16] = d, r[17] = p, r[18] = m, r[19] = g, r[20] = _, r[21] = v) : v = r[21], v;
+	}), i[14] = s, i[15] = f, i[16] = p, i[17] = m, i[18] = g, i[19] = _, i[20] = y, i[21] = b) : b = i[21], b;
 }
 //#endregion
-export { w as default };
+export { b as default };

@@ -40,7 +40,6 @@
     "@vitejs/plugin-react": "^6.1.0",
     "@rolldown/plugin-babel": "^0.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
-    "react-compiler-runtime": "19.1.0-rc.3",
     "vite": "^8.2.2",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "react": "^19.2.8",
