@@ -9,7 +9,6 @@ export function ProjectsSection({ projects, index }: { projects: Project[]; inde
 			<div className="atlas-projects">
 				{projects.map((project, i) => (
 					<article key={project.id} className="atlas-project">
-						<span className="atlas-project__index">{String(i + 1).padStart(2, "0")}</span>
 						{project.imageUrl && (
 							<div className="atlas-project__media">
 								<motion.img
@@ -24,6 +23,11 @@ export function ProjectsSection({ projects, index }: { projects: Project[]; inde
 							</div>
 						)}
 						<div className="atlas-project__body">
+							{/* Inline, in normal flow — not overlaid on the image — so it
+							    never collides with the title when a project has no
+							    imageUrl (there's then nothing for an absolutely
+							    positioned badge to sit over). */}
+							<span className="atlas-project__index">{String(i + 1).padStart(2, "0")}</span>
 							<h3 className="atlas-project__title">{project.title}</h3>
 							{project.description && <p className="atlas-project__description">{project.description}</p>}
 							{project.tags && project.tags.length > 0 && (

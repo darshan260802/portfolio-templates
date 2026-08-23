@@ -272,66 +272,63 @@ function g(t) {
 function _(e, t) {
 	return /* @__PURE__ */ s("article", {
 		className: "atlas-project",
-		children: [
-			/* @__PURE__ */ o("span", {
-				className: "atlas-project__index",
-				children: String(t + 1).padStart(2, "0")
-			}),
-			e.imageUrl && /* @__PURE__ */ o("div", {
-				className: "atlas-project__media",
-				children: /* @__PURE__ */ o(c.img, {
-					src: e.imageUrl,
-					alt: e.title,
-					loading: "lazy",
-					initial: { clipPath: "inset(0 0 100% 0)" },
-					whileInView: { clipPath: "inset(0 0 0% 0)" },
-					viewport: {
-						once: !0,
-						amount: .3
-					},
-					transition: {
-						duration: .8,
-						ease: [
-							.65,
-							0,
-							.35,
-							1
-						]
-					}
-				})
-			}),
-			/* @__PURE__ */ s("div", {
-				className: "atlas-project__body",
-				children: [
-					/* @__PURE__ */ o("h3", {
-						className: "atlas-project__title",
-						children: e.title
-					}),
-					e.description && /* @__PURE__ */ o("p", {
-						className: "atlas-project__description",
-						children: e.description
-					}),
-					e.tags && e.tags.length > 0 && /* @__PURE__ */ o("div", {
-						className: "atlas-project__tags",
-						children: e.tags.map(v)
-					}),
-					/* @__PURE__ */ s("div", {
-						className: "atlas-project__links",
-						children: [e.liveUrl && /* @__PURE__ */ o("a", {
-							href: e.liveUrl,
-							target: "_blank",
-							rel: "noreferrer noopener",
-							children: "Live ↗"
-						}), e.repoUrl && /* @__PURE__ */ o("a", {
-							href: e.repoUrl,
-							target: "_blank",
-							rel: "noreferrer noopener",
-							children: "Source ↗"
-						})]
-					})
-				]
+		children: [e.imageUrl && /* @__PURE__ */ o("div", {
+			className: "atlas-project__media",
+			children: /* @__PURE__ */ o(c.img, {
+				src: e.imageUrl,
+				alt: e.title,
+				loading: "lazy",
+				initial: { clipPath: "inset(0 0 100% 0)" },
+				whileInView: { clipPath: "inset(0 0 0% 0)" },
+				viewport: {
+					once: !0,
+					amount: .3
+				},
+				transition: {
+					duration: .8,
+					ease: [
+						.65,
+						0,
+						.35,
+						1
+					]
+				}
 			})
-		]
+		}), /* @__PURE__ */ s("div", {
+			className: "atlas-project__body",
+			children: [
+				/* @__PURE__ */ o("span", {
+					className: "atlas-project__index",
+					children: String(t + 1).padStart(2, "0")
+				}),
+				/* @__PURE__ */ o("h3", {
+					className: "atlas-project__title",
+					children: e.title
+				}),
+				e.description && /* @__PURE__ */ o("p", {
+					className: "atlas-project__description",
+					children: e.description
+				}),
+				e.tags && e.tags.length > 0 && /* @__PURE__ */ o("div", {
+					className: "atlas-project__tags",
+					children: e.tags.map(v)
+				}),
+				/* @__PURE__ */ s("div", {
+					className: "atlas-project__links",
+					children: [e.liveUrl && /* @__PURE__ */ o("a", {
+						href: e.liveUrl,
+						target: "_blank",
+						rel: "noreferrer noopener",
+						children: "Live ↗"
+					}), e.repoUrl && /* @__PURE__ */ o("a", {
+						href: e.repoUrl,
+						target: "_blank",
+						rel: "noreferrer noopener",
+						children: "Source ↗"
+					})]
+				})
+			]
+		})]
 	}, e.id);
 }
 function v(e) {
