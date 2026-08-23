@@ -1,0 +1,418 @@
+/* Nocturne — dark editorial luxury, built for scroll. Oversized serif
+   display type, a horizontally-pinned project gallery, a marquee skills
+   ticker, and a near-invisible grain texture. Scoped entirely under
+   .nocturne. Unlike the other templates, this one defaults to DARK when
+   theme.mode is unset — "Nocturne" is a dark-first design; a user picking
+   it from the gallery should see its signature look without having to
+   flip a theme toggle first. */
+
+.nocturne {
+	--nocturne-accent: #c9a24a;
+	--nocturne-bg: #0d0c0a;
+	--nocturne-bg-elevated: #17150f;
+	--nocturne-text: #f2ece0;
+	--nocturne-text-muted: #928c7d;
+	--nocturne-border: #2a2620;
+	--nocturne-font-display:
+		"Canela", Georgia, "Iowan Old Style", "Times New Roman", serif;
+	--nocturne-font-sans:
+		ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+	--nocturne-font-mono: "SF Mono", "JetBrains Mono", Consolas, monospace;
+
+	position: relative;
+	background: var(--nocturne-bg);
+	color: var(--nocturne-text);
+	font-family: var(--nocturne-font-sans);
+	line-height: 1.6;
+	overflow-x: clip;
+	-webkit-font-smoothing: antialiased;
+}
+
+.nocturne[data-theme="light"] {
+	--nocturne-bg: #f4f1ea;
+	--nocturne-bg-elevated: #ffffff;
+	--nocturne-text: #16140f;
+	--nocturne-text-muted: #6f6a5c;
+	--nocturne-border: #ddd7c8;
+}
+
+.nocturne * {
+	box-sizing: border-box;
+}
+
+.nocturne a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.nocturne a:hover {
+	color: var(--nocturne-accent);
+}
+
+/* Grain overlay */
+.nocturne-grain {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.05;
+	mix-blend-mode: overlay;
+	pointer-events: none;
+	z-index: 50;
+}
+
+.nocturne[data-theme="light"] .nocturne-grain {
+	opacity: 0.035;
+}
+
+/* Shared bits */
+.nocturne-eyebrow {
+	display: inline-block;
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.7rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--nocturne-accent);
+}
+
+.nocturne-chip {
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid var(--nocturne-border);
+	border-radius: 999px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.72rem;
+	letter-spacing: 0.02em;
+	color: var(--nocturne-text-muted);
+}
+
+.nocturne-section {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 6rem 1.75rem;
+}
+
+.nocturne-section--flush {
+	max-width: none;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Hero */
+.nocturne-hero {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 8rem 1.75rem 6rem;
+}
+
+.nocturne-hero__eyebrow {
+	opacity: 0;
+}
+
+.nocturne-hero__name {
+	margin: 1.25rem 0 0;
+	font-family: var(--nocturne-font-display);
+	font-weight: 600;
+	font-size: clamp(3.25rem, 10vw, 7.5rem);
+	line-height: 0.98;
+	letter-spacing: -0.02em;
+}
+
+.nocturne-hero__name-inner {
+	display: inline-block;
+	clip-path: inset(0 0 100% 0);
+}
+
+.nocturne-hero__rule {
+	margin: 2.25rem 0;
+	height: 1px;
+	width: 100%;
+	background: var(--nocturne-border);
+	transform-origin: left;
+	transform: scaleX(0);
+}
+
+.nocturne-hero__fade-in {
+	opacity: 0;
+	transform: translateY(18px);
+}
+
+.nocturne-hero__headline {
+	font-family: var(--nocturne-font-display);
+	font-style: italic;
+	font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+	color: var(--nocturne-text-muted);
+	max-width: 42ch;
+}
+
+.nocturne-hero__bio {
+	margin-top: 1rem;
+	max-width: 56ch;
+	color: var(--nocturne-text-muted);
+}
+
+/* headline/bio always render (see Hero.tsx) so GSAP's one-time selector
+   bind at mount always finds them — hide the ones with no content instead
+   of unmounting them. */
+.nocturne-hero__headline:empty,
+.nocturne-hero__bio:empty {
+	display: none;
+}
+
+.nocturne-hero__meta {
+	margin-top: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1.5rem;
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.78rem;
+	letter-spacing: 0.04em;
+	color: var(--nocturne-text-muted);
+}
+
+.nocturne-hero__socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.25rem;
+}
+
+/* Timeline (experience) */
+.nocturne-timeline {
+	list-style: none;
+	margin: 2.5rem 0 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.nocturne-timeline__item {
+	display: grid;
+	grid-template-columns: 8rem 1fr;
+	gap: 1.5rem;
+	padding: 1.75rem 0;
+	border-top: 1px solid var(--nocturne-border);
+}
+
+.nocturne-timeline__item:last-child {
+	border-bottom: 1px solid var(--nocturne-border);
+}
+
+.nocturne-timeline__range {
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.75rem;
+	color: var(--nocturne-text-muted);
+	padding-top: 0.2rem;
+}
+
+.nocturne-timeline__role {
+	font-family: var(--nocturne-font-display);
+	font-size: 1.4rem;
+	font-weight: 600;
+	margin: 0;
+}
+
+.nocturne-timeline__company {
+	margin: 0.25rem 0 0;
+	color: var(--nocturne-accent);
+	font-size: 0.9rem;
+}
+
+.nocturne-timeline__summary {
+	margin: 0.75rem 0 0;
+	color: var(--nocturne-text-muted);
+	max-width: 60ch;
+}
+
+.nocturne-timeline__highlights {
+	margin: 0.75rem 0 0;
+	padding-left: 1.1rem;
+	color: var(--nocturne-text-muted);
+	font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+	.nocturne-timeline__item {
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+	}
+}
+
+/* Projects gallery — the pinned horizontal filmstrip */
+.nocturne-gallery {
+	position: relative;
+	padding: 6rem 0;
+	overflow: hidden;
+}
+
+.nocturne-gallery__heading {
+	padding: 0 1.75rem 2.5rem;
+}
+
+.nocturne-gallery__track {
+	display: flex;
+	gap: 2.5rem;
+	padding: 0 1.75rem;
+	width: max-content;
+	/* Without a pin (few projects, or reduced motion) this still scrolls by
+	   touch/trackpad — the horizontal layout works either way. */
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.nocturne-gallery__track::-webkit-scrollbar {
+	display: none;
+}
+
+.nocturne-gallery__card {
+	flex: 0 0 auto;
+	width: min(78vw, 480px);
+	transition: transform 0.35s ease;
+}
+
+.nocturne-gallery__card:hover {
+	transform: translateY(-6px);
+}
+
+.nocturne-gallery__media {
+	aspect-ratio: 4 / 3;
+	border-radius: 2px;
+	overflow: hidden;
+	background: var(--nocturne-bg-elevated);
+	border: 1px solid var(--nocturne-border);
+}
+
+.nocturne-gallery__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.nocturne-gallery__media--empty {
+	background: linear-gradient(135deg, var(--nocturne-bg-elevated), var(--nocturne-border));
+}
+
+.nocturne-gallery__title {
+	margin: 1.25rem 0 0;
+	font-family: var(--nocturne-font-display);
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+.nocturne-gallery__description {
+	margin: 0.5rem 0 0;
+	color: var(--nocturne-text-muted);
+	font-size: 0.92rem;
+}
+
+.nocturne-gallery__tags {
+	margin-top: 0.9rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.nocturne-gallery__links {
+	margin-top: 0.9rem;
+	display: flex;
+	gap: 1.25rem;
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.75rem;
+	color: var(--nocturne-accent);
+}
+
+/* Skills marquee */
+.nocturne-marquee-eyebrow {
+	display: block;
+	padding: 0 1.75rem;
+	margin-bottom: 2rem;
+}
+
+.nocturne-marquee {
+	border-top: 1px solid var(--nocturne-border);
+	border-bottom: 1px solid var(--nocturne-border);
+	overflow: hidden;
+	padding: 1.5rem 0;
+}
+
+.nocturne-marquee__track {
+	display: flex;
+	width: max-content;
+	gap: 3rem;
+	animation: nocturne-marquee 32s linear infinite;
+}
+
+.nocturne-marquee:hover .nocturne-marquee__track {
+	animation-play-state: paused;
+}
+
+.nocturne-marquee__item {
+	font-family: var(--nocturne-font-display);
+	font-style: italic;
+	font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+	color: var(--nocturne-text-muted);
+	white-space: nowrap;
+}
+
+@keyframes nocturne-marquee {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		/* Track content is duplicated once in the markup, so -50% is exactly
+		   one full copy — the loop seam is invisible. */
+		transform: translateX(-50%);
+	}
+}
+
+/* Footer */
+.nocturne-footer {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 5rem 1.75rem 6rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.5rem;
+	border-top: 1px solid var(--nocturne-border);
+}
+
+.nocturne-footer__cta {
+	font-family: var(--nocturne-font-display);
+	font-size: clamp(1.75rem, 4vw, 2.5rem);
+	font-weight: 600;
+}
+
+.nocturne-footer__socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.78rem;
+	color: var(--nocturne-text-muted);
+}
+
+.nocturne-footer__copy {
+	font-size: 0.78rem;
+	color: var(--nocturne-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nocturne-hero__name-inner {
+		clip-path: inset(0 0 0% 0);
+	}
+	.nocturne-hero__fade-in,
+	.nocturne-hero__eyebrow {
+		opacity: 1;
+		transform: none;
+	}
+	.nocturne-hero__rule {
+		transform: scaleX(1);
+	}
+	.nocturne-marquee__track {
+		animation: none;
+	}
+	.nocturne-gallery__card {
+		transition: none;
+	}
+}

@@ -84,6 +84,15 @@ async function buildTemplate(id: string): Promise<void> {
 							"react/compiler-runtime",
 							"motion/react",
 							"motion",
+							// Same reasoning as motion above: every consumer (web app,
+							// hosted build, ZIP export) already declares gsap +
+							// @gsap/react as deps via scaffold/package.json.tmpl —
+							// bundling a second copy here would give ScrollTrigger
+							// two separate plugin registries fighting over the same
+							// DOM, which breaks pinning/scrubbing silently.
+							"gsap",
+							"gsap/ScrollTrigger",
+							"@gsap/react",
 						].includes(id)
 					) {
 						return true;
