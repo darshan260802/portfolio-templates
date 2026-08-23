@@ -1,18 +1,31 @@
 import { c as e } from "react/compiler-runtime";
 import { motion as t } from "motion/react";
 import { jsx as n, jsxs as r } from "react/jsx-runtime";
-import './index.css';//#region src/templates/monolith/sections/Hero.tsx
-function i(i) {
-	let a = e(32), { profile: o, socials: s } = i, c, l;
-	a[0] === Symbol.for("react.memo_cache_sentinel") ? (c = {
+import './index.css';//#region src/rich-text.tsx
+function i(t) {
+	let r = e(5), { html: i, className: a } = t;
+	if (!i) return null;
+	let o;
+	r[0] === i ? o = r[1] : (o = { __html: i }, r[0] = i, r[1] = o);
+	let s;
+	return r[2] !== a || r[3] !== o ? (s = /* @__PURE__ */ n("div", {
+		className: a,
+		dangerouslySetInnerHTML: o
+	}), r[2] = a, r[3] = o, r[4] = s) : s = r[4], s;
+}
+//#endregion
+//#region src/templates/monolith/sections/Hero.tsx
+function a(a) {
+	let o = e(32), { profile: s, socials: c } = a, l, u;
+	o[0] === Symbol.for("react.memo_cache_sentinel") ? (l = {
 		opacity: 0,
 		y: 20
-	}, l = {
+	}, u = {
 		opacity: 1,
 		y: 0
-	}, a[0] = c, a[1] = l) : (c = a[0], l = a[1]);
-	let u, d;
-	a[2] === Symbol.for("react.memo_cache_sentinel") ? (u = {
+	}, o[0] = l, o[1] = u) : (l = o[0], u = o[1]);
+	let d, f;
+	o[2] === Symbol.for("react.memo_cache_sentinel") ? (d = {
 		duration: .7,
 		ease: [
 			.22,
@@ -20,87 +33,87 @@ function i(i) {
 			.36,
 			1
 		]
-	}, d = /* @__PURE__ */ n("div", {
+	}, f = /* @__PURE__ */ n("div", {
 		className: "monolith-hero__byline",
 		children: "Portfolio"
-	}), a[2] = u, a[3] = d) : (u = a[2], d = a[3]);
-	let f;
-	a[4] !== o.avatarUrl || a[5] !== o.fullName ? (f = o.avatarUrl && /* @__PURE__ */ n("img", {
+	}), o[2] = d, o[3] = f) : (d = o[2], f = o[3]);
+	let p;
+	o[4] !== s.avatarUrl || o[5] !== s.fullName ? (p = s.avatarUrl && /* @__PURE__ */ n("img", {
 		className: "monolith-hero__avatar",
-		src: o.avatarUrl,
-		alt: o.fullName
-	}), a[4] = o.avatarUrl, a[5] = o.fullName, a[6] = f) : f = a[6];
-	let p = o.fullName || "Your Name", m;
-	a[7] === p ? m = a[8] : (m = /* @__PURE__ */ n("h1", {
+		src: s.avatarUrl,
+		alt: s.fullName
+	}), o[4] = s.avatarUrl, o[5] = s.fullName, o[6] = p) : p = o[6];
+	let m = s.fullName || "Your Name", h;
+	o[7] === m ? h = o[8] : (h = /* @__PURE__ */ n("h1", {
 		className: "monolith-hero__name",
-		children: p
-	}), a[7] = p, a[8] = m);
-	let h;
-	a[9] !== f || a[10] !== m ? (h = /* @__PURE__ */ r("div", {
-		className: "monolith-hero__namerow",
-		children: [f, m]
-	}), a[9] = f, a[10] = m, a[11] = h) : h = a[11];
+		children: m
+	}), o[7] = m, o[8] = h);
 	let g;
-	a[12] === o.headline ? g = a[13] : (g = o.headline && /* @__PURE__ */ n("p", {
-		className: "monolith-hero__headline",
-		children: o.headline
-	}), a[12] = o.headline, a[13] = g);
+	o[9] !== p || o[10] !== h ? (g = /* @__PURE__ */ r("div", {
+		className: "monolith-hero__namerow",
+		children: [p, h]
+	}), o[9] = p, o[10] = h, o[11] = g) : g = o[11];
 	let _;
-	a[14] === o.bio ? _ = a[15] : (_ = o.bio && /* @__PURE__ */ n("p", {
-		className: "monolith-hero__bio",
-		children: o.bio
-	}), a[14] = o.bio, a[15] = _);
+	o[12] === s.headline ? _ = o[13] : (_ = s.headline && /* @__PURE__ */ n("p", {
+		className: "monolith-hero__headline",
+		children: s.headline
+	}), o[12] = s.headline, o[13] = _);
 	let v;
-	a[16] === o.location ? v = a[17] : (v = o.location && /* @__PURE__ */ n("span", { children: o.location }), a[16] = o.location, a[17] = v);
+	o[14] === s.bio ? v = o[15] : (v = /* @__PURE__ */ n(i, {
+		html: s.bio,
+		className: "monolith-hero__bio"
+	}), o[14] = s.bio, o[15] = v);
 	let y;
-	a[18] !== o.location || a[19] !== s ? (y = o.location && s && s.length > 0 && /* @__PURE__ */ n("span", {
+	o[16] === s.location ? y = o[17] : (y = s.location && /* @__PURE__ */ n("span", { children: s.location }), o[16] = s.location, o[17] = y);
+	let b;
+	o[18] !== s.location || o[19] !== c ? (b = s.location && c && c.length > 0 && /* @__PURE__ */ n("span", {
 		"aria-hidden": "true",
 		children: "/"
-	}), a[18] = o.location, a[19] = s, a[20] = y) : y = a[20];
-	let b;
-	a[21] === s ? b = a[22] : (b = s && s.length > 0 && /* @__PURE__ */ n("nav", {
+	}), o[18] = s.location, o[19] = c, o[20] = b) : b = o[20];
+	let x;
+	o[21] === c ? x = o[22] : (x = c && c.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "monolith-hero__socials",
 		"aria-label": "Social links",
-		children: s.map((e, t) => /* @__PURE__ */ r("span", { children: [/* @__PURE__ */ n("a", {
+		children: c.map((e, t) => /* @__PURE__ */ r("span", { children: [/* @__PURE__ */ n("a", {
 			href: e.url,
 			target: "_blank",
 			rel: "noreferrer noopener",
 			children: e.label ?? e.platform
-		}), t < s.length - 1 && /* @__PURE__ */ n("span", {
+		}), t < c.length - 1 && /* @__PURE__ */ n("span", {
 			"aria-hidden": "true",
 			children: " / "
 		})] }, e.platform + e.url))
-	}), a[21] = s, a[22] = b);
-	let x;
-	a[23] !== v || a[24] !== y || a[25] !== b ? (x = /* @__PURE__ */ r("div", {
+	}), o[21] = c, o[22] = x);
+	let S;
+	o[23] !== y || o[24] !== b || o[25] !== x ? (S = /* @__PURE__ */ r("div", {
 		className: "monolith-hero__meta",
 		children: [
-			v,
 			y,
-			b
+			b,
+			x
 		]
-	}), a[23] = v, a[24] = y, a[25] = b, a[26] = x) : x = a[26];
-	let S;
-	return a[27] !== _ || a[28] !== x || a[29] !== h || a[30] !== g ? (S = /* @__PURE__ */ n("header", {
+	}), o[23] = y, o[24] = b, o[25] = x, o[26] = S) : S = o[26];
+	let C;
+	return o[27] !== v || o[28] !== S || o[29] !== g || o[30] !== _ ? (C = /* @__PURE__ */ n("header", {
 		className: "monolith-hero",
 		children: /* @__PURE__ */ r(t.div, {
 			className: "monolith-hero__inner",
-			initial: c,
-			animate: l,
-			transition: u,
+			initial: l,
+			animate: u,
+			transition: d,
 			children: [
-				d,
-				h,
+				f,
 				g,
 				_,
-				x
+				v,
+				S
 			]
 		})
-	}), a[27] = _, a[28] = x, a[29] = h, a[30] = g, a[31] = S) : S = a[31], S;
+	}), o[27] = v, o[28] = S, o[29] = g, o[30] = _, o[31] = C) : C = o[31], C;
 }
 //#endregion
 //#region src/templates/monolith/sections/SectionHeading.tsx
-function a(i) {
+function o(i) {
 	let a = e(10), { index: o, title: s } = i, c;
 	a[0] === Symbol.for("react.memo_cache_sentinel") ? (c = /* @__PURE__ */ n(t.div, {
 		className: "monolith-heading__rule",
@@ -136,31 +149,31 @@ function a(i) {
 }
 //#endregion
 //#region src/templates/monolith/sections/Experience.tsx
-function o(e) {
+function s(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function s(t) {
-	let i = e(9), { experience: o, index: s } = t, l;
-	i[0] === s ? l = i[1] : (l = /* @__PURE__ */ n(a, {
+function c(t) {
+	let i = e(9), { experience: a, index: s } = t, c;
+	i[0] === s ? c = i[1] : (c = /* @__PURE__ */ n(o, {
 		index: s,
 		title: "Experience"
-	}), i[0] = s, i[1] = l);
+	}), i[0] = s, i[1] = c);
 	let u;
-	i[2] === o ? u = i[3] : (u = o.map(c), i[2] = o, i[3] = u);
+	i[2] === a ? u = i[3] : (u = a.map(l), i[2] = a, i[3] = u);
 	let d;
 	i[4] === u ? d = i[5] : (d = /* @__PURE__ */ n("ol", {
 		className: "monolith-ledger",
 		children: u
 	}), i[4] = u, i[5] = d);
 	let f;
-	return i[6] !== l || i[7] !== d ? (f = /* @__PURE__ */ r("section", {
+	return i[6] !== c || i[7] !== d ? (f = /* @__PURE__ */ r("section", {
 		className: "monolith-section",
 		id: "experience",
-		children: [l, d]
-	}), i[6] = l, i[7] = d, i[8] = f) : f = i[8], f;
+		children: [c, d]
+	}), i[6] = c, i[7] = d, i[8] = f) : f = i[8], f;
 }
-function c(e, i) {
+function l(e, a) {
 	return /* @__PURE__ */ r(t.li, {
 		className: "monolith-ledger__row",
 		initial: {
@@ -177,16 +190,16 @@ function c(e, i) {
 		},
 		transition: {
 			duration: .4,
-			delay: i * .08
+			delay: a * .08
 		},
 		children: [/* @__PURE__ */ r("div", {
 			className: "monolith-ledger__marker",
 			children: [/* @__PURE__ */ n("span", {
 				className: "monolith-ledger__number",
-				children: String(i + 1).padStart(2, "0")
+				children: String(a + 1).padStart(2, "0")
 			}), /* @__PURE__ */ n("span", {
 				className: "monolith-ledger__range",
-				children: o(e.range)
+				children: s(e.range)
 			})]
 		}), /* @__PURE__ */ r("div", {
 			className: "monolith-ledger__body",
@@ -204,24 +217,24 @@ function c(e, i) {
 						children: e.company
 					}) : e.company, e.location ? ` — ${e.location}` : ""]
 				}),
-				e.summary && /* @__PURE__ */ n("p", {
-					className: "monolith-ledger__summary",
-					children: e.summary
+				/* @__PURE__ */ n(i, {
+					html: e.summary,
+					className: "monolith-ledger__summary"
 				}),
 				e.highlights && e.highlights.length > 0 && /* @__PURE__ */ n("ul", {
 					className: "monolith-ledger__highlights",
-					children: e.highlights.map(l)
+					children: e.highlights.map(u)
 				})
 			]
 		})]
 	}, e.id);
 }
-function l(e) {
+function u(e) {
 	return /* @__PURE__ */ n("li", { children: e }, e);
 }
 //#endregion
 //#region src/templates/monolith/sections/Projects.tsx
-var u = {
+var d = {
 	rest: {
 		opacity: 0,
 		x: -6
@@ -231,14 +244,14 @@ var u = {
 		x: 0
 	}
 };
-function d(t) {
-	let i = e(9), { projects: o, index: s } = t, c;
-	i[0] === s ? c = i[1] : (c = /* @__PURE__ */ n(a, {
+function f(t) {
+	let i = e(9), { projects: a, index: s } = t, c;
+	i[0] === s ? c = i[1] : (c = /* @__PURE__ */ n(o, {
 		index: s,
 		title: "Projects"
 	}), i[0] = s, i[1] = c);
 	let l;
-	i[2] === o ? l = i[3] : (l = o.map(f), i[2] = o, i[3] = l);
+	i[2] === a ? l = i[3] : (l = a.map(p), i[2] = a, i[3] = l);
 	let u;
 	i[4] === l ? u = i[5] : (u = /* @__PURE__ */ n("ul", {
 		className: "monolith-index",
@@ -251,7 +264,7 @@ function d(t) {
 		children: [c, u]
 	}), i[6] = c, i[7] = u, i[8] = d) : d = i[8], d;
 }
-function f(e) {
+function p(e) {
 	return /* @__PURE__ */ r(t.li, {
 		className: "monolith-index__row",
 		initial: "rest",
@@ -272,14 +285,14 @@ function f(e) {
 						children: e.title
 					}), /* @__PURE__ */ n(t.span, {
 						className: "monolith-index__arrow",
-						variants: u,
+						variants: d,
 						"aria-hidden": "true",
 						children: "→"
 					})]
 				}),
-				e.description && /* @__PURE__ */ n("p", {
-					className: "monolith-index__description",
-					children: e.description
+				/* @__PURE__ */ n(i, {
+					html: e.description,
+					className: "monolith-index__description"
 				}),
 				/* @__PURE__ */ r("div", {
 					className: "monolith-index__meta",
@@ -308,7 +321,7 @@ function f(e) {
 }
 //#endregion
 //#region src/templates/monolith/sections/Skills.tsx
-function p(e) {
+function m(e) {
 	let t = /* @__PURE__ */ new Map();
 	for (let n of e) {
 		let e = n.category ?? "General", r = t.get(e) ?? [];
@@ -316,28 +329,28 @@ function p(e) {
 	}
 	return t;
 }
-function m(t) {
-	let i = e(17), { skills: o, index: s } = t, c, l, u, d, f;
-	if (i[0] !== s || i[1] !== o) {
-		let e = p(o);
-		u = "monolith-section", d = "skills", i[7] === s ? f = i[8] : (f = /* @__PURE__ */ n(a, {
+function h(t) {
+	let i = e(17), { skills: a, index: s } = t, c, l, u, d, f;
+	if (i[0] !== s || i[1] !== a) {
+		let e = m(a);
+		u = "monolith-section", d = "skills", i[7] === s ? f = i[8] : (f = /* @__PURE__ */ n(o, {
 			index: s,
 			title: "Skills"
-		}), i[7] = s, i[8] = f), c = "monolith-skills", l = Array.from(e.entries()).map(h), i[0] = s, i[1] = o, i[2] = c, i[3] = l, i[4] = u, i[5] = d, i[6] = f;
+		}), i[7] = s, i[8] = f), c = "monolith-skills", l = Array.from(e.entries()).map(g), i[0] = s, i[1] = a, i[2] = c, i[3] = l, i[4] = u, i[5] = d, i[6] = f;
 	} else c = i[2], l = i[3], u = i[4], d = i[5], f = i[6];
-	let m;
-	i[9] !== c || i[10] !== l ? (m = /* @__PURE__ */ n("div", {
+	let p;
+	i[9] !== c || i[10] !== l ? (p = /* @__PURE__ */ n("div", {
 		className: c,
 		children: l
-	}), i[9] = c, i[10] = l, i[11] = m) : m = i[11];
-	let g;
-	return i[12] !== u || i[13] !== d || i[14] !== f || i[15] !== m ? (g = /* @__PURE__ */ r("section", {
+	}), i[9] = c, i[10] = l, i[11] = p) : p = i[11];
+	let h;
+	return i[12] !== u || i[13] !== d || i[14] !== f || i[15] !== p ? (h = /* @__PURE__ */ r("section", {
 		className: u,
 		id: d,
-		children: [f, m]
-	}), i[12] = u, i[13] = d, i[14] = f, i[15] = m, i[16] = g) : g = i[16], g;
+		children: [f, p]
+	}), i[12] = u, i[13] = d, i[14] = f, i[15] = p, i[16] = h) : h = i[16], h;
 }
-function h(e) {
+function g(e) {
 	let [t, i] = e;
 	return /* @__PURE__ */ r("div", {
 		className: "monolith-skills__group",
@@ -346,16 +359,16 @@ function h(e) {
 			children: t
 		}), /* @__PURE__ */ n("p", {
 			className: "monolith-skills__list",
-			children: i.map(g).join(" · ")
+			children: i.map(_).join(" · ")
 		})]
 	}, t);
 }
-function g(e) {
+function _(e) {
 	return e.name;
 }
 //#endregion
 //#region src/templates/monolith/sections/Footer.tsx
-function _(t) {
+function v(t) {
 	let i = e(11), { profile: a, socials: o } = t, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
@@ -364,7 +377,7 @@ function _(t) {
 		children: a.email
 	}), i[1] = a.email, i[2] = l);
 	let u;
-	i[3] === o ? u = i[4] : (u = o?.map(v), i[3] = o, i[4] = u);
+	i[3] === o ? u = i[4] : (u = o?.map(y), i[3] = o, i[4] = u);
 	let d = a.fullName || "Your Name", f;
 	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ r("span", { children: [
 		"© ",
@@ -385,7 +398,7 @@ function _(t) {
 		})
 	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
 }
-function v(e) {
+function y(e) {
 	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
@@ -395,44 +408,44 @@ function v(e) {
 }
 //#endregion
 //#region src/templates/monolith/Template.tsx
-function y(t) {
-	let a = e(32), { data: o } = t, c = o.theme?.mode === "dark" ? "dark" : "light", l = o.theme?.accentColor ?? "#b5482a", u = (o.experience?.length ?? 0) > 0, f = (o.projects?.length ?? 0) > 0, p = (o.skills?.length ?? 0) > 0, h = u && "experience", g = f && "projects", v = p && "skills", y;
-	a[0] !== h || a[1] !== g || a[2] !== v ? (y = [
-		h,
+function b(t) {
+	let i = e(32), { data: o } = t, s = o.theme?.mode === "dark" ? "dark" : "light", l = o.theme?.accentColor ?? "#b5482a", u = (o.experience?.length ?? 0) > 0, d = (o.projects?.length ?? 0) > 0, p = (o.skills?.length ?? 0) > 0, m = u && "experience", g = d && "projects", _ = p && "skills", y;
+	i[0] !== m || i[1] !== g || i[2] !== _ ? (y = [
+		m,
 		g,
-		v
-	].filter(b), a[0] = h, a[1] = g, a[2] = v, a[3] = y) : y = a[3];
-	let x = y, S;
-	a[4] === l ? S = a[5] : (S = { "--monolith-accent": l }, a[4] = l, a[5] = S);
+		_
+	].filter(x), i[0] = m, i[1] = g, i[2] = _, i[3] = y) : y = i[3];
+	let b = y, S;
+	i[4] === l ? S = i[5] : (S = { "--monolith-accent": l }, i[4] = l, i[5] = S);
 	let C = S, w;
-	a[6] !== o.profile || a[7] !== o.socials ? (w = /* @__PURE__ */ n(i, {
+	i[6] !== o.profile || i[7] !== o.socials ? (w = /* @__PURE__ */ n(a, {
 		profile: o.profile,
 		socials: o.socials
-	}), a[6] = o.profile, a[7] = o.socials, a[8] = w) : w = a[8];
+	}), i[6] = o.profile, i[7] = o.socials, i[8] = w) : w = i[8];
 	let T;
-	a[9] !== o.experience || a[10] !== u || a[11] !== x ? (T = u && o.experience && /* @__PURE__ */ n(s, {
+	i[9] !== o.experience || i[10] !== u || i[11] !== b ? (T = u && o.experience && /* @__PURE__ */ n(c, {
 		experience: o.experience,
-		index: x.indexOf("experience") + 1
-	}), a[9] = o.experience, a[10] = u, a[11] = x, a[12] = T) : T = a[12];
+		index: b.indexOf("experience") + 1
+	}), i[9] = o.experience, i[10] = u, i[11] = b, i[12] = T) : T = i[12];
 	let E;
-	a[13] !== o.projects || a[14] !== f || a[15] !== x ? (E = f && o.projects && /* @__PURE__ */ n(d, {
+	i[13] !== o.projects || i[14] !== d || i[15] !== b ? (E = d && o.projects && /* @__PURE__ */ n(f, {
 		projects: o.projects,
-		index: x.indexOf("projects") + 1
-	}), a[13] = o.projects, a[14] = f, a[15] = x, a[16] = E) : E = a[16];
+		index: b.indexOf("projects") + 1
+	}), i[13] = o.projects, i[14] = d, i[15] = b, i[16] = E) : E = i[16];
 	let D;
-	a[17] !== o.skills || a[18] !== p || a[19] !== x ? (D = p && o.skills && /* @__PURE__ */ n(m, {
+	i[17] !== o.skills || i[18] !== p || i[19] !== b ? (D = p && o.skills && /* @__PURE__ */ n(h, {
 		skills: o.skills,
-		index: x.indexOf("skills") + 1
-	}), a[17] = o.skills, a[18] = p, a[19] = x, a[20] = D) : D = a[20];
+		index: b.indexOf("skills") + 1
+	}), i[17] = o.skills, i[18] = p, i[19] = b, i[20] = D) : D = i[20];
 	let O;
-	a[21] !== o.profile || a[22] !== o.socials ? (O = /* @__PURE__ */ n(_, {
+	i[21] !== o.profile || i[22] !== o.socials ? (O = /* @__PURE__ */ n(v, {
 		profile: o.profile,
 		socials: o.socials
-	}), a[21] = o.profile, a[22] = o.socials, a[23] = O) : O = a[23];
+	}), i[21] = o.profile, i[22] = o.socials, i[23] = O) : O = i[23];
 	let k;
-	return a[24] !== c || a[25] !== D || a[26] !== O || a[27] !== C || a[28] !== w || a[29] !== T || a[30] !== E ? (k = /* @__PURE__ */ r("div", {
+	return i[24] !== s || i[25] !== D || i[26] !== O || i[27] !== C || i[28] !== w || i[29] !== T || i[30] !== E ? (k = /* @__PURE__ */ r("div", {
 		className: "monolith",
-		"data-theme": c,
+		"data-theme": s,
 		style: C,
 		children: [
 			w,
@@ -441,10 +454,10 @@ function y(t) {
 			D,
 			O
 		]
-	}), a[24] = c, a[25] = D, a[26] = O, a[27] = C, a[28] = w, a[29] = T, a[30] = E, a[31] = k) : k = a[31], k;
+	}), i[24] = s, i[25] = D, i[26] = O, i[27] = C, i[28] = w, i[29] = T, i[30] = E, i[31] = k) : k = i[31], k;
 }
-function b(e) {
+function x(e) {
 	return e !== !1;
 }
 //#endregion
-export { y as default };
+export { b as default };

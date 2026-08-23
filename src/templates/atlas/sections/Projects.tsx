@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Project } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 import { KineticHeading } from "./KineticHeading.js";
 
 export function ProjectsSection({ projects, index }: { projects: Project[]; index: number }) {
@@ -29,7 +30,7 @@ export function ProjectsSection({ projects, index }: { projects: Project[]; inde
 							    positioned badge to sit over). */}
 							<span className="atlas-project__index">{String(i + 1).padStart(2, "0")}</span>
 							<h3 className="atlas-project__title">{project.title}</h3>
-							{project.description && <p className="atlas-project__description">{project.description}</p>}
+							<RichText html={project.description} className="atlas-project__description" />
 							{project.tags && project.tags.length > 0 && (
 								<div className="atlas-project__tags">
 									{project.tags.map((tag) => (

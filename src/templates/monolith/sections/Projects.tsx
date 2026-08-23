@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Project } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 import { SectionHeading } from "./SectionHeading.js";
 
 const arrowVariants = {
@@ -35,7 +36,7 @@ export function ProjectsSection({ projects, index }: { projects: Project[]; inde
 									→
 								</motion.span>
 							</div>
-							{project.description && <p className="monolith-index__description">{project.description}</p>}
+							<RichText html={project.description} className="monolith-index__description" />
 							<div className="monolith-index__meta">
 								{project.tags && project.tags.length > 0 && (
 									<span className="monolith-index__tags">{project.tags.join(" · ")}</span>

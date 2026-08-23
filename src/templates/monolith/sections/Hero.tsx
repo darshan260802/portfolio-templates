@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Profile, Social } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 
 export function Hero({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	return (
@@ -18,7 +19,7 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 					<h1 className="monolith-hero__name">{profile.fullName || "Your Name"}</h1>
 				</div>
 				{profile.headline && <p className="monolith-hero__headline">{profile.headline}</p>}
-				{profile.bio && <p className="monolith-hero__bio">{profile.bio}</p>}
+				<RichText html={profile.bio} className="monolith-hero__bio" />
 				<div className="monolith-hero__meta">
 					{profile.location && <span>{profile.location}</span>}
 					{profile.location && socials && socials.length > 0 && <span aria-hidden="true">/</span>}

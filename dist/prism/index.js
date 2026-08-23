@@ -82,8 +82,21 @@ function i() {
 	}), i[2] = s) : s = i[2], s;
 }
 //#endregion
+//#region src/rich-text.tsx
+function a(t) {
+	let r = e(5), { html: i, className: a } = t;
+	if (!i) return null;
+	let o;
+	r[0] === i ? o = r[1] : (o = { __html: i }, r[0] = i, r[1] = o);
+	let s;
+	return r[2] !== a || r[3] !== o ? (s = /* @__PURE__ */ n("div", {
+		className: a,
+		dangerouslySetInnerHTML: o
+	}), r[2] = a, r[3] = o, r[4] = s) : s = r[4], s;
+}
+//#endregion
 //#region src/templates/prism/sections/Hero.tsx
-var a = {
+var o = {
 	github: "GitHub",
 	linkedin: "LinkedIn",
 	twitter: "X",
@@ -94,61 +107,61 @@ var a = {
 	website: "Web",
 	other: "Link"
 };
-function o(i) {
-	let a = e(25), { profile: o, socials: c } = i, l, u, d;
-	a[0] === Symbol.for("react.memo_cache_sentinel") ? (l = {
+function s(i) {
+	let o = e(25), { profile: s, socials: l } = i, u, d, f;
+	o[0] === Symbol.for("react.memo_cache_sentinel") ? (u = {
 		opacity: 0,
 		y: 24
-	}, u = {
+	}, d = {
 		opacity: 1,
 		y: 0
-	}, d = {
+	}, f = {
 		duration: .5,
 		ease: "easeOut"
-	}, a[0] = l, a[1] = u, a[2] = d) : (l = a[0], u = a[1], d = a[2]);
-	let f;
-	a[3] !== o.avatarUrl || a[4] !== o.fullName ? (f = o.avatarUrl && /* @__PURE__ */ n("img", {
+	}, o[0] = u, o[1] = d, o[2] = f) : (u = o[0], d = o[1], f = o[2]);
+	let p;
+	o[3] !== s.avatarUrl || o[4] !== s.fullName ? (p = s.avatarUrl && /* @__PURE__ */ n("img", {
 		className: "prism-hero__avatar",
-		src: o.avatarUrl,
-		alt: o.fullName
-	}), a[3] = o.avatarUrl, a[4] = o.fullName, a[5] = f) : f = a[5];
-	let p = o.fullName || "Your Name", m;
-	a[6] === p ? m = a[7] : (m = /* @__PURE__ */ n("h1", {
+		src: s.avatarUrl,
+		alt: s.fullName
+	}), o[3] = s.avatarUrl, o[4] = s.fullName, o[5] = p) : p = o[5];
+	let m = s.fullName || "Your Name", h;
+	o[6] === m ? h = o[7] : (h = /* @__PURE__ */ n("h1", {
 		className: "prism-hero__name",
-		children: p
-	}), a[6] = p, a[7] = m);
-	let h;
-	a[8] === o.headline ? h = a[9] : (h = o.headline && /* @__PURE__ */ n("p", {
-		className: "prism-hero__headline",
-		children: o.headline
-	}), a[8] = o.headline, a[9] = h);
+		children: m
+	}), o[6] = m, o[7] = h);
 	let g;
-	a[10] === o.bio ? g = a[11] : (g = o.bio && /* @__PURE__ */ n("p", {
-		className: "prism-hero__bio",
-		children: o.bio
-	}), a[10] = o.bio, a[11] = g);
+	o[8] === s.headline ? g = o[9] : (g = s.headline && /* @__PURE__ */ n("p", {
+		className: "prism-hero__headline",
+		children: s.headline
+	}), o[8] = s.headline, o[9] = g);
 	let _;
-	a[12] === c ? _ = a[13] : (_ = c && c.length > 0 && /* @__PURE__ */ n("nav", {
+	o[10] === s.bio ? _ = o[11] : (_ = /* @__PURE__ */ n(a, {
+		html: s.bio,
+		className: "prism-hero__bio"
+	}), o[10] = s.bio, o[11] = _);
+	let v;
+	o[12] === l ? v = o[13] : (v = l && l.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "prism-hero__socials",
 		"aria-label": "Social links",
-		children: c.map(s)
-	}), a[12] = c, a[13] = _);
-	let v;
-	a[14] !== f || a[15] !== m || a[16] !== h || a[17] !== g || a[18] !== _ ? (v = /* @__PURE__ */ r(t.div, {
+		children: l.map(c)
+	}), o[12] = l, o[13] = v);
+	let y;
+	o[14] !== p || o[15] !== h || o[16] !== g || o[17] !== _ || o[18] !== v ? (y = /* @__PURE__ */ r(t.div, {
 		className: "prism-card prism-hero__main",
-		initial: l,
-		animate: u,
-		transition: d,
+		initial: u,
+		animate: d,
+		transition: f,
 		children: [
-			f,
-			m,
+			p,
 			h,
 			g,
-			_
+			_,
+			v
 		]
-	}), a[14] = f, a[15] = m, a[16] = h, a[17] = g, a[18] = _, a[19] = v) : v = a[19];
-	let y;
-	a[20] === o.location ? y = a[21] : (y = o.location && /* @__PURE__ */ r(t.div, {
+	}), o[14] = p, o[15] = h, o[16] = g, o[17] = _, o[18] = v, o[19] = y) : y = o[19];
+	let b;
+	o[20] === s.location ? b = o[21] : (b = s.location && /* @__PURE__ */ r(t.div, {
 		className: "prism-card prism-hero__side",
 		initial: {
 			opacity: 0,
@@ -168,38 +181,38 @@ function o(i) {
 			children: "Based in"
 		}), /* @__PURE__ */ n("span", {
 			className: "prism-hero__side-value",
-			children: o.location
+			children: s.location
 		})]
-	}), a[20] = o.location, a[21] = y);
-	let b;
-	return a[22] !== v || a[23] !== y ? (b = /* @__PURE__ */ r("header", {
+	}), o[20] = s.location, o[21] = b);
+	let x;
+	return o[22] !== y || o[23] !== b ? (x = /* @__PURE__ */ r("header", {
 		className: "prism-hero",
-		children: [v, y]
-	}), a[22] = v, a[23] = y, a[24] = b) : b = a[24], b;
+		children: [y, b]
+	}), o[22] = y, o[23] = b, o[24] = x) : x = o[24], x;
 }
-function s(e) {
+function c(e) {
 	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
 		className: "prism-chip prism-chip--link",
-		children: e.label ?? a[e.platform]
+		children: e.label ?? o[e.platform]
 	}, e.platform + e.url);
 }
 //#endregion
 //#region src/templates/prism/sections/Experience.tsx
-function c(e) {
+function l(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function l(t) {
+function u(t) {
 	let i = e(5), { experience: a } = t, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ n("h2", {
 		className: "prism-section__title",
 		children: "Experience"
 	}), i[0] = o) : o = i[0];
 	let s;
-	i[1] === a ? s = i[2] : (s = a.map(u), i[1] = a, i[2] = s);
+	i[1] === a ? s = i[2] : (s = a.map(d), i[1] = a, i[2] = s);
 	let c;
 	return i[3] === s ? c = i[4] : (c = /* @__PURE__ */ r("section", {
 		className: "prism-section",
@@ -210,7 +223,7 @@ function l(t) {
 		})]
 	}), i[3] = s, i[4] = c), c;
 }
-function u(e, i) {
+function d(e, i) {
 	return /* @__PURE__ */ r(t.div, {
 		className: "prism-card prism-experience-card",
 		initial: {
@@ -239,7 +252,7 @@ function u(e, i) {
 		children: [
 			/* @__PURE__ */ n("span", {
 				className: "prism-badge",
-				children: c(e.range)
+				children: l(e.range)
 			}),
 			/* @__PURE__ */ n("h3", {
 				className: "prism-experience-card__role",
@@ -254,35 +267,35 @@ function u(e, i) {
 					children: e.company
 				}) : e.company
 			}),
-			e.summary && /* @__PURE__ */ n("p", {
-				className: "prism-experience-card__summary",
-				children: e.summary
+			/* @__PURE__ */ n(a, {
+				html: e.summary,
+				className: "prism-experience-card__summary"
 			}),
 			e.highlights && e.highlights.length > 0 && /* @__PURE__ */ n("ul", {
 				className: "prism-experience-card__highlights",
-				children: e.highlights.map(d)
+				children: e.highlights.map(f)
 			})
 		]
 	}, e.id);
 }
-function d(e) {
+function f(e) {
 	return /* @__PURE__ */ n("li", { children: e }, e);
 }
 //#endregion
 //#region src/templates/prism/sections/cn.ts
-function f(...e) {
+function p(...e) {
 	return e.filter(Boolean).join(" ");
 }
 //#endregion
 //#region src/templates/prism/sections/Projects.tsx
-function p(t) {
+function m(t) {
 	let i = e(5), { projects: a } = t, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ n("h2", {
 		className: "prism-section__title",
 		children: "Projects"
 	}), i[0] = o) : o = i[0];
 	let s;
-	i[1] === a ? s = i[2] : (s = a.map(m), i[1] = a, i[2] = s);
+	i[1] === a ? s = i[2] : (s = a.map(h), i[1] = a, i[2] = s);
 	let c;
 	return i[3] === s ? c = i[4] : (c = /* @__PURE__ */ r("section", {
 		className: "prism-section",
@@ -293,9 +306,9 @@ function p(t) {
 		})]
 	}), i[3] = s, i[4] = c), c;
 }
-function m(e, i) {
+function h(e, i) {
 	return /* @__PURE__ */ r(t.article, {
-		className: f("prism-card", "prism-project-card", e.featured && "prism-project-card--featured"),
+		className: p("prism-card", "prism-project-card", e.featured && "prism-project-card--featured"),
 		initial: {
 			opacity: 0,
 			scale: .92
@@ -333,13 +346,13 @@ function m(e, i) {
 					className: "prism-project-card__title",
 					children: e.title
 				}),
-				e.description && /* @__PURE__ */ n("p", {
-					className: "prism-project-card__description",
-					children: e.description
+				/* @__PURE__ */ n(a, {
+					html: e.description,
+					className: "prism-project-card__description"
 				}),
 				e.tags && e.tags.length > 0 && /* @__PURE__ */ n("div", {
 					className: "prism-project-card__tags",
-					children: e.tags.map(h)
+					children: e.tags.map(g)
 				}),
 				/* @__PURE__ */ r("div", {
 					className: "prism-project-card__links",
@@ -359,7 +372,7 @@ function m(e, i) {
 		})]
 	}, e.id);
 }
-function h(e, t) {
+function g(e, t) {
 	return /* @__PURE__ */ n("span", {
 		className: "prism-chip",
 		"data-tone": t % 3,
@@ -368,14 +381,14 @@ function h(e, t) {
 }
 //#endregion
 //#region src/templates/prism/sections/Skills.tsx
-function g(t) {
+function _(t) {
 	let i = e(5), { skills: a } = t, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ n("h2", {
 		className: "prism-section__title",
 		children: "Skills"
 	}), i[0] = o) : o = i[0];
 	let s;
-	i[1] === a ? s = i[2] : (s = a.map(_), i[1] = a, i[2] = s);
+	i[1] === a ? s = i[2] : (s = a.map(v), i[1] = a, i[2] = s);
 	let c;
 	return i[3] === s ? c = i[4] : (c = /* @__PURE__ */ r("section", {
 		className: "prism-section",
@@ -386,7 +399,7 @@ function g(t) {
 		})]
 	}), i[3] = s, i[4] = c), c;
 }
-function _(e, r) {
+function v(e, r) {
 	return /* @__PURE__ */ n(t.span, {
 		className: "prism-chip prism-chip--skill",
 		"data-tone": r % 3,
@@ -413,7 +426,7 @@ function _(e, r) {
 }
 //#endregion
 //#region src/templates/prism/sections/Footer.tsx
-function v(t) {
+function y(t) {
 	let i = e(11), { profile: a, socials: o } = t, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
@@ -426,7 +439,7 @@ function v(t) {
 	i[3] === o ? u = i[4] : (u = o && o.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "prism-footer__socials",
 		"aria-label": "Social links",
-		children: o.map(y)
+		children: o.map(b)
 	}), i[3] = o, i[4] = u);
 	let d = a.fullName || "Your Name", f;
 	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ r("p", {
@@ -451,7 +464,7 @@ function v(t) {
 		})
 	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
 }
-function y(e) {
+function b(e) {
 	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
@@ -462,45 +475,45 @@ function y(e) {
 }
 //#endregion
 //#region src/templates/prism/Template.tsx
-function b(t) {
-	let a = e(25), { data: s } = t, c = s.theme?.mode === "dark" ? "dark" : "light", u = s.theme?.accentColor ?? "#7c5cff", d;
-	a[0] === u ? d = a[1] : (d = { "--prism-accent": u }, a[0] = u, a[1] = d);
-	let f = d, m;
-	a[2] === Symbol.for("react.memo_cache_sentinel") ? (m = /* @__PURE__ */ n(i, {}), a[2] = m) : m = a[2];
+function x(t) {
+	let a = e(25), { data: o } = t, c = o.theme?.mode === "dark" ? "dark" : "light", l = o.theme?.accentColor ?? "#7c5cff", d;
+	a[0] === l ? d = a[1] : (d = { "--prism-accent": l }, a[0] = l, a[1] = d);
+	let f = d, p;
+	a[2] === Symbol.for("react.memo_cache_sentinel") ? (p = /* @__PURE__ */ n(i, {}), a[2] = p) : p = a[2];
 	let h;
-	a[3] !== s.profile || a[4] !== s.socials ? (h = /* @__PURE__ */ n(o, {
-		profile: s.profile,
-		socials: s.socials
-	}), a[3] = s.profile, a[4] = s.socials, a[5] = h) : h = a[5];
-	let _;
-	a[6] === s.experience ? _ = a[7] : (_ = s.experience && s.experience.length > 0 && /* @__PURE__ */ n(l, { experience: s.experience }), a[6] = s.experience, a[7] = _);
-	let y;
-	a[8] === s.projects ? y = a[9] : (y = s.projects && s.projects.length > 0 && /* @__PURE__ */ n(p, { projects: s.projects }), a[8] = s.projects, a[9] = y);
+	a[3] !== o.profile || a[4] !== o.socials ? (h = /* @__PURE__ */ n(s, {
+		profile: o.profile,
+		socials: o.socials
+	}), a[3] = o.profile, a[4] = o.socials, a[5] = h) : h = a[5];
+	let g;
+	a[6] === o.experience ? g = a[7] : (g = o.experience && o.experience.length > 0 && /* @__PURE__ */ n(u, { experience: o.experience }), a[6] = o.experience, a[7] = g);
+	let v;
+	a[8] === o.projects ? v = a[9] : (v = o.projects && o.projects.length > 0 && /* @__PURE__ */ n(m, { projects: o.projects }), a[8] = o.projects, a[9] = v);
 	let b;
-	a[10] === s.skills ? b = a[11] : (b = s.skills && s.skills.length > 0 && /* @__PURE__ */ n(g, { skills: s.skills }), a[10] = s.skills, a[11] = b);
+	a[10] === o.skills ? b = a[11] : (b = o.skills && o.skills.length > 0 && /* @__PURE__ */ n(_, { skills: o.skills }), a[10] = o.skills, a[11] = b);
 	let x;
-	a[12] !== s.profile || a[13] !== s.socials ? (x = /* @__PURE__ */ n(v, {
-		profile: s.profile,
-		socials: s.socials
-	}), a[12] = s.profile, a[13] = s.socials, a[14] = x) : x = a[14];
+	a[12] !== o.profile || a[13] !== o.socials ? (x = /* @__PURE__ */ n(y, {
+		profile: o.profile,
+		socials: o.socials
+	}), a[12] = o.profile, a[13] = o.socials, a[14] = x) : x = a[14];
 	let S;
-	a[15] !== h || a[16] !== _ || a[17] !== y || a[18] !== b || a[19] !== x ? (S = /* @__PURE__ */ r("div", {
+	a[15] !== h || a[16] !== g || a[17] !== v || a[18] !== b || a[19] !== x ? (S = /* @__PURE__ */ r("div", {
 		className: "prism-content",
 		children: [
 			h,
-			_,
-			y,
+			g,
+			v,
 			b,
 			x
 		]
-	}), a[15] = h, a[16] = _, a[17] = y, a[18] = b, a[19] = x, a[20] = S) : S = a[20];
+	}), a[15] = h, a[16] = g, a[17] = v, a[18] = b, a[19] = x, a[20] = S) : S = a[20];
 	let C;
 	return a[21] !== c || a[22] !== f || a[23] !== S ? (C = /* @__PURE__ */ r("div", {
 		className: "prism",
 		"data-theme": c,
 		style: f,
-		children: [m, S]
+		children: [p, S]
 	}), a[21] = c, a[22] = f, a[23] = S, a[24] = C) : C = a[24], C;
 }
 //#endregion
-export { b as default };
+export { x as default };

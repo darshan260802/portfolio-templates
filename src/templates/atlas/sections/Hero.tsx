@@ -26,6 +26,13 @@ const SOCIAL_LABEL: Record<Social["platform"], string> = {
  * at the CSS default opacity: 0 forever once real data does arrive.
  * Rendering unconditionally and hiding empty ones via CSS `:empty` keeps
  * the element in GSAP's target list from the very first mount.
+ *
+ * bio is rich text (an HTML string, sanitized server-side) — rendered via
+ * dangerouslySetInnerHTML rather than the shared RichText component,
+ * specifically because RichText returns null when empty, which would
+ * reintroduce the exact bug above (no element to bind at mount). An empty
+ * dangerouslySetInnerHTML still renders a genuinely empty <p></p>, so
+ * `:empty` in styles.css still hides it correctly.
  */
 export function Hero({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	const ref = useRef<HTMLElement>(null);
@@ -58,7 +65,11 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 			</h1>
 			<span className="atlas-hero__role atlas-hero__reveal">{profile.headline || null}</span>
 			<div className="atlas-hero__grid">
-				<p className="atlas-hero__bio atlas-hero__reveal">{profile.bio || null}</p>
+				<p
+					className="atlas-hero__bio atlas-hero__reveal"
+					// eslint-disable-next-line react/no-danger
+					dangerouslySetInnerHTML={{ __html: profile.bio ?? "" }}
+				/>
 				<div className="atlas-hero__meta atlas-hero__reveal">
 					{profile.location && <span>{profile.location}</span>}
 					{socials && socials.length > 0 && (

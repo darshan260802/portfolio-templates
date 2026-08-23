@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Project } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 import { cn } from "./cn.js";
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
@@ -25,7 +26,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 						)}
 						<div className="prism-project-card__body">
 							<h3 className="prism-project-card__title">{project.title}</h3>
-							{project.description && <p className="prism-project-card__description">{project.description}</p>}
+							<RichText html={project.description} className="prism-project-card__description" />
 							{project.tags && project.tags.length > 0 && (
 								<div className="prism-project-card__tags">
 									{project.tags.map((tag, ti) => (

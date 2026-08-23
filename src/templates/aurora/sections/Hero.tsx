@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Profile, Social } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 
 const SOCIAL_LABEL: Record<Social["platform"], string> = {
 	github: "GitHub",
@@ -28,7 +29,7 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 				)}
 				<h1 className="aurora-hero__name">{profile.fullName || "Your Name"}</h1>
 				{profile.headline && <p className="aurora-hero__headline">{profile.headline}</p>}
-				{profile.bio && <p className="aurora-hero__bio">{profile.bio}</p>}
+				<RichText html={profile.bio} className="aurora-hero__bio" />
 				{profile.location && <p className="aurora-hero__location">{profile.location}</p>}
 				{socials && socials.length > 0 && (
 					<nav className="aurora-hero__socials" aria-label="Social links">

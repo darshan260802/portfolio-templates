@@ -68,10 +68,10 @@ function u(i) {
 		className: "nocturne-hero__headline nocturne-hero__fade-in",
 		children: _
 	}), o[5] = _, o[6] = v);
-	let y = s.bio || null, b;
+	let y = s.bio ?? "", b;
 	o[7] === y ? b = o[8] : (b = /* @__PURE__ */ t("p", {
 		className: "nocturne-hero__bio nocturne-hero__fade-in",
-		children: y
+		dangerouslySetInnerHTML: { __html: y }
 	}), o[7] = y, o[8] = b);
 	let x;
 	o[9] === s.location ? x = o[10] : (x = s.location && /* @__PURE__ */ t("span", { children: s.location }), o[9] = s.location, o[10] = x);
@@ -134,19 +134,32 @@ function f() {
 	}, .9);
 }
 //#endregion
+//#region src/rich-text.tsx
+function p(n) {
+	let r = e(5), { html: i, className: a } = n;
+	if (!i) return null;
+	let o;
+	r[0] === i ? o = r[1] : (o = { __html: i }, r[0] = i, r[1] = o);
+	let s;
+	return r[2] !== a || r[3] !== o ? (s = /* @__PURE__ */ t("div", {
+		className: a,
+		dangerouslySetInnerHTML: o
+	}), r[2] = a, r[3] = o, r[4] = s) : s = r[4], s;
+}
+//#endregion
 //#region src/templates/nocturne/sections/Experience.tsx
-function p(e) {
+function m(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function m(r) {
+function h(r) {
 	let i = e(5), { experience: a } = r, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ t("span", {
 		className: "nocturne-eyebrow",
 		children: "Experience"
 	}), i[0] = o) : o = i[0];
 	let s;
-	i[1] === a ? s = i[2] : (s = a.map(h), i[1] = a, i[2] = s);
+	i[1] === a ? s = i[2] : (s = a.map(g), i[1] = a, i[2] = s);
 	let c;
 	return i[3] === s ? c = i[4] : (c = /* @__PURE__ */ n("section", {
 		className: "nocturne-section",
@@ -157,7 +170,7 @@ function m(r) {
 		})]
 	}), i[3] = s, i[4] = c), c;
 }
-function h(e, r) {
+function g(e, r) {
 	return /* @__PURE__ */ n(o.li, {
 		className: "nocturne-timeline__item",
 		initial: {
@@ -179,7 +192,7 @@ function h(e, r) {
 		},
 		children: [/* @__PURE__ */ t("span", {
 			className: "nocturne-timeline__range",
-			children: p(e.range)
+			children: m(e.range)
 		}), /* @__PURE__ */ n("div", {
 			className: "nocturne-timeline__body",
 			children: [
@@ -196,25 +209,25 @@ function h(e, r) {
 						children: e.company
 					}) : e.company
 				}),
-				e.summary && /* @__PURE__ */ t("p", {
-					className: "nocturne-timeline__summary",
-					children: e.summary
+				/* @__PURE__ */ t(p, {
+					html: e.summary,
+					className: "nocturne-timeline__summary"
 				}),
 				e.highlights && e.highlights.length > 0 && /* @__PURE__ */ t("ul", {
 					className: "nocturne-timeline__highlights",
-					children: e.highlights.map(g)
+					children: e.highlights.map(_)
 				})
 			]
 		})]
 	}, e.id);
 }
-function g(e) {
+function _(e) {
 	return /* @__PURE__ */ t("li", { children: e }, e);
 }
 //#endregion
 //#region src/templates/nocturne/sections/ProjectsGallery.tsx
 i.registerPlugin(s);
-function _(o) {
+function v(o) {
 	let s = e(8), { projects: c } = o, l = r(null), u = r(null), d;
 	s[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
 		let e = l.current, t = u.current;
@@ -249,7 +262,7 @@ function _(o) {
 		})
 	}), s[3] = p) : p = s[3];
 	let m;
-	s[4] === c ? m = s[5] : (m = c.map(v), s[4] = c, s[5] = m);
+	s[4] === c ? m = s[5] : (m = c.map(y), s[4] = c, s[5] = m);
 	let h;
 	return s[6] === m ? h = s[7] : (h = /* @__PURE__ */ n("section", {
 		ref: l,
@@ -262,7 +275,7 @@ function _(o) {
 		})]
 	}), s[6] = m, s[7] = h), h;
 }
-function v(e) {
+function y(e) {
 	return /* @__PURE__ */ n("article", {
 		className: "nocturne-gallery__card",
 		children: [
@@ -281,13 +294,13 @@ function v(e) {
 				className: "nocturne-gallery__title",
 				children: e.title
 			}),
-			e.description && /* @__PURE__ */ t("p", {
-				className: "nocturne-gallery__description",
-				children: e.description
+			/* @__PURE__ */ t(p, {
+				html: e.description,
+				className: "nocturne-gallery__description"
 			}),
 			e.tags && e.tags.length > 0 && /* @__PURE__ */ t("div", {
 				className: "nocturne-gallery__tags",
-				children: e.tags.map(y)
+				children: e.tags.map(b)
 			}),
 			/* @__PURE__ */ n("div", {
 				className: "nocturne-gallery__links",
@@ -306,7 +319,7 @@ function v(e) {
 		]
 	}, e.id);
 }
-function y(e) {
+function b(e) {
 	return /* @__PURE__ */ t("span", {
 		className: "nocturne-chip",
 		children: e
@@ -314,7 +327,7 @@ function y(e) {
 }
 //#endregion
 //#region src/templates/nocturne/sections/SkillsMarquee.tsx
-function b(r) {
+function x(r) {
 	let i = e(3), { skills: a } = r, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ t("span", {
 		className: "nocturne-eyebrow nocturne-marquee-eyebrow",
@@ -330,12 +343,12 @@ function b(r) {
 			"aria-label": "Skills",
 			children: /* @__PURE__ */ t("div", {
 				className: "nocturne-marquee__track",
-				children: [...a, ...a].map(x)
+				children: [...a, ...a].map(S)
 			})
 		})]
 	}), i[1] = a, i[2] = s), s;
 }
-function x(e, n) {
+function S(e, n) {
 	return /* @__PURE__ */ t("span", {
 		className: "nocturne-marquee__item",
 		role: "listitem",
@@ -344,7 +357,7 @@ function x(e, n) {
 }
 //#endregion
 //#region src/templates/nocturne/sections/Footer.tsx
-function S(r) {
+function C(r) {
 	let i = e(11), { profile: a, socials: o } = r, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
@@ -357,7 +370,7 @@ function S(r) {
 	i[3] === o ? u = i[4] : (u = o && o.length > 0 && /* @__PURE__ */ t("nav", {
 		className: "nocturne-footer__socials",
 		"aria-label": "Social links",
-		children: o.map(C)
+		children: o.map(w)
 	}), i[3] = o, i[4] = u);
 	let d = a.fullName || "Your Name", f;
 	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ n("p", {
@@ -379,7 +392,7 @@ function S(r) {
 		]
 	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
 }
-function C(e) {
+function w(e) {
 	return /* @__PURE__ */ t("a", {
 		href: e.url,
 		target: "_blank",
@@ -389,7 +402,7 @@ function C(e) {
 }
 //#endregion
 //#region src/templates/nocturne/Template.tsx
-function w(r) {
+function T(r) {
 	let i = e(23), { data: a } = r, o = a.theme?.mode === "light" ? "light" : "dark", s = a.theme?.accentColor ?? "#c9a24a", l;
 	i[0] === s ? l = i[1] : (l = { "--nocturne-accent": s }, i[0] = s, i[1] = l);
 	let d = l, f;
@@ -399,31 +412,31 @@ function w(r) {
 		profile: a.profile,
 		socials: a.socials
 	}), i[3] = a.profile, i[4] = a.socials, i[5] = p) : p = i[5];
-	let h;
-	i[6] === a.experience ? h = i[7] : (h = a.experience && a.experience.length > 0 && /* @__PURE__ */ t(m, { experience: a.experience }), i[6] = a.experience, i[7] = h);
+	let m;
+	i[6] === a.experience ? m = i[7] : (m = a.experience && a.experience.length > 0 && /* @__PURE__ */ t(h, { experience: a.experience }), i[6] = a.experience, i[7] = m);
 	let g;
-	i[8] === a.projects ? g = i[9] : (g = a.projects && a.projects.length > 0 && /* @__PURE__ */ t(_, { projects: a.projects }), i[8] = a.projects, i[9] = g);
-	let v;
-	i[10] === a.skills ? v = i[11] : (v = a.skills && a.skills.length > 0 && /* @__PURE__ */ t(b, { skills: a.skills }), i[10] = a.skills, i[11] = v);
+	i[8] === a.projects ? g = i[9] : (g = a.projects && a.projects.length > 0 && /* @__PURE__ */ t(v, { projects: a.projects }), i[8] = a.projects, i[9] = g);
+	let _;
+	i[10] === a.skills ? _ = i[11] : (_ = a.skills && a.skills.length > 0 && /* @__PURE__ */ t(x, { skills: a.skills }), i[10] = a.skills, i[11] = _);
 	let y;
-	i[12] !== a.profile || i[13] !== a.socials ? (y = /* @__PURE__ */ t(S, {
+	i[12] !== a.profile || i[13] !== a.socials ? (y = /* @__PURE__ */ t(C, {
 		profile: a.profile,
 		socials: a.socials
 	}), i[12] = a.profile, i[13] = a.socials, i[14] = y) : y = i[14];
-	let x;
-	return i[15] !== o || i[16] !== d || i[17] !== p || i[18] !== h || i[19] !== g || i[20] !== v || i[21] !== y ? (x = /* @__PURE__ */ n("div", {
+	let b;
+	return i[15] !== o || i[16] !== d || i[17] !== p || i[18] !== m || i[19] !== g || i[20] !== _ || i[21] !== y ? (b = /* @__PURE__ */ n("div", {
 		className: "nocturne",
 		"data-theme": o,
 		style: d,
 		children: [
 			f,
 			p,
-			h,
+			m,
 			g,
-			v,
+			_,
 			y
 		]
-	}), i[15] = o, i[16] = d, i[17] = p, i[18] = h, i[19] = g, i[20] = v, i[21] = y, i[22] = x) : x = i[22], x;
+	}), i[15] = o, i[16] = d, i[17] = p, i[18] = m, i[19] = g, i[20] = _, i[21] = y, i[22] = b) : b = i[22], b;
 }
 //#endregion
-export { w as default };
+export { T as default };

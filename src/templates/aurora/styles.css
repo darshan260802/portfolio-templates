@@ -358,3 +358,34 @@
 		transition-duration: 0.001ms !important;
 	}
 }
+
+/* Rich text (bio/summary/description) — the wizard's editor only ever
+   produces p, strong, em, ul, ol, li, a, so this is the full surface. */
+.aurora-hero__bio p + p,
+.aurora-timeline__summary p + p,
+.aurora-card__description p + p {
+	margin-top: 0.6em;
+}
+
+.aurora-hero__bio ul,
+.aurora-hero__bio ol,
+.aurora-timeline__summary ul,
+.aurora-timeline__summary ol,
+.aurora-card__description ul,
+.aurora-card__description ol {
+	margin: 0.6em 0 0;
+	padding-left: 1.25em;
+}
+
+.aurora-hero__bio li,
+.aurora-timeline__summary li,
+.aurora-card__description li {
+	margin: 0.15em 0;
+}
+
+.aurora-hero__bio a,
+.aurora-timeline__summary a,
+.aurora-card__description a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}

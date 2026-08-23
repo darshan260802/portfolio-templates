@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Experience } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 import { SectionHeading } from "./SectionHeading.js";
 
 function formatRange(range: Experience["range"]): string {
@@ -43,7 +44,7 @@ export function ExperienceSection({
 								)}
 								{item.location ? ` — ${item.location}` : ""}
 							</p>
-							{item.summary && <p className="monolith-ledger__summary">{item.summary}</p>}
+							<RichText html={item.summary} className="monolith-ledger__summary" />
 							{item.highlights && item.highlights.length > 0 && (
 								<ul className="monolith-ledger__highlights">
 									{item.highlights.map((h) => (

@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import type { Project } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,7 +65,7 @@ export function ProjectsGallery({ projects }: { projects: Project[] }) {
 							<div className="nocturne-gallery__media nocturne-gallery__media--empty" aria-hidden="true" />
 						)}
 						<h3 className="nocturne-gallery__title">{project.title}</h3>
-						{project.description && <p className="nocturne-gallery__description">{project.description}</p>}
+						<RichText html={project.description} className="nocturne-gallery__description" />
 						{project.tags && project.tags.length > 0 && (
 							<div className="nocturne-gallery__tags">
 								{project.tags.map((tag) => (

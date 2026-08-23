@@ -392,3 +392,34 @@
 		transition-duration: 0.001ms !important;
 	}
 }
+
+/* Rich text (bio/summary/description) — the wizard's editor only ever
+   produces p, strong, em, ul, ol, li, a, so this is the full surface. */
+.prism-hero__bio p + p,
+.prism-experience-card__summary p + p,
+.prism-project-card__description p + p {
+	margin-top: 0.6em;
+}
+
+.prism-hero__bio ul,
+.prism-hero__bio ol,
+.prism-experience-card__summary ul,
+.prism-experience-card__summary ol,
+.prism-project-card__description ul,
+.prism-project-card__description ol {
+	margin: 0.6em 0 0;
+	padding-left: 1.25em;
+}
+
+.prism-hero__bio li,
+.prism-experience-card__summary li,
+.prism-project-card__description li {
+	margin: 0.15em 0;
+}
+
+.prism-hero__bio a,
+.prism-experience-card__summary a,
+.prism-project-card__description a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}

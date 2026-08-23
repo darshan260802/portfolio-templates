@@ -416,3 +416,34 @@
 		transition: none;
 	}
 }
+
+/* Rich text (bio/summary/description) — the wizard's editor only ever
+   produces p, strong, em, ul, ol, li, a, so this is the full surface. */
+.nocturne-hero__bio p + p,
+.nocturne-timeline__summary p + p,
+.nocturne-gallery__description p + p {
+	margin-top: 0.6em;
+}
+
+.nocturne-hero__bio ul,
+.nocturne-hero__bio ol,
+.nocturne-timeline__summary ul,
+.nocturne-timeline__summary ol,
+.nocturne-gallery__description ul,
+.nocturne-gallery__description ol {
+	margin: 0.6em 0 0;
+	padding-left: 1.25em;
+}
+
+.nocturne-hero__bio li,
+.nocturne-timeline__summary li,
+.nocturne-gallery__description li {
+	margin: 0.15em 0;
+}
+
+.nocturne-hero__bio a,
+.nocturne-timeline__summary a,
+.nocturne-gallery__description a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}

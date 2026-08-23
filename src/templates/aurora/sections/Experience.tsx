@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Experience } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 
 function formatRange(range: Experience["range"]): string {
 	const end = range.current ? "Present" : (range.end ?? "");
@@ -44,7 +45,7 @@ export function ExperienceSection({ experience }: { experience: Experience[] }) 
 								)}
 								{item.location ? ` · ${item.location}` : ""}
 							</p>
-							{item.summary && <p className="aurora-timeline__summary">{item.summary}</p>}
+							<RichText html={item.summary} className="aurora-timeline__summary" />
 							{item.highlights && item.highlights.length > 0 && (
 								<ul className="aurora-timeline__highlights">
 									{item.highlights.map((h) => (

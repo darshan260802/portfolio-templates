@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Profile, Social } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 
 const SOCIAL_LABEL: Record<Social["platform"], string> = {
 	github: "GitHub",
@@ -27,7 +28,7 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 				)}
 				<h1 className="prism-hero__name">{profile.fullName || "Your Name"}</h1>
 				{profile.headline && <p className="prism-hero__headline">{profile.headline}</p>}
-				{profile.bio && <p className="prism-hero__bio">{profile.bio}</p>}
+				<RichText html={profile.bio} className="prism-hero__bio" />
 				{socials && socials.length > 0 && (
 					<nav className="prism-hero__socials" aria-label="Social links">
 						{socials.map((s) => (

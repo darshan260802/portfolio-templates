@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { Project } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
 	return (
@@ -31,9 +32,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 						)}
 						<div className="aurora-card__body">
 							<h3 className="aurora-card__title">{project.title}</h3>
-							{project.description && (
-								<p className="aurora-card__description">{project.description}</p>
-							)}
+							<RichText html={project.description} className="aurora-card__description" />
 							{project.tags && project.tags.length > 0 && (
 								<ul className="aurora-card__tags">
 									{project.tags.map((tag) => (

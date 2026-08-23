@@ -355,3 +355,34 @@
 		transition-duration: 0.001ms !important;
 	}
 }
+
+/* Rich text (bio/summary/description) — the wizard's editor only ever
+   produces p, strong, em, ul, ol, li, a, so this is the full surface. */
+.monolith-hero__bio p + p,
+.monolith-ledger__summary p + p,
+.monolith-index__description p + p {
+	margin-top: 0.6em;
+}
+
+.monolith-hero__bio ul,
+.monolith-hero__bio ol,
+.monolith-ledger__summary ul,
+.monolith-ledger__summary ol,
+.monolith-index__description ul,
+.monolith-index__description ol {
+	margin: 0.6em 0 0;
+	padding-left: 1.25em;
+}
+
+.monolith-hero__bio li,
+.monolith-ledger__summary li,
+.monolith-index__description li {
+	margin: 0.15em 0;
+}
+
+.monolith-hero__bio a,
+.monolith-ledger__summary a,
+.monolith-index__description a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}

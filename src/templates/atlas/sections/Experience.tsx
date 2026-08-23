@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import type { Experience } from "../../../schema.js";
+import { RichText } from "../../../rich-text.js";
 import { KineticHeading } from "./KineticHeading.js";
 
 function formatRange(range: Experience["range"]): string {
@@ -77,7 +78,7 @@ export function ExperienceSection({ experience, index }: { experience: Experienc
 										item.company
 									)}
 								</p>
-								{item.summary && <p className="atlas-experience__summary">{item.summary}</p>}
+								<RichText html={item.summary} className="atlas-experience__summary" />
 							</div>
 						</li>
 					))}

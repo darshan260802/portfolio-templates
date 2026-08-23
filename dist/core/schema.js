@@ -49,7 +49,11 @@ const socialSchema = z.object({
 const profileSchema = z.object({
     fullName: z.string().min(1, "Full name is required").max(120),
     headline: z.string().max(160).optional(),
-    bio: z.string().max(2000).optional(),
+    // Rich text (HTML string from the wizard's editor — bold/italic/links/
+    // lists only, sanitized server-side before storage). The cap allows for
+    // markup overhead on top of the ~2000 chars of actual copy this is
+    // meant for.
+    bio: z.string().max(4000).optional(),
     location: z.string().max(120).optional(),
     email: emailOrEmpty,
     avatarUrl: urlOrEmpty,
@@ -68,13 +72,15 @@ const experienceSchema = z.object({
     companyUrl: urlOrEmpty,
     location: z.string().max(120).optional(),
     range: dateRangeSchema,
-    summary: z.string().max(2000).optional(),
+    // Rich text — see profileSchema.bio's comment.
+    summary: z.string().max(4000).optional(),
     highlights: z.array(z.string().max(400)).max(20).optional(),
 });
 const projectSchema = z.object({
     id: z.string(),
     title: z.string().min(1).max(160),
-    description: z.string().max(2000).optional(),
+    // Rich text — see profileSchema.bio's comment.
+    description: z.string().max(4000).optional(),
     imageUrl: urlOrEmpty,
     liveUrl: urlOrEmpty,
     repoUrl: urlOrEmpty,

@@ -504,3 +504,34 @@
 		opacity: 1;
 	}
 }
+
+/* Rich text (bio/summary/description) — the wizard's editor only ever
+   produces p, strong, em, ul, ol, li, a, so this is the full surface. */
+.atlas-hero__bio p + p,
+.atlas-experience__summary p + p,
+.atlas-project__description p + p {
+	margin-top: 0.6em;
+}
+
+.atlas-hero__bio ul,
+.atlas-hero__bio ol,
+.atlas-experience__summary ul,
+.atlas-experience__summary ol,
+.atlas-project__description ul,
+.atlas-project__description ol {
+	margin: 0.6em 0 0;
+	padding-left: 1.25em;
+}
+
+.atlas-hero__bio li,
+.atlas-experience__summary li,
+.atlas-project__description li {
+	margin: 0.15em 0;
+}
+
+.atlas-hero__bio a,
+.atlas-experience__summary a,
+.atlas-project__description a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
