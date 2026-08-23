@@ -19,7 +19,7 @@ declare const profileSchema: z.ZodObject<{
     headline: z.ZodOptional<z.ZodString>;
     bio: z.ZodOptional<z.ZodString>;
     location: z.ZodOptional<z.ZodString>;
-    email: z.ZodOptional<z.ZodString>;
+    email: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     avatarUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     resumeUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
 }, z.core.$strip>;
@@ -31,7 +31,7 @@ declare const experienceSchema: z.ZodObject<{
     location: z.ZodOptional<z.ZodString>;
     range: z.ZodObject<{
         start: z.ZodString;
-        end: z.ZodOptional<z.ZodString>;
+        end: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         current: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strip>;
     summary: z.ZodOptional<z.ZodString>;
@@ -65,13 +65,13 @@ declare const educationSchema: z.ZodObject<{
     fieldOfStudy: z.ZodOptional<z.ZodString>;
     range: z.ZodOptional<z.ZodObject<{
         start: z.ZodString;
-        end: z.ZodOptional<z.ZodString>;
+        end: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         current: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strip>>;
     summary: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 declare const themeSchema: z.ZodObject<{
-    accentColor: z.ZodOptional<z.ZodString>;
+    accentColor: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     mode: z.ZodOptional<z.ZodEnum<{
         light: "light";
         dark: "dark";
@@ -89,7 +89,7 @@ export declare const portfolioDataSchema: z.ZodObject<{
         headline: z.ZodOptional<z.ZodString>;
         bio: z.ZodOptional<z.ZodString>;
         location: z.ZodOptional<z.ZodString>;
-        email: z.ZodOptional<z.ZodString>;
+        email: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         avatarUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         resumeUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     }, z.core.$strip>;
@@ -116,7 +116,7 @@ export declare const portfolioDataSchema: z.ZodObject<{
         location: z.ZodOptional<z.ZodString>;
         range: z.ZodObject<{
             start: z.ZodString;
-            end: z.ZodOptional<z.ZodString>;
+            end: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
             current: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strip>;
         summary: z.ZodOptional<z.ZodString>;
@@ -150,13 +150,13 @@ export declare const portfolioDataSchema: z.ZodObject<{
         fieldOfStudy: z.ZodOptional<z.ZodString>;
         range: z.ZodOptional<z.ZodObject<{
             start: z.ZodString;
-            end: z.ZodOptional<z.ZodString>;
+            end: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
             current: z.ZodOptional<z.ZodBoolean>;
         }, z.core.$strip>>;
         summary: z.ZodOptional<z.ZodString>;
     }, z.core.$strip>>>;
     theme: z.ZodOptional<z.ZodObject<{
-        accentColor: z.ZodOptional<z.ZodString>;
+        accentColor: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         mode: z.ZodOptional<z.ZodEnum<{
             light: "light";
             dark: "dark";

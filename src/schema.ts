@@ -13,10 +13,27 @@ import { z } from "zod";
  * change for every template and must be reviewed as such.
  */
 
-const urlOrEmpty = z
-	.union([z.literal(""), z.string().url()])
-	.transform((v) => (v === "" ? undefined : v))
-	.optional();
+/**
+ * Wraps a string schema with a format constraint (url/email/regex) so an
+ * empty string is treated as "not provided" — transformed to undefined —
+ * rather than failing that schema's own format check. Plain `.optional()`
+ * only exempts `undefined`; a controlled <input> that the user has cleared
+ * sends "", which is a defined value, so without this every optional
+ * format-validated field would reject "cleared the field back to empty"
+ * identically to "typed something invalid", permanently blocking the
+ * wizard from advancing.
+ */
+function orEmpty<Schema extends z.ZodTypeAny>(schema: Schema) {
+	return z
+		.union([z.literal(""), schema])
+		.transform((v) => (v === "" ? undefined : v))
+		.optional();
+}
+
+const urlOrEmpty = orEmpty(z.string().url("Enter a valid URL, like https://example.com"));
+const emailOrEmpty = orEmpty(z.string().email("Enter a valid email address, like name@example.com"));
+const dateOrEmpty = orEmpty(z.string().regex(/^\d{4}-\d{2}$/, "Use the format YYYY-MM, like 2024-06"));
+const hexColorOrEmpty = orEmpty(z.string().regex(/^#[0-9a-fA-F]{6}$/, "Expected a hex color like #aa3bff"));
 
 const socialSchema = z.object({
 	platform: z.enum([
@@ -39,18 +56,15 @@ const profileSchema = z.object({
 	headline: z.string().max(160).optional(),
 	bio: z.string().max(2000).optional(),
 	location: z.string().max(120).optional(),
-	email: z.string().email().optional(),
+	email: emailOrEmpty,
 	avatarUrl: urlOrEmpty,
 	resumeUrl: urlOrEmpty,
 });
 
 const dateRangeSchema = z.object({
 	// ISO "YYYY-MM" — kept as a plain string so partial dates ("2023-06") are valid.
-	start: z.string().regex(/^\d{4}-\d{2}$/, "Expected YYYY-MM"),
-	end: z
-		.string()
-		.regex(/^\d{4}-\d{2}$/, "Expected YYYY-MM")
-		.optional(),
+	start: z.string().regex(/^\d{4}-\d{2}$/, "Use the format YYYY-MM, like 2024-06"),
+	end: dateOrEmpty,
 	current: z.boolean().optional(),
 });
 
@@ -93,10 +107,7 @@ const educationSchema = z.object({
 });
 
 const themeSchema = z.object({
-	accentColor: z
-		.string()
-		.regex(/^#[0-9a-fA-F]{6}$/, "Expected a hex color like #aa3bff")
-		.optional(),
+	accentColor: hexColorOrEmpty,
 	mode: z.enum(["light", "dark", "system"]).optional(),
 });
 
