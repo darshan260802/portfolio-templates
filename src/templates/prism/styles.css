@@ -20,6 +20,7 @@
 	background: var(--prism-bg);
 	color: var(--prism-text);
 	line-height: 1.55;
+	min-height: 100dvh;
 	overflow: hidden;
 	-webkit-font-smoothing: antialiased;
 }
