@@ -1,5 +1,10 @@
 import type { Profile, Social } from "../../../schema.js";
 
+/** See aurora's Footer for why every template derives this rather than storing it. */
+function telHref(phone: string): string {
+	return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
 export function Footer({
 	profile,
 	socials,
@@ -19,6 +24,11 @@ export function Footer({
 			{profile.email && (
 				<a className="atlas-footer__cta" href={`mailto:${profile.email}`}>
 					{profile.email}
+				</a>
+			)}
+			{profile.phone && (
+				<a className="atlas-footer__phone" href={telHref(profile.phone)}>
+					{profile.phone}
 				</a>
 			)}
 			<div className="atlas-footer__row">

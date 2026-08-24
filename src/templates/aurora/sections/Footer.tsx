@@ -1,5 +1,15 @@
 import type { Profile, Social } from "../../../schema.js";
 
+/**
+ * A `tel:` href wants only digits and an optional leading "+" — the schema
+ * deliberately keeps whatever separators the user typed (spaces, dots,
+ * parens) because that's what gets *displayed*, so every template strips
+ * them here rather than storing a second, normalized copy.
+ */
+function telHref(phone: string): string {
+	return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
 export function Footer({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	const year = new Date().getFullYear();
 
@@ -8,6 +18,11 @@ export function Footer({ profile, socials }: { profile: Profile; socials?: Socia
 			{profile.email && (
 				<a className="aurora-footer__email" href={`mailto:${profile.email}`}>
 					{profile.email}
+				</a>
+			)}
+			{profile.phone && (
+				<a className="aurora-footer__phone" href={telHref(profile.phone)}>
+					{profile.phone}
 				</a>
 			)}
 			{socials && socials.length > 0 && (

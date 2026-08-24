@@ -11,3 +11,19 @@ createRoot(rootEl).render(
 		<Template data={data} />
 	</StrictMode>,
 );
+
+/**
+ * Every template paints its background on its own root element, not on the
+ * document — so on iOS/Android an overscroll rubber-band exposes the
+ * browser's white default behind a dark portfolio. Copy whatever the
+ * template resolved to (it varies per template and per theme mode) up onto
+ * <html> after the first paint, so the bounce matches the page.
+ */
+requestAnimationFrame(() => {
+	const templateRoot = rootEl.firstElementChild;
+	if (!templateRoot) return;
+	const { backgroundColor } = getComputedStyle(templateRoot);
+	if (backgroundColor && backgroundColor !== "rgba(0, 0, 0, 0)") {
+		document.documentElement.style.backgroundColor = backgroundColor;
+	}
+});

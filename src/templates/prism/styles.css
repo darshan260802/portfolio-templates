@@ -20,6 +20,7 @@
 	background: var(--prism-bg);
 	color: var(--prism-text);
 	line-height: 1.55;
+	min-height: 100dvh;
 	overflow: hidden;
 	-webkit-font-smoothing: antialiased;
 }
@@ -347,6 +348,13 @@
 	font-size: 1.75rem;
 	font-weight: 800;
 	color: var(--prism-accent);
+}
+
+.prism-footer__phone {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--prism-text-muted);
+	font-variant-numeric: tabular-nums;
 }
 
 .prism-footer__socials {

@@ -371,8 +371,11 @@ function v(e) {
 }
 //#endregion
 //#region src/templates/aurora/sections/Footer.tsx
-function y(t) {
-	let i = e(11), { profile: a, socials: o } = t, s;
+function y(e) {
+	return `tel:${e.replace(/[^\d+]/g, "")}`;
+}
+function b(t) {
+	let i = e(14), { profile: a, socials: o } = t, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
 	i[1] === a.email ? l = i[2] : (l = a.email && /* @__PURE__ */ n("a", {
@@ -381,32 +384,39 @@ function y(t) {
 		children: a.email
 	}), i[1] = a.email, i[2] = l);
 	let u;
-	i[3] === o ? u = i[4] : (u = o && o.length > 0 && /* @__PURE__ */ n("nav", {
+	i[3] === a.phone ? u = i[4] : (u = a.phone && /* @__PURE__ */ n("a", {
+		className: "aurora-footer__phone",
+		href: y(a.phone),
+		children: a.phone
+	}), i[3] = a.phone, i[4] = u);
+	let d;
+	i[5] === o ? d = i[6] : (d = o && o.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "aurora-footer__socials",
 		"aria-label": "Social links",
-		children: o.map(b)
-	}), i[3] = o, i[4] = u);
-	let d = a.fullName || "Your Name", f;
-	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ r("p", {
+		children: o.map(x)
+	}), i[5] = o, i[6] = d);
+	let f = a.fullName || "Your Name", p;
+	i[7] === f ? p = i[8] : (p = /* @__PURE__ */ r("p", {
 		className: "aurora-footer__copy",
 		children: [
 			"© ",
 			c,
 			" ",
-			d
+			f
 		]
-	}), i[5] = d, i[6] = f);
-	let p;
-	return i[7] !== l || i[8] !== u || i[9] !== f ? (p = /* @__PURE__ */ r("footer", {
+	}), i[7] = f, i[8] = p);
+	let m;
+	return i[9] !== l || i[10] !== u || i[11] !== d || i[12] !== p ? (m = /* @__PURE__ */ r("footer", {
 		className: "aurora-footer",
 		children: [
 			l,
 			u,
-			f
+			d,
+			p
 		]
-	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
+	}), i[9] = l, i[10] = u, i[11] = d, i[12] = p, i[13] = m) : m = i[13], m;
 }
-function b(e) {
+function x(e) {
 	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
@@ -416,7 +426,7 @@ function b(e) {
 }
 //#endregion
 //#region src/templates/aurora/Template.tsx
-function x(t) {
+function S(t) {
 	let i = e(22), { data: a } = t, s = a.theme?.mode === "light" ? "light" : "dark", c = a.theme?.accentColor ?? "#7c3aed", u;
 	i[0] === c ? u = i[1] : (u = { "--aurora-accent": c }, i[0] = c, i[1] = u);
 	let d = u, p;
@@ -431,12 +441,12 @@ function x(t) {
 	let _;
 	i[9] === a.skills ? _ = i[10] : (_ = a.skills && a.skills.length > 0 && /* @__PURE__ */ n(g, { skills: a.skills }), i[9] = a.skills, i[10] = _);
 	let v;
-	i[11] !== a.profile || i[12] !== a.socials ? (v = /* @__PURE__ */ n(y, {
+	i[11] !== a.profile || i[12] !== a.socials ? (v = /* @__PURE__ */ n(b, {
 		profile: a.profile,
 		socials: a.socials
 	}), i[11] = a.profile, i[12] = a.socials, i[13] = v) : v = i[13];
-	let b;
-	return i[14] !== s || i[15] !== d || i[16] !== p || i[17] !== m || i[18] !== h || i[19] !== _ || i[20] !== v ? (b = /* @__PURE__ */ r("div", {
+	let y;
+	return i[14] !== s || i[15] !== d || i[16] !== p || i[17] !== m || i[18] !== h || i[19] !== _ || i[20] !== v ? (y = /* @__PURE__ */ r("div", {
 		className: "aurora",
 		"data-theme": s,
 		style: d,
@@ -447,7 +457,7 @@ function x(t) {
 			_,
 			v
 		]
-	}), i[14] = s, i[15] = d, i[16] = p, i[17] = m, i[18] = h, i[19] = _, i[20] = v, i[21] = b) : b = i[21], b;
+	}), i[14] = s, i[15] = d, i[16] = p, i[17] = m, i[18] = h, i[19] = _, i[20] = v, i[21] = y) : y = i[21], y;
 }
 //#endregion
-export { x as default };
+export { S as default };

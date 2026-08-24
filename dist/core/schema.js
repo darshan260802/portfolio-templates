@@ -31,6 +31,17 @@ const urlOrEmpty = orEmpty(z.string().url("Enter a valid URL, like https://examp
 const emailOrEmpty = orEmpty(z.string().email("Enter a valid email address, like name@example.com"));
 const dateOrEmpty = orEmpty(z.string().regex(/^\d{4}-\d{2}$/, "Use the format YYYY-MM, like 2024-06"));
 const hexColorOrEmpty = orEmpty(z.string().regex(/^#[0-9a-fA-F]{6}$/, "Expected a hex color like #aa3bff"));
+/**
+ * Deliberately permissive: phone numbers are display strings here, not
+ * dialable identifiers we parse. The lookahead enforces 6–15 actual digits
+ * (E.164's ceiling) while the character class allows the separators people
+ * really type — spaces, dots, dashes, parentheses — and an optional leading
+ * "+" for a country code. Templates render this verbatim and derive the
+ * `tel:` href by stripping everything but digits and that "+".
+ */
+const phoneOrEmpty = orEmpty(z
+    .string()
+    .regex(/^(?=(?:\D*\d){6,15}\D*$)\+?[\d\s().-]{5,23}$/, "Enter a valid phone number, like +1 555 123 4567"));
 const socialSchema = z.object({
     platform: z.enum([
         "github",
@@ -56,6 +67,7 @@ const profileSchema = z.object({
     bio: z.string().max(4000).optional(),
     location: z.string().max(120).optional(),
     email: emailOrEmpty,
+    phone: phoneOrEmpty,
     avatarUrl: urlOrEmpty,
     resumeUrl: urlOrEmpty,
 });

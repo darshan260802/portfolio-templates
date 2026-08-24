@@ -1,5 +1,10 @@
 import type { Profile, Social } from "../../../schema.js";
 
+/** See aurora's Footer for why every template derives this rather than storing it. */
+function telHref(phone: string): string {
+	return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
 export function Footer({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	const year = new Date().getFullYear();
 
@@ -8,6 +13,11 @@ export function Footer({ profile, socials }: { profile: Profile; socials?: Socia
 			{profile.email && (
 				<a className="nocturne-footer__cta" href={`mailto:${profile.email}`}>
 					Get in touch
+				</a>
+			)}
+			{profile.phone && (
+				<a className="nocturne-footer__phone" href={telHref(profile.phone)}>
+					{profile.phone}
 				</a>
 			)}
 			{socials && socials.length > 0 && (

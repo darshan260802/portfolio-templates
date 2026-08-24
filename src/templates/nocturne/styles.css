@@ -24,6 +24,7 @@
 	color: var(--nocturne-text);
 	font-family: var(--nocturne-font-sans);
 	line-height: 1.6;
+	min-height: 100dvh;
 	overflow-x: clip;
 	-webkit-font-smoothing: antialiased;
 }
@@ -381,6 +382,13 @@
 	font-family: var(--nocturne-font-display);
 	font-size: clamp(1.75rem, 4vw, 2.5rem);
 	font-weight: 600;
+}
+
+.nocturne-footer__phone {
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.95rem;
+	color: var(--nocturne-accent);
+	font-variant-numeric: tabular-nums;
 }
 
 .nocturne-footer__socials {

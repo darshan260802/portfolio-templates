@@ -17,6 +17,7 @@
 	background: var(--aurora-bg);
 	color: var(--aurora-text);
 	line-height: 1.5;
+	min-height: 100dvh;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -336,6 +337,12 @@
 .aurora-footer__email {
 	font-weight: 600;
 	color: var(--aurora-accent);
+}
+
+.aurora-footer__phone {
+	color: var(--aurora-text-muted);
+	font-size: 0.9rem;
+	font-variant-numeric: tabular-nums;
 }
 
 .aurora-footer__socials {
