@@ -19,6 +19,7 @@ export type TemplateComponent = ComponentType<{ data: PortfolioData }>;
 export const TEMPLATE_LOADERS: Record<string, () => Promise<{ default: TemplateComponent }>> = {
 	atlas: () => import("@pb/templates/dist/atlas/index.js"),
 	aurora: () => import("@pb/templates/dist/aurora/index.js"),
+	instrument: () => import("@pb/templates/dist/instrument/index.js"),
 	monolith: () => import("@pb/templates/dist/monolith/index.js"),
 	nocturne: () => import("@pb/templates/dist/nocturne/index.js"),
 	prism: () => import("@pb/templates/dist/prism/index.js"),
