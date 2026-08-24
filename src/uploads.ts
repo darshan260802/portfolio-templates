@@ -214,6 +214,53 @@ export function resumeFormatLabel(profile: ResumeProfile): string | undefined {
 }
 
 /**
+ * Word-processor punctuation, mapped to the ASCII it stands in for. These
+ * arrive constantly in filenames people export from Word and Pages, and
+ * dropping them outright would turn "Jane — CV.pdf" into "Jane  CV.pdf".
+ */
+const PUNCTUATION_FOLD: Record<string, string> = {
+	"\u2013": "-", // en dash
+	"\u2014": "-", // em dash
+	"\u2018": "'", // left single quote
+	"\u2019": "'", // right single quote
+	"\u201c": '"', // left double quote
+	"\u201d": '"', // right double quote
+	"\u2026": "...", // ellipsis
+	"\u00a0": " ", // non-breaking space
+};
+
+/**
+ * A filename reduced to printable ASCII, or "" if nothing usable survives.
+ *
+ * Not cosmetic — load-bearing. Chromium discards a `download` attribute
+ * containing ANY non-ASCII character and saves the file as literally
+ * "download", extension and all. Verified in a real browser: "Résumé.pdf",
+ * "Jane — Doe.pdf" and "履歴書.pdf" each came back as "download", while
+ * spaces, "&", "#" and parentheses came through untouched. So an accent in
+ * someone's name would silently reproduce the exact problem `resumeFilename`
+ * exists to solve.
+ *
+ * Accents fold to their base letter (NFKD splits "é" into "e" + a combining
+ * mark, which is then dropped); the punctuation above maps to its ASCII
+ * equivalent; anything still outside printable ASCII — CJK, emoji — is
+ * removed, and the caller falls back to a derived name if that empties the
+ * filename out.
+ */
+export function toAsciiFilename(name: string): string {
+	return name
+		.replace(/[\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00a0]/g, (ch) => PUNCTUATION_FOLD[ch] ?? "")
+		.normalize("NFKD")
+		// Combining marks left behind by NFKD ("e" + U+0301 for "é").
+		.replace(/[\u0300-\u036f]/g, "")
+		.replace(/[^\x20-\x7e]/g, "")
+		.replace(/\s+/g, " ")
+		// A character dropped just before the extension ("CV 🎉.pdf") would
+		// otherwise leave "CV .pdf".
+		.replace(/\s+(?=\.[^.]*$)/, "")
+		.trim();
+}
+
+/**
  * What to put in the anchor's `download` attribute — the name the visitor's
  * browser saves the file under.
  *
@@ -231,7 +278,15 @@ export function resumeFormatLabel(profile: ResumeProfile): string | undefined {
  */
 export function resumeDownloadName(profile: ResumeProfile): string | undefined {
 	if (!profile.resumeUrl) return undefined;
-	if (profile.resumeFilename) return profile.resumeFilename;
+
+	if (profile.resumeFilename) {
+		const ascii = toAsciiFilename(profile.resumeFilename);
+		// A name that folded away to nothing but its extension ("履歴書.pdf")
+		// falls through to the derived name rather than being served as
+		// ".pdf" — the stored value stays intact either way, so the wizard
+		// still shows the owner what they actually uploaded.
+		if (/[^.]/.test(ascii.replace(/\.[^.]*$/, ""))) return ascii;
+	}
 
 	const extension = extensionOf(profile.resumeUrl);
 	if (!extension || !uploadFormatForExtension(RESUME_RULES, extension)) return undefined;

@@ -709,7 +709,7 @@ function Y(e) {
 //#endregion
 //#region src/uploads.ts
 function ie(e) {
-	return ce(e, "word/document.xml") !== -1;
+	return ue(e, "word/document.xml") !== -1;
 }
 var X = {
 	kind: "resume",
@@ -758,22 +758,38 @@ function ae(e) {
 	let t = Q(e.resumeFilename) ?? Q(e.resumeUrl);
 	if (t) return Z(X, t)?.label;
 }
-function oe(e) {
+var oe = {
+	"–": "-",
+	"—": "-",
+	"‘": "'",
+	"’": "'",
+	"“": "\"",
+	"”": "\"",
+	"…": "...",
+	"\xA0": " "
+};
+function se(e) {
+	return e.replace(/[\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00a0]/g, (e) => oe[e] ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").replace(/\s+(?=\.[^.]*$)/, "").trim();
+}
+function ce(e) {
 	if (!e.resumeUrl) return;
-	if (e.resumeFilename) return e.resumeFilename;
+	if (e.resumeFilename) {
+		let t = se(e.resumeFilename);
+		if (/[^.]/.test(t.replace(/\.[^.]*$/, ""))) return t;
+	}
 	let t = Q(e.resumeUrl);
 	if (!t || !Z(X, t)) return;
 	let n = e.fullName.normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-");
 	return n ? `${n}-resume.${t}` : `resume.${t}`;
 }
-function se(e) {
+function le(e) {
 	return e.resumeUrl ? {
 		href: e.resumeUrl,
-		download: oe(e),
+		download: ce(e),
 		format: ae(e)
 	} : null;
 }
-function ce(e, t) {
+function ue(e, t) {
 	let n = new Uint8Array(t.length);
 	for (let e = 0; e < t.length; e++) n[e] = t.charCodeAt(e);
 	outer: for (let t = 0; t <= e.length - n.length; t++) {
@@ -784,10 +800,10 @@ function ce(e, t) {
 }
 //#endregion
 //#region src/templates/instrument/sections/Contact.tsx
-function le(e) {
+function de(e) {
 	return `tel:${e.replace(/[^\d+]/g, "")}`;
 }
-var $ = {
+var fe = {
 	github: "GitHub",
 	linkedin: "LinkedIn",
 	twitter: "X",
@@ -798,14 +814,14 @@ var $ = {
 	website: "Website",
 	other: "Link"
 };
-function ue(e) {
+function pe(e) {
 	return e.split(/(?<=[@.])/).map((e, t) => /* @__PURE__ */ u(r, { children: [e, /* @__PURE__ */ l("wbr", {})] }, `${e}-${t}`));
 }
-function de(t) {
+function $(t) {
 	let n = e(26), { profile: r, socials: i } = t, a;
 	n[0] === Symbol.for("react.memo_cache_sentinel") ? (a = (/* @__PURE__ */ new Date()).getFullYear(), n[0] = a) : a = n[0];
 	let o = a, s;
-	n[1] === r ? s = n[2] : (s = se(r), n[1] = r, n[2] = s);
+	n[1] === r ? s = n[2] : (s = le(r), n[1] = r, n[2] = s);
 	let c = s, d = r.location ?? "Open to work", f;
 	n[3] === d ? f = n[4] : (f = /* @__PURE__ */ l(M, {
 		id: "contact",
@@ -818,20 +834,20 @@ function de(t) {
 		href: `mailto:${r.email}`,
 		children: /* @__PURE__ */ l("span", {
 			className: "ins-contact__shine",
-			children: ue(r.email)
+			children: pe(r.email)
 		})
 	}), n[5] = r.email, n[6] = p);
 	let m;
 	n[7] === r.phone ? m = n[8] : (m = r.phone && /* @__PURE__ */ l("a", {
 		className: "ins-contact__phone",
-		href: le(r.phone),
+		href: de(r.phone),
 		children: r.phone
 	}), n[7] = r.phone, n[8] = m);
 	let h;
 	n[9] === i ? h = n[10] : (h = i && i.length > 0 && /* @__PURE__ */ l("nav", {
 		className: "ins-contact__links",
 		"aria-label": "Elsewhere",
-		children: i.map(fe)
+		children: i.map(me)
 	}), n[9] = i, n[10] = h);
 	let g;
 	n[11] === c ? g = n[12] : (g = c && /* @__PURE__ */ u("a", {
@@ -870,18 +886,18 @@ function de(t) {
 		})
 	}), n[19] = x, n[20] = f, n[21] = p, n[22] = m, n[23] = h, n[24] = g, n[25] = S) : S = n[25], S;
 }
-function fe(e) {
+function me(e) {
 	return /* @__PURE__ */ u("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
-		children: [e.label ?? $[e.platform], " ↗"]
+		children: [e.label ?? fe[e.platform], " ↗"]
 	}, e.platform + e.url);
 }
 //#endregion
 //#region src/templates/instrument/Template.tsx
 t.registerPlugin(n);
-function pe(t) {
+function he(t) {
 	let n = e(57), { data: r } = t, i = r.theme?.mode === "light" ? "light" : "dark", a = r.theme?.accentColor, o;
 	n[0] === r.profile.bio ? o = n[1] : (o = r.profile.bio && r.profile.bio.trim() !== "", n[0] = r.profile.bio, n[1] = o);
 	let s = !!o, c = (r.experience?.length ?? 0) > 0, d = (r.projects?.length ?? 0) > 0, f = (r.skills?.length ?? 0) > 0, p;
@@ -916,11 +932,11 @@ function pe(t) {
 		h,
 		g,
 		_
-	].filter(he), n[11] = p, n[12] = m, n[13] = h, n[14] = g, n[15] = v) : v = n[15];
+	].filter(_e), n[11] = p, n[12] = m, n[13] = h, n[14] = g, n[15] = v) : v = n[15];
 	let b = v, x;
 	n[16] === r.skills ? x = n[17] : (x = r.skills ?? [], n[16] = r.skills, n[17] = x);
 	let S;
-	n[18] === x ? S = n[19] : (S = x.map(me), n[18] = x, n[19] = S);
+	n[18] === x ? S = n[19] : (S = x.map(ge), n[18] = x, n[19] = S);
 	let w = S, T;
 	n[20] === a ? T = n[21] : (T = a ? { "--ins-signal": a } : void 0, n[20] = a, n[21] = T);
 	let E;
@@ -947,7 +963,7 @@ function pe(t) {
 	let N;
 	n[40] !== r.skills || n[41] !== f ? (N = f && r.skills && /* @__PURE__ */ l(q, { skills: r.skills }), n[40] = r.skills, n[41] = f, n[42] = N) : N = n[42];
 	let F;
-	n[43] !== r.profile || n[44] !== r.socials ? (F = /* @__PURE__ */ l(de, {
+	n[43] !== r.profile || n[44] !== r.socials ? (F = /* @__PURE__ */ l($, {
 		profile: r.profile,
 		socials: r.socials
 	}), n[43] = r.profile, n[44] = r.socials, n[45] = F) : F = n[45];
@@ -968,11 +984,11 @@ function pe(t) {
 		]
 	}), n[46] = i, n[47] = T, n[48] = E, n[49] = D, n[50] = O, n[51] = k, n[52] = j, n[53] = M, n[54] = N, n[55] = F, n[56] = I) : I = n[56], I;
 }
-function me(e) {
+function ge(e) {
 	return e.name;
 }
-function he(e) {
+function _e(e) {
 	return e !== !1;
 }
 //#endregion
-export { pe as default };
+export { he as default };
