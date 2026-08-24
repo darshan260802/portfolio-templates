@@ -4,6 +4,7 @@ import { manifest as monolithManifest } from "./templates/monolith/manifest.js";
 import { manifest as prismManifest } from "./templates/prism/manifest.js";
 import { manifest as nocturneManifest } from "./templates/nocturne/manifest.js";
 import { manifest as atlasManifest } from "./templates/atlas/manifest.js";
+import { manifest as instrumentManifest } from "./templates/instrument/manifest.js";
 
 /**
  * Template metadata — id, name, thumbnail, which sections it renders.
@@ -32,6 +33,7 @@ export const TEMPLATES: TemplateManifest[] = [
 	prismManifest,
 	nocturneManifest,
 	atlasManifest,
+	instrumentManifest,
 ];
 
 export function getTemplateManifest(id: string): TemplateManifest | undefined {

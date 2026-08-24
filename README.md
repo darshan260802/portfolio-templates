@@ -1,6 +1,6 @@
 # @pb/templates
 
-Shared schema, the five portfolio templates, and the build scaffold
+Shared schema, the six portfolio templates, and the build scaffold
 for [Portfolio Builder](https://github.com/darshan260802/portfolio-ui).
 Consumed as a `github:` dependency by both
 [`portfolio-ui`](https://github.com/darshan260802/portfolio-ui) and
@@ -12,13 +12,14 @@ Consumed as a `github:` dependency by both
   <a href="docs/screenshots/monolith.png"><img src="docs/screenshots/thumb-monolith.png" alt="Monolith" width="18%" /></a>
   <a href="docs/screenshots/nocturne.png"><img src="docs/screenshots/thumb-nocturne.png" alt="Nocturne" width="18%" /></a>
   <a href="docs/screenshots/prism.png"><img src="docs/screenshots/thumb-prism.png" alt="Prism" width="18%" /></a>
+  <a href="docs/screenshots/instrument.png"><img src="docs/screenshots/thumb-instrument.png" alt="Instrument" width="18%" /></a>
 </p>
 
 ---
 
 ## What's here
 
-Five hand-designed React templates that render one shared
+Six hand-designed React templates that render one shared
 `PortfolioData` object. Each is a real, animated site — not a static
 image — with its own typography, motion, and layout language.
 Everything the builder UI, the ZIP export, and the hosted build need to
@@ -60,7 +61,12 @@ render or generate a portfolio lives in this one package.
       <p><em>Colorful · Glassmorphism · Bento · Playful · Creative</em></p>
       <p>Glassmorphic bento grid over a living gradient backdrop. For designers and creatives who want to show personality.</p>
     </td>
-    <td width="33%"></td>
+    <td align="center" width="33%">
+      <a href="docs/screenshots/instrument.png"><img src="docs/screenshots/thumb-instrument.png" alt="Instrument thumbnail" /></a>
+      <h3>Instrument</h3>
+      <p><em>Dark · Minimal · Monospace · Brutalist · Animated</em></p>
+      <p>An achromatic instrument panel — pure black, hairline rules, zero corner radius, and a wall-sized extended grotesk. Scroll-velocity marquee, word-by-word summary scrub, spotlight cards.</p>
+    </td>
   </tr>
 </table>
 
@@ -73,6 +79,7 @@ render or generate a portfolio lives in this one package.
 | **Loaders map, not template literals** | `src/loaders.ts` is a static `{ id: () => import(...) }` map (Rolldown can't code-split a dynamic template-literal specifier). The web app's preview iframe is the only consumer allowed to import it. |
 | **Scaffold shell for export & hosting** | `scaffold/` is a real Vite + React project template. The API materializes it per deploy — same shell for the hosted build and the ZIP download. |
 | **Deliberately narrow rich-text** | `src/rich-text.tsx` renders the sanitized HTML (`p / strong / em / a / ul / ol / li` only) the API allows — the exact surface the wizard's TipTap editor produces. |
+| **Fonts stay in the template** | Every template names its own stack. Instrument is the one that pulls webfonts (Archivo's variable `wdth` axis has no system equivalent) — via a single `@import` in its own `styles.css`, so the dependency travels with the template rather than the shared scaffold. |
 | **Optional phone with derived `tel:` link** | The schema stores whatever separators the user typed; each template's footer strips them for the href, so display and dialability stay independent. |
 
 ## Who it's for
@@ -99,6 +106,11 @@ render or generate a portfolio lives in this one package.
 <p align="center">
   <a href="docs/screenshots/prism.png"><img src="docs/screenshots/prism.png" alt="Prism — full render." width="600" /></a>
   <br /><em>Prism — glassmorphic bento cards over a living gradient.</em>
+</p>
+
+<p align="center">
+  <a href="docs/screenshots/instrument.png"><img src="docs/screenshots/instrument.png" alt="Instrument — full render." width="600" /></a>
+  <br /><em>Instrument — achromatic, hairline-ruled, zero radius. The only template that renders <code>education</code>.</em>
 </p>
 
 (See `docs/screenshots/` for Aurora and Monolith.)

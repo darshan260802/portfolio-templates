@@ -1,0 +1,1081 @@
+/* Archivo carries the design: its variable `wdth` axis is what makes the
+   hero name read as a wall-sized instrument label rather than "big bold
+   text". Instrument Sans and JetBrains Mono do body and metadata. Loaded
+   from Google Fonts because a variable-width grotesk has no system
+   equivalent to fall back to — the stacks below still degrade sanely if
+   the request never lands. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400..600&display=swap");
+
+/* Instrument — an achromatic instrument panel. Pure black, hairline
+   rules, zero corner radius anywhere, and exactly one non-neutral value
+   (the "signal", white by default, or the user's accent). Dark-first, the
+   way Nocturne is: picking Instrument from the gallery should show its
+   signature look without flipping a theme toggle first. Scoped entirely
+   under .instrument. */
+
+.instrument {
+	--ins-ink: #000000;
+	--ins-surface: #0a0a0a;
+	--ins-line: #1c1c1c;
+	--ins-line-hi: #333333;
+	--ins-muted: #737373;
+	--ins-paper: #ededed;
+	--ins-signal: #ffffff;
+
+	--ins-display: "Archivo", "Archivo Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--ins-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+	--ins-mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+	position: relative;
+	min-height: 100dvh;
+	background: var(--ins-ink);
+	color: var(--ins-paper);
+	font-family: var(--ins-sans);
+	line-height: 1.5;
+	letter-spacing: -0.015em;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* The light variant inverts the panel rather than tinting it — the design
+   is achromatic in both directions, never "dark mode with grey text". */
+.instrument[data-theme="light"] {
+	--ins-ink: #ffffff;
+	--ins-surface: #f5f5f5;
+	--ins-line: #e3e3e3;
+	--ins-line-hi: #c4c4c4;
+	--ins-muted: #767676;
+	--ins-paper: #131313;
+	--ins-signal: #000000;
+}
+
+.instrument * {
+	box-sizing: border-box;
+}
+
+.instrument a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.instrument ::selection {
+	background: var(--ins-signal);
+	color: var(--ins-ink);
+}
+
+.instrument :focus-visible {
+	outline: 1px solid var(--ins-signal);
+	outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- shared */
+
+.ins-shell {
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 4.5rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+	.ins-shell {
+		padding: 7rem 2.5rem;
+	}
+}
+
+/* Every section announces itself the same way: a label on the left and a
+   readout on the right, over a hairline. That repetition IS the design. */
+.ins-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.35rem 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--ins-line);
+	scroll-margin-top: 5rem;
+}
+
+.ins-head__label,
+.ins-head__readout {
+	font-family: var(--ins-mono);
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	white-space: nowrap;
+}
+
+.ins-head__label {
+	color: var(--ins-paper);
+}
+
+.ins-head__readout {
+	color: var(--ins-muted);
+	text-align: right;
+}
+
+/* A long readout (a location, a date range) would otherwise force the row
+   wider than the phone it's on — both halves are nowrap by design. */
+@media (max-width: 599px) {
+	.ins-head__label,
+	.ins-head__readout {
+		font-size: 0.625rem;
+		letter-spacing: 0.12em;
+	}
+	.ins-head__readout {
+		white-space: normal;
+		text-align: left;
+	}
+}
+
+.ins-tag {
+	display: inline-block;
+	border: 1px solid var(--ins-line);
+	padding: 0.25rem 0.6rem;
+	font-family: var(--ins-mono);
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--ins-muted);
+}
+
+/* ------------------------------------------------------------------- bar */
+
+.ins-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 30;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	border-bottom: 1px solid var(--ins-line);
+	background: color-mix(in srgb, var(--ins-ink) 80%, transparent);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	padding: 0.9rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+	.ins-bar {
+		padding: 1rem 2.5rem;
+	}
+}
+
+.ins-bar__mark {
+	font-family: var(--ins-mono);
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--ins-paper);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ins-bar__nav {
+	display: none;
+	align-items: center;
+	gap: 2rem;
+}
+
+@media (min-width: 768px) {
+	.ins-bar__nav {
+		display: flex;
+	}
+}
+
+.ins-bar__nav a {
+	font-family: var(--ins-mono);
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--ins-muted);
+	transition: color 0.2s ease;
+}
+
+.ins-bar__nav a:hover {
+	color: var(--ins-signal);
+}
+
+.ins-bar__progress {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: var(--ins-line);
+	pointer-events: none;
+}
+
+.ins-bar__progress span {
+	display: block;
+	height: 100%;
+	width: 0;
+	background: var(--ins-signal);
+	transform-origin: left;
+}
+
+/* The mobile menu: a full-panel overlay whose entries stagger in, rather
+   than a dropdown. Same hairline vocabulary, no rounding. */
+.ins-bar__toggle {
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 5px;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+
+@media (min-width: 768px) {
+	.ins-bar__toggle {
+		display: none;
+	}
+}
+
+.ins-bar__toggle span {
+	display: block;
+	height: 1px;
+	width: 100%;
+	background: var(--ins-paper);
+	transition:
+		transform 0.25s ease,
+		opacity 0.2s ease;
+}
+
+.ins-bar__toggle[aria-expanded="true"] span:nth-child(1) {
+	transform: translateY(3px) rotate(45deg);
+}
+
+.ins-bar__toggle[aria-expanded="true"] span:nth-child(2) {
+	opacity: 0;
+}
+
+.ins-bar__toggle[aria-expanded="true"] span:nth-child(3) {
+	transform: translateY(-3px) rotate(-45deg);
+}
+
+.ins-menu {
+	position: fixed;
+	inset: 0;
+	z-index: 29;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.25rem;
+	padding: 5rem 1.25rem 2rem;
+	background: var(--ins-surface);
+}
+
+.ins-menu__item {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+	border-bottom: 1px solid var(--ins-line);
+	padding: 1rem 0;
+	font-family: var(--ins-display);
+	font-size: 2rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: -0.03em;
+	color: var(--ins-paper);
+}
+
+.ins-menu__index {
+	font-family: var(--ins-mono);
+	font-size: 0.625rem;
+	font-weight: 400;
+	letter-spacing: 0.16em;
+	color: var(--ins-muted);
+}
+
+@keyframes ins-menu-in {
+	from {
+		opacity: 0;
+		transform: translateY(24px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* ----------------------------------------------------------------- hero */
+
+.ins-hero {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	min-height: 100dvh;
+	overflow: hidden;
+	background: var(--ins-ink);
+}
+
+/* The backdrop the WebGL "threads" stand in for: a hairline column field
+   with one slow sweep travelling across it. Cheap, always available, and
+   it reads as an instrument's own gridded face. */
+.ins-hero__field {
+	position: absolute;
+	inset: 0;
+	background-image: repeating-linear-gradient(
+		90deg,
+		var(--ins-line) 0,
+		var(--ins-line) 1px,
+		transparent 1px,
+		transparent 64px
+	);
+	mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 62%, transparent 96%);
+	-webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 62%, transparent 96%);
+}
+
+.ins-hero__sweep {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: linear-gradient(
+		90deg,
+		transparent 0%,
+		color-mix(in srgb, var(--ins-signal) 6%, transparent) 45%,
+		color-mix(in srgb, var(--ins-signal) 14%, transparent) 50%,
+		color-mix(in srgb, var(--ins-signal) 6%, transparent) 55%,
+		transparent 100%
+	);
+	background-size: 45% 100%;
+	background-repeat: no-repeat;
+	animation: ins-sweep 9s linear infinite;
+}
+
+@keyframes ins-sweep {
+	from {
+		background-position: -50% 0;
+	}
+	to {
+		background-position: 150% 0;
+	}
+}
+
+.ins-hero__fade {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: linear-gradient(to bottom, transparent 40%, var(--ins-ink) 100%);
+}
+
+.ins-hero__body {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 0 1.25rem 4rem;
+}
+
+@media (min-width: 768px) {
+	.ins-hero__body {
+		padding: 0 2.5rem 6rem;
+	}
+}
+
+.ins-hero__name {
+	margin: 0;
+	font-family: var(--ins-display);
+	font-weight: 700;
+	font-variation-settings: "wdth" 125, "wght" 700;
+	text-transform: uppercase;
+	font-size: clamp(2.75rem, 12vw, 11rem);
+	line-height: 0.85;
+	letter-spacing: -0.045em;
+	color: var(--ins-signal);
+	overflow-wrap: anywhere;
+}
+
+.ins-hero__word {
+	display: block;
+}
+
+/* The intro's "from" state lives here rather than in a style attribute, so
+   there's no flash of finished text before GSAP attaches — and so
+   useGSAP's revertOnUpdate lands back on it when the name changes. */
+.ins-hero__char {
+	display: inline-block;
+	opacity: 0;
+	transform: translateY(60px);
+	will-change: transform, opacity;
+}
+
+.ins-hero__role {
+	margin: 1.5rem 0 0;
+	max-width: 40ch;
+	font-size: 1.05rem;
+	color: var(--ins-paper);
+}
+
+@media (min-width: 768px) {
+	.ins-hero__role {
+		font-size: 1.5rem;
+	}
+}
+
+/* role and readout always render (see Hero.tsx) — hide the empty ones
+   rather than unmounting them. */
+.ins-hero__role:empty,
+.ins-hero__readout:empty {
+	display: none;
+}
+
+.ins-hero__sep {
+	color: var(--ins-muted);
+}
+
+.ins-hero__readout {
+	margin: 2.25rem 0 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 2rem;
+	border-top: 1px solid var(--ins-line);
+	padding-top: 1.25rem;
+}
+
+.ins-hero__readout > div {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	min-width: 0;
+}
+
+.ins-hero__readout dt {
+	font-family: var(--ins-mono);
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--ins-muted);
+}
+
+.ins-hero__readout dd {
+	margin: 0;
+	font-family: var(--ins-mono);
+	font-size: 0.8125rem;
+	color: var(--ins-paper);
+	overflow-wrap: anywhere;
+}
+
+.ins-hero__reveal {
+	opacity: 0;
+	transform: translateY(16px);
+}
+
+/* --------------------------------------------------------------- marquee */
+
+.ins-marquee {
+	border-top: 1px solid var(--ins-line);
+	border-bottom: 1px solid var(--ins-line);
+	overflow: hidden;
+	padding: 1.5rem 0;
+	background: var(--ins-ink);
+}
+
+@media (min-width: 768px) {
+	.ins-marquee {
+		padding: 2.25rem 0;
+	}
+}
+
+.ins-marquee__track {
+	display: flex;
+	width: max-content;
+	white-space: nowrap;
+	font-family: var(--ins-display);
+	font-weight: 700;
+	font-variation-settings: "wdth" 112, "wght" 700;
+	text-transform: uppercase;
+	font-size: 1.5rem;
+	letter-spacing: -0.02em;
+	color: var(--ins-paper);
+}
+
+@media (min-width: 768px) {
+	.ins-marquee__track {
+		font-size: 2.25rem;
+	}
+}
+
+.ins-marquee__copy {
+	flex: 0 0 auto;
+	padding-right: 0.5ch;
+}
+
+/* --------------------------------------------------------------- summary */
+
+.ins-summary {
+	margin-top: 3rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+	.ins-summary {
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 3.5rem;
+	}
+}
+
+.ins-summary__prose {
+	max-width: 46ch;
+	font-family: var(--ins-display);
+	font-weight: 500;
+	font-size: 1.5rem;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+	color: var(--ins-paper);
+	overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+	.ins-summary__prose {
+		font-size: 2.25rem;
+	}
+}
+
+.ins-summary__prose p {
+	margin: 0;
+}
+
+.ins-summary__prose p + p {
+	margin-top: 0.5em;
+}
+
+.ins-summary__prose ul,
+.ins-summary__prose ol {
+	margin: 0.5em 0 0;
+	padding-left: 1em;
+}
+
+.ins-summary__prose a {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	text-decoration-color: var(--ins-line-hi);
+}
+
+/* Each word is its own inline-block so the scrub can move them
+   independently — see Summary.tsx for why the wrapping happens in the DOM
+   rather than in the data. */
+.ins-word {
+	display: inline-block;
+	will-change: opacity, filter;
+}
+
+.ins-summary__facts {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-self: start;
+	border-left: 1px solid var(--ins-line);
+	padding-left: 1.5rem;
+	font-family: var(--ins-mono);
+	font-size: 0.8125rem;
+	min-width: 0;
+}
+
+.ins-summary__facts dt {
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--ins-muted);
+}
+
+.ins-summary__facts dd {
+	margin: 0.25rem 0 0;
+	color: var(--ins-paper);
+	overflow-wrap: anywhere;
+}
+
+/* ----------------------------------------------------------- track record */
+
+.ins-entry {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1rem;
+	border-top: 1px solid var(--ins-line);
+	padding: 2rem 0;
+}
+
+@media (min-width: 768px) {
+	.ins-entry {
+		grid-template-columns: 220px minmax(0, 1fr);
+		gap: 2.5rem;
+		padding: 2.5rem 0;
+	}
+}
+
+.ins-entry__meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	min-width: 0;
+}
+
+.ins-entry__period {
+	font-family: var(--ins-mono);
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--ins-muted);
+}
+
+.ins-entry__company {
+	margin: 0;
+	font-family: var(--ins-display);
+	font-size: 1.25rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: var(--ins-signal);
+	overflow-wrap: anywhere;
+}
+
+.ins-entry__role {
+	font-size: 0.875rem;
+	color: var(--ins-muted);
+	overflow-wrap: anywhere;
+}
+
+.ins-entry__body {
+	min-width: 0;
+	color: var(--ins-paper);
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.ins-entry__body p {
+	margin: 0;
+}
+
+.ins-entry__body > * + * {
+	margin-top: 1rem;
+}
+
+.ins-entry__body p + p {
+	margin-top: 0.6em;
+}
+
+/* The one place the rich-text list styling matters: the source design's
+   entries are dashed rules, not disc bullets. */
+.ins-entry__body ul,
+.ins-entry__body ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.ins-entry__body li {
+	position: relative;
+	padding-left: 1.75rem;
+}
+
+.ins-entry__body li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.75em;
+	width: 1rem;
+	height: 1px;
+	background: var(--ins-line-hi);
+}
+
+.ins-entry__body a {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-color: var(--ins-line-hi);
+}
+
+.ins-entry__reveal {
+	opacity: 0;
+	transform: translateY(32px);
+}
+
+/* --------------------------------------------------------------- systems */
+
+.ins-systems {
+	margin-top: 3rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+	.ins-systems {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.ins-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	overflow: hidden;
+	border: 1px solid var(--ins-line);
+	background: var(--ins-surface);
+	padding: 1.5rem;
+	min-width: 0;
+}
+
+@media (min-width: 768px) {
+	.ins-card {
+		padding: 2rem;
+	}
+}
+
+/* The pointer spotlight. Driven by two custom properties set from JS so
+   the whole effect is one composited radial-gradient, no re-render. */
+.ins-card__spot {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	background: radial-gradient(
+		circle at var(--ins-x, 50%) var(--ins-y, 50%),
+		color-mix(in srgb, var(--ins-signal) 9%, transparent),
+		transparent 70%
+	);
+}
+
+.ins-card[data-lit="true"] .ins-card__spot {
+	opacity: 1;
+}
+
+.ins-card > *:not(.ins-card__spot) {
+	position: relative;
+	z-index: 1;
+}
+
+.ins-card__index {
+	font-family: var(--ins-mono);
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--ins-muted);
+}
+
+.ins-card__media {
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	border: 1px solid var(--ins-line);
+	background: var(--ins-ink);
+}
+
+.ins-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: grayscale(1) contrast(1.05);
+	transition:
+		filter 0.4s ease,
+		transform 0.6s ease;
+}
+
+.ins-card:hover .ins-card__media img {
+	filter: grayscale(0);
+	transform: scale(1.03);
+}
+
+.ins-card__title {
+	margin: 0.5rem 0 0;
+	font-family: var(--ins-display);
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: -0.025em;
+	color: var(--ins-signal);
+	overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+	.ins-card__title {
+		font-size: 1.875rem;
+	}
+}
+
+.ins-card__body {
+	color: var(--ins-paper);
+	font-size: 0.95rem;
+	line-height: 1.6;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.ins-card__body p {
+	margin: 0;
+}
+
+.ins-card__body > * + * {
+	margin-top: 1rem;
+}
+
+.ins-card__body p + p {
+	margin-top: 0.6em;
+}
+
+.ins-card__body ul,
+.ins-card__body ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.ins-card__body li {
+	position: relative;
+	padding-left: 1.75rem;
+}
+
+.ins-card__body li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.75em;
+	width: 1rem;
+	height: 1px;
+	background: var(--ins-line-hi);
+}
+
+.ins-card__body a {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-color: var(--ins-line-hi);
+}
+
+.ins-card__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: auto;
+}
+
+.ins-card__links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	border-top: 1px solid var(--ins-line);
+	padding-top: 1.25rem;
+	font-family: var(--ins-mono);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--ins-muted);
+}
+
+.ins-card__links a {
+	transition: color 0.2s ease;
+}
+
+.ins-card__links a:hover {
+	color: var(--ins-signal);
+}
+
+/* ----------------------------------------------------------------- stack */
+
+.ins-stack {
+	margin-top: 3rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 2.5rem;
+}
+
+@media (min-width: 640px) {
+	.ins-stack {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 3rem 2.5rem;
+	}
+}
+
+.ins-stack__label {
+	margin: 0;
+	font-family: var(--ins-mono);
+	font-size: 0.6875rem;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--ins-muted);
+}
+
+.ins-stack__items {
+	list-style: none;
+	margin: 1rem 0 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.ins-stack__item {
+	display: block;
+	border: 1px solid var(--ins-line);
+	padding: 0.375rem 0.75rem;
+	font-size: 0.875rem;
+	color: var(--ins-paper);
+	transition:
+		border-color 0.2s ease,
+		color 0.2s ease;
+	will-change: transform;
+}
+
+.ins-stack__item:hover {
+	border-color: var(--ins-line-hi);
+	color: var(--ins-signal);
+}
+
+/* --------------------------------------------------------------- contact */
+
+.ins-contact {
+	border-top: 1px solid var(--ins-line);
+	background: var(--ins-ink);
+}
+
+.ins-contact__cta {
+	display: block;
+	margin-top: 3rem;
+	font-family: var(--ins-display);
+	font-weight: 700;
+	font-size: clamp(1.5rem, 7vw, 6rem);
+	line-height: 0.95;
+	letter-spacing: -0.03em;
+	color: var(--ins-signal);
+	overflow-wrap: anywhere;
+	transition: opacity 0.2s ease;
+}
+
+.ins-contact__cta:hover {
+	opacity: 0.8;
+}
+
+/* The shine sweeps a lighter band through the text itself. background-clip
+   means the element has no paint of its own, so a browser without it still
+   shows plain signal-colored type (see Contact.tsx's fallback). */
+.ins-contact__shine {
+	background-image: linear-gradient(
+		120deg,
+		var(--ins-muted) 0%,
+		var(--ins-muted) 35%,
+		var(--ins-signal) 50%,
+		var(--ins-muted) 65%,
+		var(--ins-muted) 100%
+	);
+	background-size: 200% auto;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: ins-shine 3.5s linear infinite;
+}
+
+@keyframes ins-shine {
+	from {
+		background-position: 150% center;
+	}
+	to {
+		background-position: -50% center;
+	}
+}
+
+.ins-contact__phone {
+	display: inline-block;
+	margin-top: 1rem;
+	font-family: var(--ins-mono);
+	font-size: 0.9375rem;
+	color: var(--ins-muted);
+	font-variant-numeric: tabular-nums;
+	transition: color 0.2s ease;
+}
+
+.ins-contact__phone:hover {
+	color: var(--ins-signal);
+}
+
+.ins-contact__links {
+	margin-top: 3rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 2.5rem;
+	border-top: 1px solid var(--ins-line);
+	padding-top: 2rem;
+	font-family: var(--ins-mono);
+	font-size: 0.8125rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--ins-muted);
+}
+
+.ins-contact__links a {
+	transition: color 0.2s ease;
+}
+
+.ins-contact__links a:hover {
+	color: var(--ins-signal);
+}
+
+.ins-contact__meta {
+	margin-top: 4rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	border-top: 1px solid var(--ins-line);
+	padding-top: 1.5rem;
+	font-family: var(--ins-mono);
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--ins-muted);
+}
+
+@media (min-width: 640px) {
+	.ins-contact__meta {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+/* --------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+	.instrument *,
+	.instrument *::before,
+	.instrument *::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+	.ins-hero__reveal,
+	.ins-entry__reveal {
+		opacity: 1;
+		transform: none;
+	}
+	.ins-hero__char {
+		opacity: 1 !important;
+		transform: none !important;
+	}
+	.ins-word {
+		opacity: 1 !important;
+		filter: none !important;
+	}
+	.ins-contact__shine {
+		animation: none;
+		background: none;
+		-webkit-background-clip: border-box;
+		background-clip: border-box;
+		color: var(--ins-signal);
+	}
+	.ins-hero__sweep {
+		display: none;
+	}
+}
