@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import type { Profile, Social } from "../../../schema.js";
 import { RichText } from "../../../rich-text.js";
+import { resumeDownload } from "../../../uploads.js";
 
 const SOCIAL_LABEL: Record<Social["platform"], string> = {
 	github: "GitHub",
@@ -15,6 +16,8 @@ const SOCIAL_LABEL: Record<Social["platform"], string> = {
 };
 
 export function Hero({ profile, socials }: { profile: Profile; socials?: Social[] }) {
+	const resume = resumeDownload(profile);
+
 	return (
 		<header className="prism-hero">
 			<motion.div
@@ -43,6 +46,18 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 							</a>
 						))}
 					</nav>
+				)}
+				{resume && (
+					<a
+						className="prism-hero__resume"
+						href={resume.href}
+						download={resume.download}
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						Download résumé
+						{resume.format && <span className="prism-hero__resume-format">{resume.format}</span>}
+					</a>
 				)}
 			</motion.div>
 

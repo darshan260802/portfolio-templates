@@ -24,6 +24,7 @@
 	color: var(--nocturne-text);
 	font-family: var(--nocturne-font-sans);
 	line-height: 1.6;
+	min-height: 100svh;
 	overflow-x: clip;
 	-webkit-font-smoothing: antialiased;
 }
@@ -175,6 +176,47 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1.25rem;
+}
+
+/* Portrait — brass hairline ring, sized to sit above the eyebrow without
+   competing with the oversized name below it. */
+.nocturne-hero__portrait {
+	display: block;
+	width: 5rem;
+	height: 5rem;
+	margin-bottom: 1.5rem;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid color-mix(in srgb, var(--nocturne-accent) 55%, transparent);
+	animation: nocturne-portrait-in 0.8s 0.15s ease-out both;
+}
+
+@keyframes nocturne-portrait-in {
+	from {
+		opacity: 0;
+		transform: scale(0.94);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.nocturne-hero__resume {
+	color: var(--nocturne-accent);
+	border-bottom: 1px solid color-mix(in srgb, var(--nocturne-accent) 45%, transparent);
+	padding-bottom: 2px;
+	transition: border-color 0.2s;
+}
+
+.nocturne-hero__resume:hover {
+	border-bottom-color: var(--nocturne-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nocturne-hero__portrait {
+		animation: none;
+	}
 }
 
 /* Timeline (experience) */
@@ -381,6 +423,13 @@
 	font-family: var(--nocturne-font-display);
 	font-size: clamp(1.75rem, 4vw, 2.5rem);
 	font-weight: 600;
+}
+
+.nocturne-footer__phone {
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.95rem;
+	color: var(--nocturne-accent);
+	font-variant-numeric: tabular-nums;
 }
 
 .nocturne-footer__socials {

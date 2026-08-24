@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="__SITE_FAVICON__" />
     <title>__SITE_TITLE__</title>
     <meta name="description" content="__SITE_DESCRIPTION__" />
     <link rel="canonical" href="__SITE_URL__" />
@@ -12,6 +13,47 @@
     <meta property="og:url" content="__SITE_URL__" />
     <meta property="og:image" content="__SITE_OG_IMAGE__" />
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- The only global CSS a generated site ships. Every template scopes
+         its own styles under its root class and therefore resets nothing
+         on html/body — without this, the browser's default
+         `body { margin: 8px }` draws a white frame around the whole
+         portfolio (very visible on a dark template) and `overflow-x`
+         goes unguarded on narrow screens. Vite injects the template's
+         stylesheet after this block, so a template can still override
+         anything here. -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        /* `clip`, not `hidden`: it contains stray horizontal overflow
+           without turning <html> into a scroll container, which would
+           break the position: sticky/fixed chrome several templates use. */
+        overflow-x: clip;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        /* `svh`, never `vh` or `dvh`: `vh` resolves to the viewport with
+           mobile browser chrome HIDDEN, so a 100vh floor is taller than
+           what is actually on screen; `dvh` tracks the chrome collapsing
+           and expanding, which reflows the whole document mid-scroll.
+           `svh` is the one fixed value of the three. */
+        min-height: 100svh;
+      }
+      #root {
+        min-height: 100svh;
+      }
+      img,
+      svg,
+      video,
+      canvas {
+        max-width: 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { RESUME_RULES, uploadExtensions, uploadFormatList } from "./uploads.js";
 /**
  * PortfolioData is the single source of truth for what a portfolio can contain.
  * It is consumed by:
@@ -31,6 +32,28 @@ const urlOrEmpty = orEmpty(z.string().url("Enter a valid URL, like https://examp
 const emailOrEmpty = orEmpty(z.string().email("Enter a valid email address, like name@example.com"));
 const dateOrEmpty = orEmpty(z.string().regex(/^\d{4}-\d{2}$/, "Use the format YYYY-MM, like 2024-06"));
 const hexColorOrEmpty = orEmpty(z.string().regex(/^#[0-9a-fA-F]{6}$/, "Expected a hex color like #aa3bff"));
+/**
+ * Deliberately permissive: phone numbers are display strings here, not
+ * dialable identifiers we parse. The lookahead enforces 6–15 actual digits
+ * (E.164's ceiling) while the character class allows the separators people
+ * really type — spaces, dots, dashes, parentheses — and an optional leading
+ * "+" for a country code. Templates render this verbatim and derive the
+ * `tel:` href by stripping everything but digits and that "+".
+ */
+const phoneOrEmpty = orEmpty(z
+    .string()
+    .regex(/^(?=(?:\D*\d){6,15}\D*$)\+?[\d\s().-]{5,23}$/, "Enter a valid phone number, like +1 555 123 4567"));
+/**
+ * A résumé's original filename, kept for the download name only — never used
+ * to locate the file, which is why a bare name (no path separators) with one
+ * of the allowed extensions is all this has to accept. The extension is what
+ * tells a template which format to advertise, so it is required here even
+ * though the browser would happily download an extensionless file.
+ */
+const resumeFilenameOrEmpty = orEmpty(z
+    .string()
+    .max(120)
+    .regex(new RegExp(`^[^/\\\\]+\\.(?:${uploadExtensions(RESUME_RULES).join("|")})$`, "i"), `A résumé must be a ${uploadFormatList(RESUME_RULES)} file`));
 const socialSchema = z.object({
     platform: z.enum([
         "github",
@@ -56,8 +79,17 @@ const profileSchema = z.object({
     bio: z.string().max(4000).optional(),
     location: z.string().max(120).optional(),
     email: emailOrEmpty,
+    phone: phoneOrEmpty,
     avatarUrl: urlOrEmpty,
+    // The résumé a visitor downloads. `resumeUrl` is where the file lives
+    // (Supabase Storage while editing; rewritten to a local /assets/ path by
+    // the API's localizeAssets for an exported or hosted build).
+    // `resumeFilename` is the name the file arrived with, carried separately
+    // because the stored object is named by a UUID — without it every visitor
+    // would save "a3f1…-9c2.pdf". Templates pass it to the anchor's `download`
+    // attribute; see resume.ts for why that only bites same-origin.
     resumeUrl: urlOrEmpty,
+    resumeFilename: resumeFilenameOrEmpty,
 });
 const dateRangeSchema = z.object({
     // ISO "YYYY-MM" — kept as a plain string so partial dates ("2023-06") are valid.

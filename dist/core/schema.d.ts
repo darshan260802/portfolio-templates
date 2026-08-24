@@ -20,8 +20,10 @@ declare const profileSchema: z.ZodObject<{
     bio: z.ZodOptional<z.ZodString>;
     location: z.ZodOptional<z.ZodString>;
     email: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
+    phone: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     avatarUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     resumeUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
+    resumeFilename: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
 }, z.core.$strip>;
 declare const experienceSchema: z.ZodObject<{
     id: z.ZodString;
@@ -90,8 +92,10 @@ export declare const portfolioDataSchema: z.ZodObject<{
         bio: z.ZodOptional<z.ZodString>;
         location: z.ZodOptional<z.ZodString>;
         email: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
+        phone: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         avatarUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
         resumeUrl: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
+        resumeFilename: z.ZodOptional<z.ZodPipe<z.ZodUnion<readonly [z.ZodLiteral<"">, z.ZodString]>, z.ZodTransform<string | undefined, string>>>;
     }, z.core.$strip>;
     socials: z.ZodOptional<z.ZodArray<z.ZodObject<{
         platform: z.ZodEnum<{

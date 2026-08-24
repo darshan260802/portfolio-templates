@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import type { Profile, Social } from "../../../schema.js";
+import { resumeDownload } from "../../../uploads.js";
 
 const SOCIAL_LABEL: Record<Social["platform"], string> = {
 	github: "GitHub",
@@ -36,6 +37,7 @@ const SOCIAL_LABEL: Record<Social["platform"], string> = {
  */
 export function Hero({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	const ref = useRef<HTMLElement>(null);
+	const resume = resumeDownload(profile);
 
 	useGSAP(
 		() => {
@@ -71,6 +73,13 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 					dangerouslySetInnerHTML={{ __html: profile.bio ?? "" }}
 				/>
 				<div className="atlas-hero__meta atlas-hero__reveal">
+					{/* The portrait is a child of an already-bound __reveal element
+					    rather than carrying that class itself — see the note above:
+					    a conditionally-mounted __reveal would never get bound and
+					    would sit at opacity 0 forever once real data arrived. */}
+					{profile.avatarUrl && (
+						<img className="atlas-hero__portrait" src={profile.avatarUrl} alt={profile.fullName} />
+					)}
 					{profile.location && <span>{profile.location}</span>}
 					{socials && socials.length > 0 && (
 						<nav className="atlas-hero__socials" aria-label="Social links">
@@ -80,6 +89,17 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 								</a>
 							))}
 						</nav>
+					)}
+					{resume && (
+						<a
+							className="atlas-hero__resume"
+							href={resume.href}
+							download={resume.download}
+							target="_blank"
+							rel="noreferrer noopener"
+						>
+							Résumé{resume.format ? ` — ${resume.format}` : ""} ↓
+						</a>
 					)}
 				</div>
 			</div>

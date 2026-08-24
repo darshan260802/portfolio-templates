@@ -17,6 +17,7 @@
 	background: var(--aurora-bg);
 	color: var(--aurora-text);
 	line-height: 1.5;
+	min-height: 100svh;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -137,6 +138,39 @@
 .aurora-hero__social:hover {
 	border-color: var(--aurora-accent);
 	background: color-mix(in srgb, var(--aurora-accent) 12%, transparent);
+}
+
+/* Résumé download — the one filled affordance in the hero, so it reads as
+   the primary action next to the outlined social pills. */
+.aurora-hero__resume {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin-top: 1.25rem;
+	padding: 0.6rem 1.3rem;
+	border-radius: 999px;
+	border: 1px solid transparent;
+	background: var(--aurora-accent);
+	color: #ffffff;
+	font-size: 0.9rem;
+	font-weight: 600;
+	transition:
+		filter 0.2s,
+		transform 0.2s;
+}
+
+.aurora-hero__resume:hover {
+	filter: brightness(1.12);
+	transform: translateY(-1px);
+}
+
+.aurora-hero__resume-format {
+	padding: 0.1rem 0.45rem;
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.18);
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
 }
 
 /* Sections */
@@ -336,6 +370,12 @@
 .aurora-footer__email {
 	font-weight: 600;
 	color: var(--aurora-accent);
+}
+
+.aurora-footer__phone {
+	color: var(--aurora-text-muted);
+	font-size: 0.9rem;
+	font-variant-numeric: tabular-nums;
 }
 
 .aurora-footer__socials {

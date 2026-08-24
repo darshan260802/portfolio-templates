@@ -11,3 +11,34 @@ createRoot(rootEl).render(
 		<Template data={data} />
 	</StrictMode>,
 );
+
+/**
+ * Every template paints its background on its own root element, not on the
+ * document — so on iOS/Android an overscroll rubber-band exposes the
+ * browser's white default behind a dark portfolio. Copy whatever the
+ * template resolved to (it varies per template and per theme mode) up onto
+ * <html>, so the bounce matches the page.
+ *
+ * Waiting on a MutationObserver rather than one requestAnimationFrame:
+ * createRoot().render() schedules the render, it doesn't perform it, so a
+ * single frame later #root is still empty and there is nothing to read a
+ * color off. The observer fires on the commit that actually inserts the
+ * template, whenever that lands, and disconnects itself immediately.
+ */
+function mirrorBackground(): boolean {
+	const templateRoot = rootEl!.firstElementChild;
+	if (!templateRoot) return false;
+	const { backgroundColor } = getComputedStyle(templateRoot);
+	if (!backgroundColor || backgroundColor === "rgba(0, 0, 0, 0)" || backgroundColor === "transparent") {
+		return false;
+	}
+	document.documentElement.style.backgroundColor = backgroundColor;
+	return true;
+}
+
+if (!mirrorBackground()) {
+	const observer = new MutationObserver(() => {
+		if (mirrorBackground()) observer.disconnect();
+	});
+	observer.observe(rootEl, { childList: true });
+}
