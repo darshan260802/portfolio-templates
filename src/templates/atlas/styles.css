@@ -463,6 +463,15 @@
 	word-break: break-word;
 }
 
+.atlas-footer__phone {
+	display: block;
+	margin-top: 0.75rem;
+	font-family: var(--atlas-font-mono);
+	font-size: 0.95rem;
+	color: var(--atlas-text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
 .atlas-footer__row {
 	margin-top: 2.5rem;
 	display: flex;

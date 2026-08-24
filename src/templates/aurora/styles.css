@@ -338,6 +338,12 @@
 	color: var(--aurora-accent);
 }
 
+.aurora-footer__phone {
+	color: var(--aurora-text-muted);
+	font-size: 0.9rem;
+	font-variant-numeric: tabular-nums;
+}
+
 .aurora-footer__socials {
 	display: flex;
 	gap: 1rem;

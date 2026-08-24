@@ -357,8 +357,11 @@ function S(e, n) {
 }
 //#endregion
 //#region src/templates/nocturne/sections/Footer.tsx
-function C(r) {
-	let i = e(11), { profile: a, socials: o } = r, s;
+function C(e) {
+	return `tel:${e.replace(/[^\d+]/g, "")}`;
+}
+function w(r) {
+	let i = e(14), { profile: a, socials: o } = r, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
 	i[1] === a.email ? l = i[2] : (l = a.email && /* @__PURE__ */ t("a", {
@@ -367,32 +370,39 @@ function C(r) {
 		children: "Get in touch"
 	}), i[1] = a.email, i[2] = l);
 	let u;
-	i[3] === o ? u = i[4] : (u = o && o.length > 0 && /* @__PURE__ */ t("nav", {
+	i[3] === a.phone ? u = i[4] : (u = a.phone && /* @__PURE__ */ t("a", {
+		className: "nocturne-footer__phone",
+		href: C(a.phone),
+		children: a.phone
+	}), i[3] = a.phone, i[4] = u);
+	let d;
+	i[5] === o ? d = i[6] : (d = o && o.length > 0 && /* @__PURE__ */ t("nav", {
 		className: "nocturne-footer__socials",
 		"aria-label": "Social links",
-		children: o.map(w)
-	}), i[3] = o, i[4] = u);
-	let d = a.fullName || "Your Name", f;
-	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ n("p", {
+		children: o.map(T)
+	}), i[5] = o, i[6] = d);
+	let f = a.fullName || "Your Name", p;
+	i[7] === f ? p = i[8] : (p = /* @__PURE__ */ n("p", {
 		className: "nocturne-footer__copy",
 		children: [
 			"© ",
 			c,
 			" ",
-			d
+			f
 		]
-	}), i[5] = d, i[6] = f);
-	let p;
-	return i[7] !== l || i[8] !== u || i[9] !== f ? (p = /* @__PURE__ */ n("footer", {
+	}), i[7] = f, i[8] = p);
+	let m;
+	return i[9] !== l || i[10] !== u || i[11] !== d || i[12] !== p ? (m = /* @__PURE__ */ n("footer", {
 		className: "nocturne-footer",
 		children: [
 			l,
 			u,
-			f
+			d,
+			p
 		]
-	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
+	}), i[9] = l, i[10] = u, i[11] = d, i[12] = p, i[13] = m) : m = i[13], m;
 }
-function w(e) {
+function T(e) {
 	return /* @__PURE__ */ t("a", {
 		href: e.url,
 		target: "_blank",
@@ -402,7 +412,7 @@ function w(e) {
 }
 //#endregion
 //#region src/templates/nocturne/Template.tsx
-function T(r) {
+function E(r) {
 	let i = e(23), { data: a } = r, o = a.theme?.mode === "light" ? "light" : "dark", s = a.theme?.accentColor ?? "#c9a24a", l;
 	i[0] === s ? l = i[1] : (l = { "--nocturne-accent": s }, i[0] = s, i[1] = l);
 	let d = l, f;
@@ -419,7 +429,7 @@ function T(r) {
 	let _;
 	i[10] === a.skills ? _ = i[11] : (_ = a.skills && a.skills.length > 0 && /* @__PURE__ */ t(x, { skills: a.skills }), i[10] = a.skills, i[11] = _);
 	let y;
-	i[12] !== a.profile || i[13] !== a.socials ? (y = /* @__PURE__ */ t(C, {
+	i[12] !== a.profile || i[13] !== a.socials ? (y = /* @__PURE__ */ t(w, {
 		profile: a.profile,
 		socials: a.socials
 	}), i[12] = a.profile, i[13] = a.socials, i[14] = y) : y = i[14];
@@ -439,4 +449,4 @@ function T(r) {
 	}), i[15] = o, i[16] = d, i[17] = p, i[18] = m, i[19] = g, i[20] = _, i[21] = y, i[22] = b) : b = i[22], b;
 }
 //#endregion
-export { T as default };
+export { E as default };
