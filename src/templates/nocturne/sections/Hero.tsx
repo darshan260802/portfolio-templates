@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import type { Profile, Social } from "../../../schema.js";
+import { resumeDownload } from "../../../uploads.js";
 
 const SOCIAL_LABEL: Record<Social["platform"], string> = {
 	github: "GitHub",
@@ -44,6 +45,7 @@ const SOCIAL_LABEL: Record<Social["platform"], string> = {
  */
 export function Hero({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	const ref = useRef<HTMLElement>(null);
+	const resume = resumeDownload(profile);
 
 	useGSAP(
 		() => {
@@ -67,6 +69,12 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 
 	return (
 		<header ref={ref} className="nocturne-hero">
+			{/* Not a __fade-in target: those are bound once by selector at mount,
+			    and this is conditionally mounted (see the note above). It gets a
+			    plain CSS entrance instead, which replays on insertion. */}
+			{profile.avatarUrl && (
+				<img className="nocturne-hero__portrait" src={profile.avatarUrl} alt={profile.fullName} />
+			)}
 			<span className="nocturne-hero__eyebrow nocturne-eyebrow">Portfolio</span>
 			<h1 className="nocturne-hero__name">
 				<span className="nocturne-hero__name-inner">{profile.fullName || "Your Name"}</span>
@@ -88,6 +96,17 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 							</a>
 						))}
 					</nav>
+				)}
+				{resume && (
+					<a
+						className="nocturne-hero__resume"
+						href={resume.href}
+						download={resume.download}
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						Résumé{resume.format ? ` — ${resume.format}` : ""} ↓
+					</a>
 				)}
 			</div>
 		</header>

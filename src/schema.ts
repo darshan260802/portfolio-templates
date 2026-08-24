@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { RESUME_RULES, uploadExtensions, uploadFormatList } from "./uploads.js";
 
 /**
  * PortfolioData is the single source of truth for what a portfolio can contain.
@@ -52,6 +53,23 @@ const phoneOrEmpty = orEmpty(
 		),
 );
 
+/**
+ * A résumé's original filename, kept for the download name only — never used
+ * to locate the file, which is why a bare name (no path separators) with one
+ * of the allowed extensions is all this has to accept. The extension is what
+ * tells a template which format to advertise, so it is required here even
+ * though the browser would happily download an extensionless file.
+ */
+const resumeFilenameOrEmpty = orEmpty(
+	z
+		.string()
+		.max(120)
+		.regex(
+			new RegExp(`^[^/\\\\]+\\.(?:${uploadExtensions(RESUME_RULES).join("|")})$`, "i"),
+			`A résumé must be a ${uploadFormatList(RESUME_RULES)} file`,
+		),
+);
+
 const socialSchema = z.object({
 	platform: z.enum([
 		"github",
@@ -80,7 +98,15 @@ const profileSchema = z.object({
 	email: emailOrEmpty,
 	phone: phoneOrEmpty,
 	avatarUrl: urlOrEmpty,
+	// The résumé a visitor downloads. `resumeUrl` is where the file lives
+	// (Supabase Storage while editing; rewritten to a local /assets/ path by
+	// the API's localizeAssets for an exported or hosted build).
+	// `resumeFilename` is the name the file arrived with, carried separately
+	// because the stored object is named by a UUID — without it every visitor
+	// would save "a3f1…-9c2.pdf". Templates pass it to the anchor's `download`
+	// attribute; see resume.ts for why that only bites same-origin.
 	resumeUrl: urlOrEmpty,
+	resumeFilename: resumeFilenameOrEmpty,
 });
 
 const dateRangeSchema = z.object({

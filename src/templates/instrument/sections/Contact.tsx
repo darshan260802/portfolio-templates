@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import type { Profile, Social } from "../../../schema.js";
+import { resumeDownload } from "../../../uploads.js";
 import { SectionHead } from "./SectionHead.js";
 
 /** See aurora's Footer for why every template derives this rather than storing it. */
@@ -36,6 +37,7 @@ function breakable(email: string) {
 
 export function Contact({ profile, socials }: { profile: Profile; socials?: Social[] }) {
 	const year = new Date().getFullYear();
+	const resume = resumeDownload(profile);
 
 	return (
 		<footer className="ins-contact">
@@ -58,19 +60,30 @@ export function Contact({ profile, socials }: { profile: Profile; socials?: Soci
 					</a>
 				)}
 
-				{((socials && socials.length > 0) || profile.resumeUrl) && (
+				{socials && socials.length > 0 && (
 					<nav className="ins-contact__links" aria-label="Elsewhere">
-						{socials?.map((social) => (
+						{socials.map((social) => (
 							<a key={social.platform + social.url} href={social.url} target="_blank" rel="noreferrer noopener">
 								{social.label ?? SOCIAL_LABEL[social.platform]} ↗
 							</a>
 						))}
-						{profile.resumeUrl && (
-							<a href={profile.resumeUrl} target="_blank" rel="noreferrer noopener">
-								Résumé ↗
-							</a>
-						)}
 					</nav>
+				)}
+
+				{/* Its own row rather than one more entry in the links nav: this is
+				    the only thing on the page a visitor leaves with, and ↓ vs ↗ is
+				    the difference between a download and a tab. */}
+				{resume && (
+					<a
+						className="ins-contact__resume"
+						href={resume.href}
+						download={resume.download}
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						<span>Download résumé</span>
+						<span className="ins-contact__resume-format">{resume.format ?? "FILE"} ↓</span>
+					</a>
 				)}
 
 				<div className="ins-contact__meta">

@@ -193,6 +193,38 @@
 	gap: 0.6rem;
 }
 
+.prism-hero__resume {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	align-self: flex-start;
+	margin-top: 0.4rem;
+	padding: 0.65rem 1.25rem;
+	border-radius: 999px;
+	background: linear-gradient(120deg, var(--prism-accent), var(--prism-accent-2));
+	color: #ffffff;
+	font-size: 0.9rem;
+	font-weight: 600;
+	box-shadow: 0 8px 24px -12px var(--prism-accent);
+	transition:
+		transform 0.2s,
+		box-shadow 0.2s;
+}
+
+.prism-hero__resume:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 14px 30px -12px var(--prism-accent);
+}
+
+.prism-hero__resume-format {
+	padding: 0.1rem 0.45rem;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.22);
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+}
+
 .prism-hero__side {
 	padding: 2rem;
 	display: flex;

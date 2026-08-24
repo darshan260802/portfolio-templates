@@ -1,8 +1,12 @@
 import { motion } from "motion/react";
 import type { Profile, Social } from "../../../schema.js";
 import { RichText } from "../../../rich-text.js";
+import { resumeDownload } from "../../../uploads.js";
 
 export function Hero({ profile, socials }: { profile: Profile; socials?: Social[] }) {
+	const resume = resumeDownload(profile);
+	const hasSocials = Boolean(socials && socials.length > 0);
+
 	return (
 		<header className="monolith-hero">
 			<motion.div
@@ -22,7 +26,7 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 				<RichText html={profile.bio} className="monolith-hero__bio" />
 				<div className="monolith-hero__meta">
 					{profile.location && <span>{profile.location}</span>}
-					{profile.location && socials && socials.length > 0 && <span aria-hidden="true">/</span>}
+					{profile.location && hasSocials && <span aria-hidden="true">/</span>}
 					{socials && socials.length > 0 && (
 						<nav className="monolith-hero__socials" aria-label="Social links">
 							{socials.map((s, i) => (
@@ -34,6 +38,20 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 								</span>
 							))}
 						</nav>
+					)}
+					{resume && (
+						<>
+							{(profile.location || hasSocials) && <span aria-hidden="true">/</span>}
+							<a
+								className="monolith-hero__resume"
+								href={resume.href}
+								download={resume.download}
+								target="_blank"
+								rel="noreferrer noopener"
+							>
+								Résumé{resume.format ? ` (${resume.format})` : ""} ↓
+							</a>
+						</>
 					)}
 				</div>
 			</motion.div>

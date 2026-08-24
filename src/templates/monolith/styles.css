@@ -113,6 +113,18 @@
 	display: inline;
 }
 
+/* Résumé — reads as one more item in the mono meta rule, with the accent
+   reserved for the one link that hands the visitor a file. */
+.monolith-hero__resume {
+	color: var(--monolith-accent);
+	border-bottom: 1px solid color-mix(in srgb, var(--monolith-accent) 40%, transparent);
+	transition: border-color 0.2s;
+}
+
+.monolith-hero__resume:hover {
+	border-bottom-color: var(--monolith-accent);
+}
+
 /* Section heading */
 .monolith-section {
 	max-width: 760px;

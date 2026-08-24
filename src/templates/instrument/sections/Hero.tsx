@@ -74,6 +74,13 @@ export function Hero({ profile, socials }: { profile: Profile; socials?: Social[
 			<div className="ins-hero__fade" aria-hidden />
 
 			<div className="ins-hero__body">
+				{/* Deliberately not an .ins-hero__reveal target: those are bound by
+				    selector inside useGSAP, and this is conditionally mounted. It
+				    carries its own CSS entrance instead. */}
+				{profile.avatarUrl && (
+					<img className="ins-hero__portrait" src={profile.avatarUrl} alt={profile.fullName} />
+				)}
+
 				<h1 className="ins-hero__name">
 					{words.map((word, w) => (
 						<span key={`${word}-${w}`} className="ins-hero__word">

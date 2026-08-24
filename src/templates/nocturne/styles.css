@@ -178,6 +178,47 @@
 	gap: 1.25rem;
 }
 
+/* Portrait — brass hairline ring, sized to sit above the eyebrow without
+   competing with the oversized name below it. */
+.nocturne-hero__portrait {
+	display: block;
+	width: 5rem;
+	height: 5rem;
+	margin-bottom: 1.5rem;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid color-mix(in srgb, var(--nocturne-accent) 55%, transparent);
+	animation: nocturne-portrait-in 0.8s 0.15s ease-out both;
+}
+
+@keyframes nocturne-portrait-in {
+	from {
+		opacity: 0;
+		transform: scale(0.94);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.nocturne-hero__resume {
+	color: var(--nocturne-accent);
+	border-bottom: 1px solid color-mix(in srgb, var(--nocturne-accent) 45%, transparent);
+	padding-bottom: 2px;
+	transition: border-color 0.2s;
+}
+
+.nocturne-hero__resume:hover {
+	border-bottom-color: var(--nocturne-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nocturne-hero__portrait {
+		animation: none;
+	}
+}
+
 /* Timeline (experience) */
 .nocturne-timeline {
 	list-style: none;

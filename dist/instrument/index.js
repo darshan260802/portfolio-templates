@@ -108,7 +108,7 @@ var S = {
 	other: "Link"
 };
 function C(t) {
-	let n = e(35), { profile: r, socials: i } = t, a = o(null), s = (r.fullName || "Your Name").toUpperCase().split(/\s+/).filter(Boolean), f;
+	let n = e(39), { profile: r, socials: i } = t, a = o(null), s = (r.fullName || "Your Name").toUpperCase().split(/\s+/).filter(Boolean), f;
 	if (n[0] !== r.email || n[1] !== r.location || n[2] !== r.phone || n[3] !== i) {
 		if (f = [], r.location) {
 			let e;
@@ -154,13 +154,19 @@ function C(t) {
 		className: "ins-hero__fade",
 		"aria-hidden": !0
 	}), n[14] = m, n[15] = h, n[16] = g) : (m = n[14], h = n[15], g = n[16]);
-	let _ = s.map(T), v;
-	n[17] === _ ? v = n[18] : (v = /* @__PURE__ */ l("h1", {
+	let _;
+	n[17] !== r.avatarUrl || n[18] !== r.fullName ? (_ = r.avatarUrl && /* @__PURE__ */ l("img", {
+		className: "ins-hero__portrait",
+		src: r.avatarUrl,
+		alt: r.fullName
+	}), n[17] = r.avatarUrl, n[18] = r.fullName, n[19] = _) : _ = n[19];
+	let v = s.map(T), y;
+	n[20] === v ? y = n[21] : (y = /* @__PURE__ */ l("h1", {
 		className: "ins-hero__name",
-		children: _
-	}), n[17] = _, n[18] = v);
-	let y;
-	n[19] !== r.headline || n[20] !== r.location ? (y = r.headline ? /* @__PURE__ */ u(c, { children: [r.headline, r.location && /* @__PURE__ */ u(c, { children: [
+		children: v
+	}), n[20] = v, n[21] = y);
+	let b;
+	n[22] !== r.headline || n[23] !== r.location ? (b = r.headline ? /* @__PURE__ */ u(c, { children: [r.headline, r.location && /* @__PURE__ */ u(c, { children: [
 		" ",
 		/* @__PURE__ */ l("span", {
 			className: "ins-hero__sep",
@@ -168,28 +174,29 @@ function C(t) {
 		}),
 		" ",
 		r.location
-	] })] }) : null, n[19] = r.headline, n[20] = r.location, n[21] = y) : y = n[21];
-	let b;
-	n[22] === y ? b = n[23] : (b = /* @__PURE__ */ l("p", {
-		className: "ins-hero__role ins-hero__reveal",
-		children: y
-	}), n[22] = y, n[23] = b);
+	] })] }) : null, n[22] = r.headline, n[23] = r.location, n[24] = b) : b = n[24];
 	let x;
-	n[24] === f ? x = n[25] : (x = /* @__PURE__ */ l("dl", {
+	n[25] === b ? x = n[26] : (x = /* @__PURE__ */ l("p", {
+		className: "ins-hero__role ins-hero__reveal",
+		children: b
+	}), n[25] = b, n[26] = x);
+	let C;
+	n[27] === f ? C = n[28] : (C = /* @__PURE__ */ l("dl", {
 		className: "ins-hero__readout ins-hero__reveal",
 		children: f.map(w)
-	}), n[24] = f, n[25] = x);
-	let C;
-	n[26] !== v || n[27] !== b || n[28] !== x ? (C = /* @__PURE__ */ u("div", {
+	}), n[27] = f, n[28] = C);
+	let E;
+	n[29] !== y || n[30] !== x || n[31] !== C || n[32] !== _ ? (E = /* @__PURE__ */ u("div", {
 		className: "ins-hero__body",
 		children: [
-			v,
-			b,
-			x
+			_,
+			y,
+			x,
+			C
 		]
-	}), n[26] = v, n[27] = b, n[28] = x, n[29] = C) : C = n[29];
-	let E;
-	return n[30] !== C || n[31] !== m || n[32] !== h || n[33] !== g ? (E = /* @__PURE__ */ u("section", {
+	}), n[29] = y, n[30] = x, n[31] = C, n[32] = _, n[33] = E) : E = n[33];
+	let k;
+	return n[34] !== E || n[35] !== m || n[36] !== h || n[37] !== g ? (k = /* @__PURE__ */ u("section", {
 		ref: a,
 		id: "top",
 		className: "ins-hero",
@@ -197,9 +204,9 @@ function C(t) {
 			m,
 			h,
 			g,
-			C
+			E
 		]
-	}), n[30] = C, n[31] = m, n[32] = h, n[33] = g, n[34] = E) : E = n[34], E;
+	}), n[34] = E, n[35] = m, n[36] = h, n[37] = g, n[38] = k) : k = n[38], k;
 }
 function w(e) {
 	return /* @__PURE__ */ u("div", { children: [/* @__PURE__ */ l("dt", { children: e.label }), /* @__PURE__ */ l("dd", { children: e.value })] }, e.label + e.value);
@@ -427,18 +434,18 @@ function I(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function L(e) {
+function ee(e) {
 	let t = e.map((e) => e.range.start).sort(), n = e.some((e) => e.range.current), r = e.map((e) => e.range.end ?? e.range.start).sort(), i = t[0]?.slice(0, 4) ?? "", a = n ? "PRESENT" : r[r.length - 1]?.slice(0, 4) ?? "";
 	return i && a ? `${i} — ${a}` : "";
 }
-function R(t) {
+function te(t) {
 	let n = e(13), { experience: r } = t, i = o(null), a;
 	n[0] === r.length ? a = n[1] : (a = {
 		scope: i,
 		dependencies: [r.length]
-	}, n[0] = r.length, n[1] = a), d(V, a);
+	}, n[0] = r.length, n[1] = a), d(L, a);
 	let s;
-	n[2] === r ? s = n[3] : (s = L(r), n[2] = r, n[3] = s);
+	n[2] === r ? s = n[3] : (s = ee(r), n[2] = r, n[3] = s);
 	let c;
 	n[4] === s ? c = n[5] : (c = /* @__PURE__ */ l(M, {
 		id: "track-record",
@@ -446,7 +453,7 @@ function R(t) {
 		readout: s
 	}), n[4] = s, n[5] = c);
 	let f;
-	n[6] === r ? f = n[7] : (f = r.map(z), n[6] = r, n[7] = f);
+	n[6] === r ? f = n[7] : (f = r.map(ne), n[6] = r, n[7] = f);
 	let p;
 	n[8] === f ? p = n[9] : (p = /* @__PURE__ */ l("div", { children: f }), n[8] = f, n[9] = p);
 	let m;
@@ -456,7 +463,7 @@ function R(t) {
 		children: [c, p]
 	}), n[10] = c, n[11] = p, n[12] = m) : m = n[12], m;
 }
-function z(e) {
+function ne(e) {
 	return /* @__PURE__ */ u("article", {
 		className: "ins-entry ins-entry__reveal",
 		children: [/* @__PURE__ */ u("div", {
@@ -482,14 +489,14 @@ function z(e) {
 			]
 		}), /* @__PURE__ */ u("div", {
 			className: "ins-entry__body",
-			children: [/* @__PURE__ */ l(F, { html: e.summary }), e.highlights && e.highlights.length > 0 && /* @__PURE__ */ l("ul", { children: e.highlights.map(B) })]
+			children: [/* @__PURE__ */ l(F, { html: e.summary }), e.highlights && e.highlights.length > 0 && /* @__PURE__ */ l("ul", { children: e.highlights.map(re) })]
 		})]
 	}, e.id);
 }
-function B(e) {
+function re(e) {
 	return /* @__PURE__ */ l("li", { children: e }, e);
 }
-function V() {
+function L() {
 	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 		t.set(".ins-entry", {
 			opacity: 1,
@@ -497,12 +504,12 @@ function V() {
 		});
 		return;
 	}
-	let e = t.utils.toArray(".ins-entry").map(H);
+	let e = t.utils.toArray(".ins-entry").map(R);
 	return () => {
 		for (let t of e) t.scrollTrigger?.kill(), t.kill();
 	};
 }
-function H(e) {
+function R(e) {
 	return t.to(e, {
 		opacity: 1,
 		y: 0,
@@ -517,7 +524,7 @@ function H(e) {
 }
 //#endregion
 //#region src/templates/instrument/sections/Systems.tsx
-function U(t) {
+function z(t) {
 	let n = e(28), { project: r, index: i } = t, a;
 	n[0] === Symbol.for("react.memo_cache_sentinel") ? (a = function(e) {
 		let t = e.currentTarget, n = t.getBoundingClientRect();
@@ -559,7 +566,7 @@ function U(t) {
 	let v;
 	n[17] === r.tags ? v = n[18] : (v = r.tags && r.tags.length > 0 && /* @__PURE__ */ l("div", {
 		className: "ins-card__tags",
-		children: r.tags.map(W)
+		children: r.tags.map(B)
 	}), n[17] = r.tags, n[18] = v);
 	let y;
 	n[19] !== r.liveUrl || n[20] !== r.repoUrl ? (y = (r.liveUrl || r.repoUrl) && /* @__PURE__ */ u("div", {
@@ -580,8 +587,8 @@ function U(t) {
 	return n[22] !== _ || n[23] !== v || n[24] !== y || n[25] !== c || n[26] !== g ? (b = /* @__PURE__ */ u("article", {
 		className: "ins-card",
 		onMouseMove: o,
-		onMouseEnter: K,
-		onMouseLeave: G,
+		onMouseEnter: H,
+		onMouseLeave: V,
 		children: [
 			s,
 			c,
@@ -592,19 +599,19 @@ function U(t) {
 		]
 	}), n[22] = _, n[23] = v, n[24] = y, n[25] = c, n[26] = g, n[27] = b) : b = n[27], b;
 }
-function W(e) {
+function B(e) {
 	return /* @__PURE__ */ l("span", {
 		className: "ins-tag",
 		children: e
 	}, e);
 }
-function G(e) {
+function V(e) {
 	return e.currentTarget.setAttribute("data-lit", "false");
 }
-function K(e) {
+function H(e) {
 	return e.currentTarget.setAttribute("data-lit", "true");
 }
-function q(t) {
+function U(t) {
 	let n = e(11), { projects: r } = t, i = String(r.length), a;
 	n[0] === i ? a = n[1] : (a = i.padStart(2, "0"), n[0] = i, n[1] = a);
 	let o = `${a} Shipped`, s;
@@ -614,7 +621,7 @@ function q(t) {
 		readout: o
 	}), n[2] = o, n[3] = s);
 	let c;
-	n[4] === r ? c = n[5] : (c = r.map(J), n[4] = r, n[5] = c);
+	n[4] === r ? c = n[5] : (c = r.map(W), n[4] = r, n[5] = c);
 	let d;
 	n[6] === c ? d = n[7] : (d = /* @__PURE__ */ l("div", {
 		className: "ins-systems",
@@ -626,19 +633,19 @@ function q(t) {
 		children: [s, d]
 	}), n[8] = s, n[9] = d, n[10] = f) : f = n[10], f;
 }
-function J(e, t) {
-	return /* @__PURE__ */ l(U, {
+function W(e, t) {
+	return /* @__PURE__ */ l(z, {
 		project: e,
 		index: t
 	}, e.id);
 }
 //#endregion
 //#region src/templates/instrument/sections/Stack.tsx
-var Y = "General";
-function X(e) {
+var G = "General";
+function K(e) {
 	let t = /* @__PURE__ */ new Map();
 	for (let n of e) {
-		let e = n.category?.trim() || Y, r = t.get(e);
+		let e = n.category?.trim() || G, r = t.get(e);
 		r ? r.push(n) : t.set(e, [n]);
 	}
 	return [...t].map(([e, t]) => ({
@@ -646,7 +653,7 @@ function X(e) {
 		items: t
 	}));
 }
-function Z(t) {
+function q(t) {
 	let n = e(20), { skills: r } = t, a = o(null), s, c;
 	n[0] === Symbol.for("react.memo_cache_sentinel") ? (s = () => {
 		let e = a.current;
@@ -661,7 +668,7 @@ function Z(t) {
 	}, c = [], n[0] = s, n[1] = c) : (s = n[0], c = n[1]), i(s, c);
 	let d, f, p, m, h;
 	if (n[2] !== r) {
-		let e = X(r);
+		let e = K(r);
 		p = a, m = "ins-shell";
 		let t = String(r.length), i;
 		n[8] === t ? i = n[9] : (i = t.padStart(2, "0"), n[8] = t, n[9] = i);
@@ -670,7 +677,7 @@ function Z(t) {
 			id: "stack",
 			label: "Stack",
 			readout: o
-		}), n[10] = o, n[11] = h), d = "ins-stack", f = e.map(Q), n[2] = r, n[3] = d, n[4] = f, n[5] = p, n[6] = m, n[7] = h;
+		}), n[10] = o, n[11] = h), d = "ins-stack", f = e.map(J), n[2] = r, n[3] = d, n[4] = f, n[5] = p, n[6] = m, n[7] = h;
 	} else d = n[3], f = n[4], p = n[5], m = n[6], h = n[7];
 	let g;
 	n[12] !== d || n[13] !== f ? (g = /* @__PURE__ */ l("div", {
@@ -684,27 +691,103 @@ function Z(t) {
 		children: [h, g]
 	}), n[15] = p, n[16] = m, n[17] = h, n[18] = g, n[19] = _) : _ = n[19], _;
 }
-function Q(e) {
+function J(e) {
 	return /* @__PURE__ */ u("div", { children: [/* @__PURE__ */ l("h3", {
 		className: "ins-stack__label",
 		children: e.label
 	}), /* @__PURE__ */ l("ul", {
 		className: "ins-stack__items",
-		children: e.items.map($)
+		children: e.items.map(Y)
 	})] }, e.label);
 }
-function $(e) {
+function Y(e) {
 	return /* @__PURE__ */ l("li", { children: /* @__PURE__ */ l("span", {
 		className: "ins-stack__item",
 		children: e.name
 	}) }, e.id);
 }
 //#endregion
+//#region src/uploads.ts
+function ie(e) {
+	return ce(e, "word/document.xml") !== -1;
+}
+var X = {
+	kind: "resume",
+	noun: "résumé",
+	maxBytes: 5242880,
+	formats: [{
+		label: "PDF",
+		mimeType: "application/pdf",
+		extensions: ["pdf"],
+		signatures: [{
+			offset: 0,
+			bytes: [
+				37,
+				80,
+				68,
+				70,
+				45
+			]
+		}]
+	}, {
+		label: "DOCX",
+		mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+		extensions: ["docx"],
+		signatures: [{
+			offset: 0,
+			bytes: [
+				80,
+				75,
+				3,
+				4
+			]
+		}],
+		verify: ie
+	}]
+};
+function Z(e, t) {
+	let n = t.toLowerCase();
+	return e.formats.find((e) => e.extensions.includes(n));
+}
+function Q(e) {
+	if (!e) return;
+	let t = e.split(/[?#]/, 1)[0] ?? "";
+	return /\.([a-z0-9]+)$/i.exec(t)?.[1]?.toLowerCase();
+}
+function ae(e) {
+	let t = Q(e.resumeFilename) ?? Q(e.resumeUrl);
+	if (t) return Z(X, t)?.label;
+}
+function oe(e) {
+	if (!e.resumeUrl) return;
+	if (e.resumeFilename) return e.resumeFilename;
+	let t = Q(e.resumeUrl);
+	if (!t || !Z(X, t)) return;
+	let n = e.fullName.normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-");
+	return n ? `${n}-resume.${t}` : `resume.${t}`;
+}
+function se(e) {
+	return e.resumeUrl ? {
+		href: e.resumeUrl,
+		download: oe(e),
+		format: ae(e)
+	} : null;
+}
+function ce(e, t) {
+	let n = new Uint8Array(t.length);
+	for (let e = 0; e < t.length; e++) n[e] = t.charCodeAt(e);
+	outer: for (let t = 0; t <= e.length - n.length; t++) {
+		for (let r = 0; r < n.length; r++) if (e[t + r] !== n[r]) continue outer;
+		return t;
+	}
+	return -1;
+}
+//#endregion
 //#region src/templates/instrument/sections/Contact.tsx
-function ee(e) {
+function le(e) {
 	return `tel:${e.replace(/[^\d+]/g, "")}`;
 }
-var te = {
+var $ = {
 	github: "GitHub",
 	linkedin: "LinkedIn",
 	twitter: "X",
@@ -715,80 +798,90 @@ var te = {
 	website: "Website",
 	other: "Link"
 };
-function ne(e) {
+function ue(e) {
 	return e.split(/(?<=[@.])/).map((e, t) => /* @__PURE__ */ u(r, { children: [e, /* @__PURE__ */ l("wbr", {})] }, `${e}-${t}`));
 }
-function re(t) {
-	let n = e(22), { profile: r, socials: i } = t, a;
+function de(t) {
+	let n = e(26), { profile: r, socials: i } = t, a;
 	n[0] === Symbol.for("react.memo_cache_sentinel") ? (a = (/* @__PURE__ */ new Date()).getFullYear(), n[0] = a) : a = n[0];
-	let o = a, s = r.location ?? "Open to work", c;
-	n[1] === s ? c = n[2] : (c = /* @__PURE__ */ l(M, {
+	let o = a, s;
+	n[1] === r ? s = n[2] : (s = se(r), n[1] = r, n[2] = s);
+	let c = s, d = r.location ?? "Open to work", f;
+	n[3] === d ? f = n[4] : (f = /* @__PURE__ */ l(M, {
 		id: "contact",
 		label: "Contact",
-		readout: s
-	}), n[1] = s, n[2] = c);
-	let d;
-	n[3] === r.email ? d = n[4] : (d = r.email && /* @__PURE__ */ l("a", {
+		readout: d
+	}), n[3] = d, n[4] = f);
+	let p;
+	n[5] === r.email ? p = n[6] : (p = r.email && /* @__PURE__ */ l("a", {
 		className: "ins-contact__cta",
 		href: `mailto:${r.email}`,
 		children: /* @__PURE__ */ l("span", {
 			className: "ins-contact__shine",
-			children: ne(r.email)
+			children: ue(r.email)
 		})
-	}), n[3] = r.email, n[4] = d);
-	let f;
-	n[5] === r.phone ? f = n[6] : (f = r.phone && /* @__PURE__ */ l("a", {
+	}), n[5] = r.email, n[6] = p);
+	let m;
+	n[7] === r.phone ? m = n[8] : (m = r.phone && /* @__PURE__ */ l("a", {
 		className: "ins-contact__phone",
-		href: ee(r.phone),
+		href: le(r.phone),
 		children: r.phone
-	}), n[5] = r.phone, n[6] = f);
-	let p;
-	n[7] !== r.resumeUrl || n[8] !== i ? (p = (i && i.length > 0 || r.resumeUrl) && /* @__PURE__ */ u("nav", {
+	}), n[7] = r.phone, n[8] = m);
+	let h;
+	n[9] === i ? h = n[10] : (h = i && i.length > 0 && /* @__PURE__ */ l("nav", {
 		className: "ins-contact__links",
 		"aria-label": "Elsewhere",
-		children: [i?.map(ie), r.resumeUrl && /* @__PURE__ */ l("a", {
-			href: r.resumeUrl,
-			target: "_blank",
-			rel: "noreferrer noopener",
-			children: "Résumé ↗"
+		children: i.map(fe)
+	}), n[9] = i, n[10] = h);
+	let g;
+	n[11] === c ? g = n[12] : (g = c && /* @__PURE__ */ u("a", {
+		className: "ins-contact__resume",
+		href: c.href,
+		download: c.download,
+		target: "_blank",
+		rel: "noreferrer noopener",
+		children: [/* @__PURE__ */ l("span", { children: "Download résumé" }), /* @__PURE__ */ u("span", {
+			className: "ins-contact__resume-format",
+			children: [c.format ?? "FILE", " ↓"]
 		})]
-	}), n[7] = r.resumeUrl, n[8] = i, n[9] = p) : p = n[9];
-	let m = r.fullName || "Your Name", h = r.headline ? ` — ${r.headline}` : "", g;
-	n[10] !== m || n[11] !== h ? (g = /* @__PURE__ */ u("span", { children: [m, h] }), n[10] = m, n[11] = h, n[12] = g) : g = n[12];
-	let _;
-	n[13] === Symbol.for("react.memo_cache_sentinel") ? (_ = /* @__PURE__ */ u("span", { children: ["© ", o] }), n[13] = _) : _ = n[13];
-	let v;
-	n[14] === g ? v = n[15] : (v = /* @__PURE__ */ u("div", {
+	}), n[11] = c, n[12] = g);
+	let _ = r.fullName || "Your Name", v = r.headline ? ` — ${r.headline}` : "", y;
+	n[13] !== v || n[14] !== _ ? (y = /* @__PURE__ */ u("span", { children: [_, v] }), n[13] = v, n[14] = _, n[15] = y) : y = n[15];
+	let b;
+	n[16] === Symbol.for("react.memo_cache_sentinel") ? (b = /* @__PURE__ */ u("span", { children: ["© ", o] }), n[16] = b) : b = n[16];
+	let x;
+	n[17] === y ? x = n[18] : (x = /* @__PURE__ */ u("div", {
 		className: "ins-contact__meta",
-		children: [g, _]
-	}), n[14] = g, n[15] = v);
-	let y;
-	return n[16] !== v || n[17] !== c || n[18] !== d || n[19] !== f || n[20] !== p ? (y = /* @__PURE__ */ l("footer", {
+		children: [y, b]
+	}), n[17] = y, n[18] = x);
+	let S;
+	return n[19] !== x || n[20] !== f || n[21] !== p || n[22] !== m || n[23] !== h || n[24] !== g ? (S = /* @__PURE__ */ l("footer", {
 		className: "ins-contact",
 		children: /* @__PURE__ */ u("div", {
 			className: "ins-shell",
 			children: [
-				c,
-				d,
 				f,
 				p,
-				v
+				m,
+				h,
+				g,
+				x
 			]
 		})
-	}), n[16] = v, n[17] = c, n[18] = d, n[19] = f, n[20] = p, n[21] = y) : y = n[21], y;
+	}), n[19] = x, n[20] = f, n[21] = p, n[22] = m, n[23] = h, n[24] = g, n[25] = S) : S = n[25], S;
 }
-function ie(e) {
+function fe(e) {
 	return /* @__PURE__ */ u("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
-		children: [e.label ?? te[e.platform], " ↗"]
+		children: [e.label ?? $[e.platform], " ↗"]
 	}, e.platform + e.url);
 }
 //#endregion
 //#region src/templates/instrument/Template.tsx
 t.registerPlugin(n);
-function ae(t) {
+function pe(t) {
 	let n = e(57), { data: r } = t, i = r.theme?.mode === "light" ? "light" : "dark", a = r.theme?.accentColor, o;
 	n[0] === r.profile.bio ? o = n[1] : (o = r.profile.bio && r.profile.bio.trim() !== "", n[0] = r.profile.bio, n[1] = o);
 	let s = !!o, c = (r.experience?.length ?? 0) > 0, d = (r.projects?.length ?? 0) > 0, f = (r.skills?.length ?? 0) > 0, p;
@@ -823,11 +916,11 @@ function ae(t) {
 		h,
 		g,
 		_
-	].filter(se), n[11] = p, n[12] = m, n[13] = h, n[14] = g, n[15] = v) : v = n[15];
+	].filter(he), n[11] = p, n[12] = m, n[13] = h, n[14] = g, n[15] = v) : v = n[15];
 	let b = v, x;
 	n[16] === r.skills ? x = n[17] : (x = r.skills ?? [], n[16] = r.skills, n[17] = x);
 	let S;
-	n[18] === x ? S = n[19] : (S = x.map(oe), n[18] = x, n[19] = S);
+	n[18] === x ? S = n[19] : (S = x.map(me), n[18] = x, n[19] = S);
 	let w = S, T;
 	n[20] === a ? T = n[21] : (T = a ? { "--ins-signal": a } : void 0, n[20] = a, n[21] = T);
 	let E;
@@ -848,13 +941,13 @@ function ae(t) {
 		education: r.education
 	}), n[30] = r.education, n[31] = r.profile, n[32] = s, n[33] = k) : k = n[33];
 	let j;
-	n[34] !== r.experience || n[35] !== c ? (j = c && r.experience && /* @__PURE__ */ l(R, { experience: r.experience }), n[34] = r.experience, n[35] = c, n[36] = j) : j = n[36];
+	n[34] !== r.experience || n[35] !== c ? (j = c && r.experience && /* @__PURE__ */ l(te, { experience: r.experience }), n[34] = r.experience, n[35] = c, n[36] = j) : j = n[36];
 	let M;
-	n[37] !== r.projects || n[38] !== d ? (M = d && r.projects && /* @__PURE__ */ l(q, { projects: r.projects }), n[37] = r.projects, n[38] = d, n[39] = M) : M = n[39];
+	n[37] !== r.projects || n[38] !== d ? (M = d && r.projects && /* @__PURE__ */ l(U, { projects: r.projects }), n[37] = r.projects, n[38] = d, n[39] = M) : M = n[39];
 	let N;
-	n[40] !== r.skills || n[41] !== f ? (N = f && r.skills && /* @__PURE__ */ l(Z, { skills: r.skills }), n[40] = r.skills, n[41] = f, n[42] = N) : N = n[42];
+	n[40] !== r.skills || n[41] !== f ? (N = f && r.skills && /* @__PURE__ */ l(q, { skills: r.skills }), n[40] = r.skills, n[41] = f, n[42] = N) : N = n[42];
 	let F;
-	n[43] !== r.profile || n[44] !== r.socials ? (F = /* @__PURE__ */ l(re, {
+	n[43] !== r.profile || n[44] !== r.socials ? (F = /* @__PURE__ */ l(de, {
 		profile: r.profile,
 		socials: r.socials
 	}), n[43] = r.profile, n[44] = r.socials, n[45] = F) : F = n[45];
@@ -875,11 +968,11 @@ function ae(t) {
 		]
 	}), n[46] = i, n[47] = T, n[48] = E, n[49] = D, n[50] = O, n[51] = k, n[52] = j, n[53] = M, n[54] = N, n[55] = F, n[56] = I) : I = n[56], I;
 }
-function oe(e) {
+function me(e) {
 	return e.name;
 }
-function se(e) {
+function he(e) {
 	return e !== !1;
 }
 //#endregion
-export { ae as default };
+export { pe as default };

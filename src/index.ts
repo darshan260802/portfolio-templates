@@ -6,4 +6,5 @@
  * `@pb/templates/loaders` directly instead.
  */
 export * from "./schema.js";
+export * from "./uploads.js";
 export * from "./meta.js";

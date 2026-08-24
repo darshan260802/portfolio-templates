@@ -395,6 +395,44 @@
 	}
 }
 
+/* Portrait — square, hairline-framed, zero radius: this template has no
+   rounded corner anywhere and a circular avatar would be the only one.
+   Entrance is CSS rather than GSAP because the element is conditionally
+   mounted; see the note in Hero.tsx. */
+.ins-hero__portrait {
+	display: block;
+	width: 4.5rem;
+	height: 4.5rem;
+	margin-bottom: 1.75rem;
+	object-fit: cover;
+	border: 1px solid var(--ins-line-hi);
+	animation: ins-portrait-in 0.7s 0.35s ease-out both;
+}
+
+@media (min-width: 768px) {
+	.ins-hero__portrait {
+		width: 5.5rem;
+		height: 5.5rem;
+	}
+}
+
+@keyframes ins-portrait-in {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ins-hero__portrait {
+		animation: none;
+	}
+}
+
 .ins-hero__name {
 	margin: 0;
 	font-family: var(--ins-display);
@@ -1035,6 +1073,44 @@
 
 .ins-contact__links a:hover {
 	color: var(--ins-signal);
+}
+
+/* Résumé — a full-width instrument row, hairline-ruled like everything else
+   in this template. Zero radius, mono caps, and the ↓ carries the meaning:
+   every other link in this section leaves with ↗. */
+.ins-contact__resume {
+	margin-top: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 1.25rem 1.5rem;
+	border: 1px solid var(--ins-line-hi);
+	font-family: var(--ins-mono);
+	font-size: 0.8125rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--ins-paper);
+	transition:
+		background 0.2s ease,
+		border-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.ins-contact__resume:hover {
+	background: var(--ins-paper);
+	border-color: var(--ins-paper);
+	color: var(--ins-ink);
+}
+
+.ins-contact__resume-format {
+	color: var(--ins-muted);
+	font-variant-numeric: tabular-nums;
+	transition: color 0.2s ease;
+}
+
+.ins-contact__resume:hover .ins-contact__resume-format {
+	color: var(--ins-ink);
 }
 
 .ins-contact__meta {

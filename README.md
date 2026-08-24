@@ -80,6 +80,7 @@ render or generate a portfolio lives in this one package.
 | **Scaffold shell for export & hosting** | `scaffold/` is a real Vite + React project template. The API materializes it per deploy — same shell for the hosted build and the ZIP download. |
 | **Deliberately narrow rich-text** | `src/rich-text.tsx` renders the sanitized HTML (`p / strong / em / a / ul / ol / li` only) the API allows — the exact surface the wizard's TipTap editor produces. |
 | **Fonts stay in the template** | Every template names its own stack. Instrument is the one that pulls webfonts (Archivo's variable `wdth` axis has no system equivalent) — via a single `@import` in its own `styles.css`, so the dependency travels with the template rather than the shared scaffold. |
+| **Résumé download & profile photo** | `profile.resumeUrl` + `resumeFilename` render as a real download link in every template (`download` attribute, so the visitor saves the owner's filename, not a UUID), and `profile.avatarUrl` renders as a portrait in all six. `src/uploads.ts` is the single source of truth for what may be uploaded — PDF/DOCX or JPEG/PNG/WebP, 5 MB — shared with the wizard's file picker and the API's validator. |
 | **Optional phone with derived `tel:` link** | The schema stores whatever separators the user typed; each template's footer strips them for the href, so display and dialability stay independent. |
 
 ## Who it's for
@@ -125,6 +126,7 @@ src/
   meta.ts            TemplateManifest[]. Safe for the builder UI to import — pure data.
   loaders.ts         GENERATED. Static import() map used only by the preview iframe.
   rich-text.tsx      Renders the sanitized HTML the API allows (p/strong/em/a/ul/ol/li).
+  uploads.ts         Upload rules (types, 5 MB cap, magic bytes) + the résumé link helper.
   templates/<id>/    manifest.ts (pure data), Template.tsx, styles.css, sections/
 scaffold/            The standalone Vite project shell (both ZIP export and hosted build).
   *.tmpl             `__PLACEHOLDER__` tokens substituted by the API at build time.
@@ -145,7 +147,8 @@ bun run lint
 ```
 
 **Run `bun run build` (and commit the result) before pushing any change
-under `src/templates/`, `src/schema.ts`, or `src/rich-text.tsx`.** The
+under `src/templates/`, `src/schema.ts`, `src/uploads.ts`, or
+`src/rich-text.tsx`.** The
 committed `dist/` is what consumers install — `bun install` does not
 reliably run a `prepare` script for `github:` dependencies.
 
@@ -154,7 +157,15 @@ reliably run a `prepare` script for `github:` dependencies.
 The builder UI must never import `src/loaders.ts` (or anything that
 transitively imports a `Template.tsx`). That's what keeps template code
 — and template CSS — out of the main app bundle. `src/meta.ts` is the
-sanctioned door: pure data, safe to import from anywhere.
+sanctioned door: pure data, safe to import from anywhere — as is
+`src/uploads.ts`, which is why it is exported from `index.ts` while
+`src/rich-text.tsx` (a React component) is not.
+
+One consequence worth knowing about: a template section that imports a
+runtime *value* from a shared root module (`uploads.ts` today,
+`rich-text.tsx` before it) only builds if the API's `materializeProject`
+copies that file into the generated project too. Add a new one and both
+the ZIP export and the hosted build break on an unresolved import.
 
 The web app enforces this at the entry level (`preview.html` →
 `src/preview.tsx` is the only thing that imports `@pb/templates/loaders`)
