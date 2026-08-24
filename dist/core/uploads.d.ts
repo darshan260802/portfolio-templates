@@ -85,6 +85,24 @@ interface ResumeProfile {
 /** "PDF" / "DOCX" for the résumé on this profile, or undefined if it has none. */
 export declare function resumeFormatLabel(profile: ResumeProfile): string | undefined;
 /**
+ * A filename reduced to printable ASCII, or "" if nothing usable survives.
+ *
+ * Not cosmetic — load-bearing. Chromium discards a `download` attribute
+ * containing ANY non-ASCII character and saves the file as literally
+ * "download", extension and all. Verified in a real browser: "Résumé.pdf",
+ * "Jane — Doe.pdf" and "履歴書.pdf" each came back as "download", while
+ * spaces, "&", "#" and parentheses came through untouched. So an accent in
+ * someone's name would silently reproduce the exact problem `resumeFilename`
+ * exists to solve.
+ *
+ * Accents fold to their base letter (NFKD splits "é" into "e" + a combining
+ * mark, which is then dropped); the punctuation above maps to its ASCII
+ * equivalent; anything still outside printable ASCII — CJK, emoji — is
+ * removed, and the caller falls back to a derived name if that empties the
+ * filename out.
+ */
+export declare function toAsciiFilename(name: string): string;
+/**
  * What to put in the anchor's `download` attribute — the name the visitor's
  * browser saves the file under.
  *
