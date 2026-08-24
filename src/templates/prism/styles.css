@@ -349,6 +349,13 @@
 	color: var(--prism-accent);
 }
 
+.prism-footer__phone {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--prism-text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
 .prism-footer__socials {
 	display: flex;
 	flex-wrap: wrap;

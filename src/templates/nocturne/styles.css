@@ -383,6 +383,13 @@
 	font-weight: 600;
 }
 
+.nocturne-footer__phone {
+	font-family: var(--nocturne-font-mono);
+	font-size: 0.95rem;
+	color: var(--nocturne-accent);
+	font-variant-numeric: tabular-nums;
+}
+
 .nocturne-footer__socials {
 	display: flex;
 	flex-wrap: wrap;

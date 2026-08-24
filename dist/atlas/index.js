@@ -401,8 +401,11 @@ function x(e, t) {
 }
 //#endregion
 //#region src/templates/atlas/sections/Footer.tsx
-function S(t) {
-	let n = e(19), { profile: r, socials: i, index: a } = t, c;
+function S(e) {
+	return `tel:${e.replace(/[^\d+]/g, "")}`;
+}
+function C(t) {
+	let n = e(22), { profile: r, socials: i, index: a } = t, c;
 	n[0] === Symbol.for("react.memo_cache_sentinel") ? (c = (/* @__PURE__ */ new Date()).getFullYear(), n[0] = c) : c = n[0];
 	let l = c, u;
 	n[1] === Symbol.for("react.memo_cache_sentinel") ? (u = { opacity: 1 }, n[1] = u) : u = n[1];
@@ -421,37 +424,44 @@ function S(t) {
 		children: r.email
 	}), n[6] = r.email, n[7] = m);
 	let h;
-	n[8] === i ? h = n[9] : (h = i && i.length > 0 && /* @__PURE__ */ o("nav", {
+	n[8] === r.phone ? h = n[9] : (h = r.phone && /* @__PURE__ */ o("a", {
+		className: "atlas-footer__phone",
+		href: S(r.phone),
+		children: r.phone
+	}), n[8] = r.phone, n[9] = h);
+	let g;
+	n[10] === i ? g = n[11] : (g = i && i.length > 0 && /* @__PURE__ */ o("nav", {
 		className: "atlas-footer__socials",
 		"aria-label": "Social links",
-		children: i.map(C)
-	}), n[8] = i, n[9] = h);
-	let g = r.fullName || "Your Name", _;
-	n[10] === g ? _ = n[11] : (_ = /* @__PURE__ */ s("p", {
+		children: i.map(w)
+	}), n[10] = i, n[11] = g);
+	let _ = r.fullName || "Your Name", v;
+	n[12] === _ ? v = n[13] : (v = /* @__PURE__ */ s("p", {
 		className: "atlas-footer__copy",
 		children: [
 			"© ",
 			l,
 			" ",
-			g
+			_
 		]
-	}), n[10] = g, n[11] = _);
-	let v;
-	n[12] !== h || n[13] !== _ ? (v = /* @__PURE__ */ s("div", {
-		className: "atlas-footer__row",
-		children: [h, _]
-	}), n[12] = h, n[13] = _, n[14] = v) : v = n[14];
+	}), n[12] = _, n[13] = v);
 	let y;
-	return n[15] !== v || n[16] !== p || n[17] !== m ? (y = /* @__PURE__ */ s("footer", {
+	n[14] !== v || n[15] !== g ? (y = /* @__PURE__ */ s("div", {
+		className: "atlas-footer__row",
+		children: [g, v]
+	}), n[14] = v, n[15] = g, n[16] = y) : y = n[16];
+	let b;
+	return n[17] !== y || n[18] !== p || n[19] !== m || n[20] !== h ? (b = /* @__PURE__ */ s("footer", {
 		className: "atlas-footer",
 		children: [
 			p,
 			m,
-			v
+			h,
+			y
 		]
-	}), n[15] = v, n[16] = p, n[17] = m, n[18] = y) : y = n[18], y;
+	}), n[17] = y, n[18] = p, n[19] = m, n[20] = h, n[21] = b) : b = n[21], b;
 }
-function C(e) {
+function w(e) {
 	return /* @__PURE__ */ o("a", {
 		href: e.url,
 		target: "_blank",
@@ -461,7 +471,7 @@ function C(e) {
 }
 //#endregion
 //#region src/templates/atlas/sections/SectionIndexNav.tsx
-function w(t) {
+function T(t) {
 	let c = e(13), { entries: l } = t, [u, d] = i(null), f = r(null), p;
 	c[0] === l ? p = c[1] : (p = () => {
 		let e = l.map((e) => n.create({
@@ -477,7 +487,7 @@ function w(t) {
 		};
 	}, c[0] = l, c[1] = p);
 	let m;
-	c[2] === l ? m = c[3] : (m = l.map(T).join(","), c[2] = l, c[3] = m);
+	c[2] === l ? m = c[3] : (m = l.map(E).join(","), c[2] = l, c[3] = m);
 	let h;
 	if (c[4] === m ? h = c[5] : (h = {
 		scope: f,
@@ -508,13 +518,13 @@ function w(t) {
 		children: /* @__PURE__ */ o("ol", { children: g })
 	}), c[11] = g, c[12] = _), _;
 }
-function T(e) {
+function E(e) {
 	return e.id;
 }
 //#endregion
 //#region src/templates/atlas/Template.tsx
 t.registerPlugin(n);
-function E(t) {
+function D(t) {
 	let n = e(44), { data: r } = t, i = r.theme?.mode === "dark" ? "dark" : "light", a = r.theme?.accentColor ?? "#e0342a", c = (r.experience?.length ?? 0) > 0, l = (r.projects?.length ?? 0) > 0, d = (r.skills?.length ?? 0) > 0, f;
 	n[0] === c ? f = n[1] : (f = c && {
 		id: "experience",
@@ -535,18 +545,18 @@ function E(t) {
 		f,
 		p,
 		m
-	].filter(D), n[6] = f, n[7] = p, n[8] = m, n[9] = h) : h = n[9];
+	].filter(O), n[6] = f, n[7] = p, n[8] = m, n[9] = h) : h = n[9];
 	let v = h, y;
 	n[10] === v ? y = n[11] : (y = (e) => v.findIndex((t) => t.id === e) + 2, n[10] = v, n[11] = y);
-	let x = y, C;
-	n[12] === a ? C = n[13] : (C = { "--atlas-accent": a }, n[12] = a, n[13] = C);
-	let T = C, E;
-	n[14] === v ? E = n[15] : (E = /* @__PURE__ */ o(w, { entries: v }), n[14] = v, n[15] = E);
-	let O;
-	n[16] !== r.profile || n[17] !== r.socials ? (O = /* @__PURE__ */ o(u, {
+	let x = y, S;
+	n[12] === a ? S = n[13] : (S = { "--atlas-accent": a }, n[12] = a, n[13] = S);
+	let w = S, E;
+	n[14] === v ? E = n[15] : (E = /* @__PURE__ */ o(T, { entries: v }), n[14] = v, n[15] = E);
+	let D;
+	n[16] !== r.profile || n[17] !== r.socials ? (D = /* @__PURE__ */ o(u, {
 		profile: r.profile,
 		socials: r.socials
-	}), n[16] = r.profile, n[17] = r.socials, n[18] = O) : O = n[18];
+	}), n[16] = r.profile, n[17] = r.socials, n[18] = D) : D = n[18];
 	let k;
 	n[19] !== r.experience || n[20] !== c || n[21] !== x ? (k = c && r.experience && /* @__PURE__ */ o(g, {
 		experience: r.experience,
@@ -563,28 +573,28 @@ function E(t) {
 		index: x("skills")
 	}), n[27] = r.skills, n[28] = d, n[29] = x, n[30] = j) : j = n[30];
 	let M = v.length + 2, N;
-	n[31] !== r.profile || n[32] !== r.socials || n[33] !== M ? (N = /* @__PURE__ */ o(S, {
+	n[31] !== r.profile || n[32] !== r.socials || n[33] !== M ? (N = /* @__PURE__ */ o(C, {
 		profile: r.profile,
 		socials: r.socials,
 		index: M
 	}), n[31] = r.profile, n[32] = r.socials, n[33] = M, n[34] = N) : N = n[34];
 	let P;
-	return n[35] !== i || n[36] !== k || n[37] !== A || n[38] !== j || n[39] !== N || n[40] !== T || n[41] !== E || n[42] !== O ? (P = /* @__PURE__ */ s("div", {
+	return n[35] !== i || n[36] !== k || n[37] !== A || n[38] !== j || n[39] !== N || n[40] !== w || n[41] !== E || n[42] !== D ? (P = /* @__PURE__ */ s("div", {
 		className: "atlas",
 		"data-theme": i,
-		style: T,
+		style: w,
 		children: [
 			E,
-			O,
+			D,
 			k,
 			A,
 			j,
 			N
 		]
-	}), n[35] = i, n[36] = k, n[37] = A, n[38] = j, n[39] = N, n[40] = T, n[41] = E, n[42] = O, n[43] = P) : P = n[43], P;
+	}), n[35] = i, n[36] = k, n[37] = A, n[38] = j, n[39] = N, n[40] = w, n[41] = E, n[42] = D, n[43] = P) : P = n[43], P;
 }
-function D(e) {
+function O(e) {
 	return e !== !1;
 }
 //#endregion
-export { E as default };
+export { D as default };

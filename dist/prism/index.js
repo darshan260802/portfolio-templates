@@ -426,8 +426,11 @@ function v(e, r) {
 }
 //#endregion
 //#region src/templates/prism/sections/Footer.tsx
-function y(t) {
-	let i = e(11), { profile: a, socials: o } = t, s;
+function y(e) {
+	return `tel:${e.replace(/[^\d+]/g, "")}`;
+}
+function b(t) {
+	let i = e(14), { profile: a, socials: o } = t, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
 	i[1] === a.email ? l = i[2] : (l = a.email && /* @__PURE__ */ n("a", {
@@ -436,35 +439,42 @@ function y(t) {
 		children: "Say hello ↗"
 	}), i[1] = a.email, i[2] = l);
 	let u;
-	i[3] === o ? u = i[4] : (u = o && o.length > 0 && /* @__PURE__ */ n("nav", {
+	i[3] === a.phone ? u = i[4] : (u = a.phone && /* @__PURE__ */ n("a", {
+		className: "prism-footer__phone",
+		href: y(a.phone),
+		children: a.phone
+	}), i[3] = a.phone, i[4] = u);
+	let d;
+	i[5] === o ? d = i[6] : (d = o && o.length > 0 && /* @__PURE__ */ n("nav", {
 		className: "prism-footer__socials",
 		"aria-label": "Social links",
-		children: o.map(b)
-	}), i[3] = o, i[4] = u);
-	let d = a.fullName || "Your Name", f;
-	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ r("p", {
+		children: o.map(x)
+	}), i[5] = o, i[6] = d);
+	let f = a.fullName || "Your Name", p;
+	i[7] === f ? p = i[8] : (p = /* @__PURE__ */ r("p", {
 		className: "prism-footer__copy",
 		children: [
 			"© ",
 			c,
 			" ",
-			d
+			f
 		]
-	}), i[5] = d, i[6] = f);
-	let p;
-	return i[7] !== l || i[8] !== u || i[9] !== f ? (p = /* @__PURE__ */ n("footer", {
+	}), i[7] = f, i[8] = p);
+	let m;
+	return i[9] !== l || i[10] !== u || i[11] !== d || i[12] !== p ? (m = /* @__PURE__ */ n("footer", {
 		className: "prism-section prism-footer",
 		children: /* @__PURE__ */ r("div", {
 			className: "prism-card prism-footer__card",
 			children: [
 				l,
 				u,
-				f
+				d,
+				p
 			]
 		})
-	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
+	}), i[9] = l, i[10] = u, i[11] = d, i[12] = p, i[13] = m) : m = i[13], m;
 }
-function b(e) {
+function x(e) {
 	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
@@ -475,7 +485,7 @@ function b(e) {
 }
 //#endregion
 //#region src/templates/prism/Template.tsx
-function x(t) {
+function S(t) {
 	let a = e(25), { data: o } = t, c = o.theme?.mode === "dark" ? "dark" : "light", l = o.theme?.accentColor ?? "#7c5cff", d;
 	a[0] === l ? d = a[1] : (d = { "--prism-accent": l }, a[0] = l, a[1] = d);
 	let f = d, p;
@@ -489,24 +499,24 @@ function x(t) {
 	a[6] === o.experience ? g = a[7] : (g = o.experience && o.experience.length > 0 && /* @__PURE__ */ n(u, { experience: o.experience }), a[6] = o.experience, a[7] = g);
 	let v;
 	a[8] === o.projects ? v = a[9] : (v = o.projects && o.projects.length > 0 && /* @__PURE__ */ n(m, { projects: o.projects }), a[8] = o.projects, a[9] = v);
-	let b;
-	a[10] === o.skills ? b = a[11] : (b = o.skills && o.skills.length > 0 && /* @__PURE__ */ n(_, { skills: o.skills }), a[10] = o.skills, a[11] = b);
+	let y;
+	a[10] === o.skills ? y = a[11] : (y = o.skills && o.skills.length > 0 && /* @__PURE__ */ n(_, { skills: o.skills }), a[10] = o.skills, a[11] = y);
 	let x;
-	a[12] !== o.profile || a[13] !== o.socials ? (x = /* @__PURE__ */ n(y, {
+	a[12] !== o.profile || a[13] !== o.socials ? (x = /* @__PURE__ */ n(b, {
 		profile: o.profile,
 		socials: o.socials
 	}), a[12] = o.profile, a[13] = o.socials, a[14] = x) : x = a[14];
 	let S;
-	a[15] !== h || a[16] !== g || a[17] !== v || a[18] !== b || a[19] !== x ? (S = /* @__PURE__ */ r("div", {
+	a[15] !== h || a[16] !== g || a[17] !== v || a[18] !== y || a[19] !== x ? (S = /* @__PURE__ */ r("div", {
 		className: "prism-content",
 		children: [
 			h,
 			g,
 			v,
-			b,
+			y,
 			x
 		]
-	}), a[15] = h, a[16] = g, a[17] = v, a[18] = b, a[19] = x, a[20] = S) : S = a[20];
+	}), a[15] = h, a[16] = g, a[17] = v, a[18] = y, a[19] = x, a[20] = S) : S = a[20];
 	let C;
 	return a[21] !== c || a[22] !== f || a[23] !== S ? (C = /* @__PURE__ */ r("div", {
 		className: "prism",
@@ -516,4 +526,4 @@ function x(t) {
 	}), a[21] = c, a[22] = f, a[23] = S, a[24] = C) : C = a[24], C;
 }
 //#endregion
-export { x as default };
+export { S as default };

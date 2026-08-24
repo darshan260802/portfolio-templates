@@ -368,8 +368,11 @@ function _(e) {
 }
 //#endregion
 //#region src/templates/monolith/sections/Footer.tsx
-function v(t) {
-	let i = e(11), { profile: a, socials: o } = t, s;
+function v(e) {
+	return `tel:${e.replace(/[^\d+]/g, "")}`;
+}
+function y(t) {
+	let i = e(14), { profile: a, socials: o } = t, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
 	i[1] === a.email ? l = i[2] : (l = a.email && /* @__PURE__ */ n("a", {
@@ -377,28 +380,34 @@ function v(t) {
 		children: a.email
 	}), i[1] = a.email, i[2] = l);
 	let u;
-	i[3] === o ? u = i[4] : (u = o?.map(y), i[3] = o, i[4] = u);
-	let d = a.fullName || "Your Name", f;
-	i[5] === d ? f = i[6] : (f = /* @__PURE__ */ r("span", { children: [
+	i[3] === a.phone ? u = i[4] : (u = a.phone && /* @__PURE__ */ n("a", {
+		href: v(a.phone),
+		children: a.phone
+	}), i[3] = a.phone, i[4] = u);
+	let d;
+	i[5] === o ? d = i[6] : (d = o?.map(b), i[5] = o, i[6] = d);
+	let f = a.fullName || "Your Name", p;
+	i[7] === f ? p = i[8] : (p = /* @__PURE__ */ r("span", { children: [
 		"© ",
 		c,
 		" ",
-		d
-	] }), i[5] = d, i[6] = f);
-	let p;
-	return i[7] !== l || i[8] !== u || i[9] !== f ? (p = /* @__PURE__ */ n("footer", {
+		f
+	] }), i[7] = f, i[8] = p);
+	let m;
+	return i[9] !== l || i[10] !== u || i[11] !== d || i[12] !== p ? (m = /* @__PURE__ */ n("footer", {
 		className: "monolith-footer",
 		children: /* @__PURE__ */ r("div", {
 			className: "monolith-footer__row",
 			children: [
 				l,
 				u,
-				f
+				d,
+				p
 			]
 		})
-	}), i[7] = l, i[8] = u, i[9] = f, i[10] = p) : p = i[10], p;
+	}), i[9] = l, i[10] = u, i[11] = d, i[12] = p, i[13] = m) : m = i[13], m;
 }
-function y(e) {
+function b(e) {
 	return /* @__PURE__ */ n("a", {
 		href: e.url,
 		target: "_blank",
@@ -408,16 +417,16 @@ function y(e) {
 }
 //#endregion
 //#region src/templates/monolith/Template.tsx
-function b(t) {
-	let i = e(32), { data: o } = t, s = o.theme?.mode === "dark" ? "dark" : "light", l = o.theme?.accentColor ?? "#b5482a", u = (o.experience?.length ?? 0) > 0, d = (o.projects?.length ?? 0) > 0, p = (o.skills?.length ?? 0) > 0, m = u && "experience", g = d && "projects", _ = p && "skills", y;
-	i[0] !== m || i[1] !== g || i[2] !== _ ? (y = [
+function x(t) {
+	let i = e(32), { data: o } = t, s = o.theme?.mode === "dark" ? "dark" : "light", l = o.theme?.accentColor ?? "#b5482a", u = (o.experience?.length ?? 0) > 0, d = (o.projects?.length ?? 0) > 0, p = (o.skills?.length ?? 0) > 0, m = u && "experience", g = d && "projects", _ = p && "skills", v;
+	i[0] !== m || i[1] !== g || i[2] !== _ ? (v = [
 		m,
 		g,
 		_
-	].filter(x), i[0] = m, i[1] = g, i[2] = _, i[3] = y) : y = i[3];
-	let b = y, S;
-	i[4] === l ? S = i[5] : (S = { "--monolith-accent": l }, i[4] = l, i[5] = S);
-	let C = S, w;
+	].filter(S), i[0] = m, i[1] = g, i[2] = _, i[3] = v) : v = i[3];
+	let b = v, x;
+	i[4] === l ? x = i[5] : (x = { "--monolith-accent": l }, i[4] = l, i[5] = x);
+	let C = x, w;
 	i[6] !== o.profile || i[7] !== o.socials ? (w = /* @__PURE__ */ n(a, {
 		profile: o.profile,
 		socials: o.socials
@@ -438,7 +447,7 @@ function b(t) {
 		index: b.indexOf("skills") + 1
 	}), i[17] = o.skills, i[18] = p, i[19] = b, i[20] = D) : D = i[20];
 	let O;
-	i[21] !== o.profile || i[22] !== o.socials ? (O = /* @__PURE__ */ n(v, {
+	i[21] !== o.profile || i[22] !== o.socials ? (O = /* @__PURE__ */ n(y, {
 		profile: o.profile,
 		socials: o.socials
 	}), i[21] = o.profile, i[22] = o.socials, i[23] = O) : O = i[23];
@@ -456,8 +465,8 @@ function b(t) {
 		]
 	}), i[24] = s, i[25] = D, i[26] = O, i[27] = C, i[28] = w, i[29] = T, i[30] = E, i[31] = k) : k = i[31], k;
 }
-function x(e) {
+function S(e) {
 	return e !== !1;
 }
 //#endregion
-export { b as default };
+export { x as default };
