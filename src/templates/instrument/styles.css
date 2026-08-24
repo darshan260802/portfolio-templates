@@ -27,7 +27,7 @@
 	--ins-mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
 
 	position: relative;
-	min-height: 100dvh;
+	min-height: 100svh;
 	background: var(--ins-ink);
 	color: var(--ins-paper);
 	font-family: var(--ins-sans);
@@ -311,9 +311,23 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	min-height: 100dvh;
+	min-height: 100svh;
 	overflow: hidden;
 	background: var(--ins-ink);
+}
+
+/* A full-bleed opening screen works on a wide viewport, where the name
+   spans it. On a phone the block is the same handful of lines against a
+   much taller frame, so a 100svh hero left 40–50% of the screen empty
+   above the name (worse the taller the phone). Shortening the floor also
+   lets the marquee edge show, which says "keep scrolling". */
+@media (max-width: 767px) {
+	.ins-hero {
+		/* Capped as well as proportional: the block is a fixed few lines
+		   tall, so a percentage alone keeps handing the extra height of a
+		   larger phone straight back to the empty band. */
+		min-height: min(76svh, 40rem);
+	}
 }
 
 /* The backdrop the WebGL "threads" stand in for: a hairline column field
@@ -387,7 +401,7 @@
 	font-weight: 700;
 	font-variation-settings: "wdth" 125, "wght" 700;
 	text-transform: uppercase;
-	font-size: clamp(2.75rem, 12vw, 11rem);
+	font-size: clamp(3rem, 15vw, 11rem);
 	line-height: 0.85;
 	letter-spacing: -0.045em;
 	color: var(--ins-signal);
