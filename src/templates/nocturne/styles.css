@@ -24,7 +24,7 @@
 	color: var(--nocturne-text);
 	font-family: var(--nocturne-font-sans);
 	line-height: 1.6;
-	min-height: 100dvh;
+	min-height: 100svh;
 	overflow-x: clip;
 	-webkit-font-smoothing: antialiased;
 }

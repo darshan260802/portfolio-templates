@@ -17,7 +17,7 @@
 	background: var(--aurora-bg);
 	color: var(--aurora-text);
 	line-height: 1.5;
-	min-height: 100dvh;
+	min-height: 100svh;
 	-webkit-font-smoothing: antialiased;
 }
 
