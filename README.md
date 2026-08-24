@@ -169,8 +169,11 @@ and it was verified against a real built bundle: the builder's
 2. Add the manifest to `TEMPLATES` in `src/meta.ts`.
 3. Run `bun run build` — the loaders map regenerates from what's on
    disk, and `dist/<id>/` gets populated.
-4. Run `bun run prewarm` if the template introduces a new peer dep the
-   scaffold doesn't already carry.
+4. Run `bun run prewarm` — always, not only for a new peer dep.
+   `.prewarm/` holds one node_modules tree PER TEMPLATE ID, and the API
+   hardlink-copies `.prewarm/<id>/node_modules` into every build; without
+   that directory, hosting the new template fails at `cp -al` before Vite
+   is ever reached. The API host needs this run against its own checkout.
 5. Commit `src/templates/<id>/`, the updated `src/meta.ts`, the
    regenerated `src/loaders.ts`, and the new `dist/` output.
 
