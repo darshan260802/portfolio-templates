@@ -1,3 +1,4 @@
+import { PortfolioLinks } from "../../../portfolio-extras.js";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -76,7 +77,8 @@ export function ProjectsGallery({ projects }: { projects: Project[] }) {
 							</div>
 						)}
 						<div className="nocturne-gallery__links">
-							{project.liveUrl && (
+							<PortfolioLinks links={project.links} />
+                            {project.liveUrl && (
 								<a href={project.liveUrl} target="_blank" rel="noreferrer noopener">
 									View live ↗
 								</a>

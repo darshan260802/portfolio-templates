@@ -197,3 +197,9 @@ and it was verified against a real built bundle: the builder's
 4. Bump the pin in `portfolio-ui` and `portfolio-api`'s `bun.lock`
    together. The wizard types against `PortfolioData`, so the two
    lockfiles must move in lockstep.
+
+### Additional portfolio content (0.2)
+
+All six templates render `education`, `achievements`, and `customSections`. Custom sections contain an `id`, `title`, optional rich-text `content`, optional labeled `links`, and optional `visible` flag. Array order controls display order; hidden sections are omitted. Projects accept up to ten additional `{ id, label, url }` links alongside the existing `liveUrl` and `repoUrl`. Existing profiles remain valid.
+
+Every portfolio includes an accessible light/dark button. `theme.mode` sets the initial light, dark, or system appearance; a visitor's choice is remembered locally. Preview iframes keep their choices separate from published sites. Shared UI lives in `src/portfolio-extras.*` and `src/portfolio-theme.tsx`; materialized exports must copy those files. Prebuilt `dist/` files are included in this release.

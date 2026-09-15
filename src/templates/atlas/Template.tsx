@@ -1,3 +1,5 @@
+import { PortfolioExtras, extraSectionEntries } from "../../portfolio-extras.js";
+import { usePortfolioTheme, PortfolioThemeToggle } from "../../portfolio-theme.js";
 import type { CSSProperties } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,7 +19,7 @@ export interface TemplateProps {
 }
 
 export default function Template({ data }: TemplateProps) {
-	const mode = data.theme?.mode === "dark" ? "dark" : "light";
+	const { mode, toggle } = usePortfolioTheme(data.theme, "light");
 	const accent = data.theme?.accentColor ?? "#e0342a";
 
 	const hasExperience = (data.experience?.length ?? 0) > 0;
@@ -31,6 +33,7 @@ export default function Template({ data }: TemplateProps) {
 		hasExperience && { id: "experience", label: "Experience" },
 		hasProjects && { id: "projects", label: "Projects" },
 		hasSkills && { id: "skills", label: "Skills" },
+		...extraSectionEntries(data),
 	].filter((s): s is IndexEntry => s !== false);
 
 	const indexOf = (id: string) => sections.findIndex((s) => s.id === id) + 2; // +1 for 1-based, +1 for Hero
@@ -46,7 +49,9 @@ export default function Template({ data }: TemplateProps) {
 				<ProjectsSection projects={data.projects} index={indexOf("projects")} />
 			)}
 			{hasSkills && data.skills && <SkillsSection skills={data.skills} index={indexOf("skills")} />}
-			<Footer profile={data.profile} socials={data.socials} index={sections.length + 2} />
+			<PortfolioExtras data={data} />
+            <PortfolioThemeToggle mode={mode} toggle={toggle} />
+            <Footer profile={data.profile} socials={data.socials} index={sections.length + 2} />
 		</div>
 	);
 }

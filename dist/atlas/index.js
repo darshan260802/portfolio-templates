@@ -1,15 +1,204 @@
+import "./index.css";
 import { c as e } from "react/compiler-runtime";
-import { gsap as t } from "gsap";
-import { ScrollTrigger as n } from "gsap/ScrollTrigger";
-import { useRef as r, useState as i } from "react";
-import { useGSAP as a } from "@gsap/react";
-import { jsx as o, jsxs as s } from "react/jsx-runtime";
-import { motion as c } from "motion/react";
-import './index.css';//#region src/uploads.ts
-function l(e) {
-	return v(e, "word/document.xml") !== -1;
+import { jsx as t, jsxs as n } from "react/jsx-runtime";
+import { useEffect as r, useRef as i, useState as a } from "react";
+import { gsap as o } from "gsap";
+import { ScrollTrigger as s } from "gsap/ScrollTrigger";
+import { useGSAP as c } from "@gsap/react";
+import { motion as l } from "motion/react";
+//#region src/rich-text.tsx
+function u(n) {
+	let r = e(5), { html: i, className: a } = n;
+	if (!i) return null;
+	let o;
+	r[0] === i ? o = r[1] : (o = { __html: i }, r[0] = i, r[1] = o);
+	let s;
+	return r[2] !== a || r[3] !== o ? (s = /* @__PURE__ */ t("div", {
+		className: a,
+		dangerouslySetInnerHTML: o
+	}), r[2] = a, r[3] = o, r[4] = s) : s = r[4], s;
 }
-var u = {
+//#endregion
+//#region src/portfolio-extras.tsx
+function d(n) {
+	let r = e(4), { links: i } = n;
+	if (!i?.length) return null;
+	let a;
+	r[0] === i ? a = r[1] : (a = i.map(f), r[0] = i, r[1] = a);
+	let o;
+	return r[2] === a ? o = r[3] : (o = /* @__PURE__ */ t("div", {
+		className: "pb-extra-links",
+		children: a
+	}), r[2] = a, r[3] = o), o;
+}
+function f(e) {
+	return /^https?:\/\//i.test(e.url) && /* @__PURE__ */ n("a", {
+		href: e.url,
+		target: "_blank",
+		rel: "noopener noreferrer",
+		children: [e.label || "Visit link", " ↗"]
+	}, e.id);
+}
+function p(e) {
+	return `custom-${Array.from(e).map((e) => e.codePointAt(0).toString(16)).join("-")}`;
+}
+function m(e) {
+	return [
+		...e.education?.length ? [{
+			id: "education",
+			label: "Education"
+		}] : [],
+		...e.achievements?.length ? [{
+			id: "achievements",
+			label: "Achievements"
+		}] : [],
+		...(e.customSections ?? []).filter((e) => e.visible !== !1 && e.title.trim()).map((e) => ({
+			id: p(e.id),
+			label: e.title
+		}))
+	];
+}
+function h(r) {
+	let i = e(10), { data: a } = r, o;
+	i[0] === a.education ? o = i[1] : (o = !!a.education?.length && /* @__PURE__ */ n("section", {
+		id: "education",
+		className: "pb-extra-section",
+		"aria-labelledby": "education-heading",
+		children: [/* @__PURE__ */ t("h2", {
+			id: "education-heading",
+			children: "Education"
+		}), /* @__PURE__ */ t("div", {
+			className: "pb-extra-grid",
+			children: a.education.map(y)
+		})]
+	}), i[0] = a.education, i[1] = o);
+	let s;
+	i[2] === a.achievements ? s = i[3] : (s = !!a.achievements?.length && /* @__PURE__ */ n("section", {
+		id: "achievements",
+		className: "pb-extra-section",
+		"aria-labelledby": "achievements-heading",
+		children: [/* @__PURE__ */ t("h2", {
+			id: "achievements-heading",
+			children: "Achievements"
+		}), /* @__PURE__ */ t("div", {
+			className: "pb-extra-grid",
+			children: a.achievements.map(v)
+		})]
+	}), i[2] = a.achievements, i[3] = s);
+	let c;
+	i[4] === a.customSections ? c = i[5] : (c = (a.customSections ?? []).filter(_).map(g), i[4] = a.customSections, i[5] = c);
+	let l;
+	return i[6] !== o || i[7] !== s || i[8] !== c ? (l = /* @__PURE__ */ n("div", {
+		className: "pb-extras",
+		children: [
+			o,
+			s,
+			c
+		]
+	}), i[6] = o, i[7] = s, i[8] = c, i[9] = l) : l = i[9], l;
+}
+function g(e) {
+	return /* @__PURE__ */ n("section", {
+		id: p(e.id),
+		className: "pb-extra-section",
+		"aria-label": e.title,
+		children: [/* @__PURE__ */ t("h2", { children: e.title }), /* @__PURE__ */ n("div", {
+			className: "pb-extra-card",
+			children: [/* @__PURE__ */ t(u, { html: e.content }), /* @__PURE__ */ t(d, { links: e.links })]
+		})]
+	}, e.id);
+}
+function _(e) {
+	return e.visible !== !1 && e.title.trim();
+}
+function v(e) {
+	return /* @__PURE__ */ n("article", {
+		className: "pb-extra-card",
+		children: [
+			/* @__PURE__ */ t("h3", { children: e.title }),
+			/* @__PURE__ */ t("p", {
+				className: "pb-extra-meta",
+				children: [e.issuer, e.date].filter(Boolean).join(" · ")
+			}),
+			/* @__PURE__ */ t(u, { html: e.description }),
+			/* @__PURE__ */ t(d, { links: e.links })
+		]
+	}, e.id);
+}
+function y(e) {
+	return /* @__PURE__ */ n("article", {
+		className: "pb-extra-card",
+		children: [
+			/* @__PURE__ */ t("h3", { children: e.institution }),
+			(e.degree || e.fieldOfStudy) && /* @__PURE__ */ t("p", { children: [e.degree, e.fieldOfStudy].filter(Boolean).join(" · ") }),
+			e.range && /* @__PURE__ */ n("p", {
+				className: "pb-extra-meta",
+				children: [e.range.start, (e.range.current || e.range.end) && ` — ${e.range.current ? "Present" : e.range.end}`]
+			}),
+			/* @__PURE__ */ t(u, { html: e.summary })
+		]
+	}, e.id);
+}
+//#endregion
+//#region src/portfolio-theme.tsx
+var b = "pb-visitor-theme-v1";
+function x() {
+	return typeof window < "u" && window.self !== window.top;
+}
+function S() {
+	if (typeof window > "u" || x()) return null;
+	try {
+		let e = localStorage.getItem(b);
+		return e === "light" || e === "dark" ? e : null;
+	} catch {
+		return null;
+	}
+}
+function C() {
+	return typeof window < "u" && window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function w(t, n) {
+	let i = e(10), [o, s] = a(S), [c, l] = a(C), u = t?.mode, d, f;
+	i[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
+		let e = window.matchMedia("(prefers-color-scheme: dark)"), t = () => l(e.matches ? "dark" : "light");
+		return t(), e.addEventListener("change", t), () => e.removeEventListener("change", t);
+	}, f = [], i[0] = d, i[1] = f) : (d = i[0], f = i[1]), r(d, f);
+	let p;
+	i[2] === Symbol.for("react.memo_cache_sentinel") ? (p = () => {
+		x() && s(null);
+	}, i[2] = p) : p = i[2];
+	let m;
+	i[3] === u ? m = i[4] : (m = [u], i[3] = u, i[4] = m), r(p, m);
+	let h = o ?? (u === "system" ? c : u ?? n), g;
+	i[5] === h ? g = i[6] : (g = () => {
+		let e = h === "dark" ? "light" : "dark";
+		if (s(e), !x()) try {
+			localStorage.setItem(b, e);
+		} catch {}
+	}, i[5] = h, i[6] = g);
+	let _ = g, v;
+	return i[7] !== h || i[8] !== _ ? (v = {
+		mode: h,
+		toggle: _
+	}, i[7] = h, i[8] = _, i[9] = v) : v = i[9], v;
+}
+function T(n) {
+	let r = e(5), { mode: i, toggle: a } = n, o = `Switch to ${i === "dark" ? "light" : "dark"} mode`, s = i === "dark", c = i === "dark" ? "☀ Light" : "☾ Dark", l;
+	return r[0] !== o || r[1] !== s || r[2] !== c || r[3] !== a ? (l = /* @__PURE__ */ t("button", {
+		type: "button",
+		className: "pb-theme-toggle",
+		onClick: a,
+		"aria-label": o,
+		"aria-pressed": s,
+		children: c
+	}), r[0] = o, r[1] = s, r[2] = c, r[3] = a, r[4] = l) : l = r[4], l;
+}
+//#endregion
+//#region src/uploads.ts
+function E(e) {
+	return F(e, "word/document.xml") !== -1;
+}
+var D = {
 	kind: "resume",
 	noun: "résumé",
 	maxBytes: 5242880,
@@ -40,23 +229,23 @@ var u = {
 				4
 			]
 		}],
-		verify: l
+		verify: E
 	}]
 };
-function d(e, t) {
+function O(e, t) {
 	let n = t.toLowerCase();
 	return e.formats.find((e) => e.extensions.includes(n));
 }
-function f(e) {
+function k(e) {
 	if (!e) return;
 	let t = e.split(/[?#]/, 1)[0] ?? "";
 	return /\.([a-z0-9]+)$/i.exec(t)?.[1]?.toLowerCase();
 }
-function p(e) {
-	let t = f(e.resumeFilename) ?? f(e.resumeUrl);
-	if (t) return d(u, t)?.label;
+function A(e) {
+	let t = k(e.resumeFilename) ?? k(e.resumeUrl);
+	if (t) return O(D, t)?.label;
 }
-var m = {
+var j = {
 	"–": "-",
 	"—": "-",
 	"‘": "'",
@@ -66,28 +255,28 @@ var m = {
 	"…": "...",
 	"\xA0": " "
 };
-function h(e) {
-	return e.replace(/[\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00a0]/g, (e) => m[e] ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").replace(/\s+(?=\.[^.]*$)/, "").trim();
+function M(e) {
+	return e.replace(/[\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00a0]/g, (e) => j[e] ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").replace(/\s+(?=\.[^.]*$)/, "").trim();
 }
-function g(e) {
+function N(e) {
 	if (!e.resumeUrl) return;
 	if (e.resumeFilename) {
-		let t = h(e.resumeFilename);
+		let t = M(e.resumeFilename);
 		if (/[^.]/.test(t.replace(/\.[^.]*$/, ""))) return t;
 	}
-	let t = f(e.resumeUrl);
-	if (!t || !d(u, t)) return;
+	let t = k(e.resumeUrl);
+	if (!t || !O(D, t)) return;
 	let n = e.fullName.normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-");
 	return n ? `${n}-resume.${t}` : `resume.${t}`;
 }
-function _(e) {
+function P(e) {
 	return e.resumeUrl ? {
 		href: e.resumeUrl,
-		download: g(e),
-		format: p(e)
+		download: N(e),
+		format: A(e)
 	} : null;
 }
-function v(e, t) {
+function F(e, t) {
 	let n = new Uint8Array(t.length);
 	for (let e = 0; e < t.length; e++) n[e] = t.charCodeAt(e);
 	outer: for (let t = 0; t <= e.length - n.length; t++) {
@@ -98,7 +287,7 @@ function v(e, t) {
 }
 //#endregion
 //#region src/templates/atlas/sections/Hero.tsx
-var y = {
+var I = {
 	github: "GitHub",
 	linkedin: "LinkedIn",
 	twitter: "X",
@@ -109,50 +298,50 @@ var y = {
 	website: "Site",
 	other: "Link"
 };
-function b(t) {
-	let n = e(31), { profile: i, socials: c } = t, l = r(null), u;
-	n[0] === i ? u = n[1] : (u = _(i), n[0] = i, n[1] = u);
+function L(r) {
+	let a = e(31), { profile: o, socials: s } = r, l = i(null), u;
+	a[0] === o ? u = a[1] : (u = P(o), a[0] = o, a[1] = u);
 	let d = u, f;
-	n[2] === Symbol.for("react.memo_cache_sentinel") ? (f = { scope: l }, n[2] = f) : f = n[2], a(S, f);
+	a[2] === Symbol.for("react.memo_cache_sentinel") ? (f = { scope: l }, a[2] = f) : f = a[2], c(z, f);
 	let p;
-	n[3] === Symbol.for("react.memo_cache_sentinel") ? (p = /* @__PURE__ */ o("span", {
+	a[3] === Symbol.for("react.memo_cache_sentinel") ? (p = /* @__PURE__ */ t("span", {
 		className: "atlas-hero__eyebrow",
 		children: "Portfolio — 01"
-	}), n[3] = p) : p = n[3];
-	let m = i.fullName || "Your Name", h;
-	n[4] === m ? h = n[5] : (h = /* @__PURE__ */ o("h1", {
+	}), a[3] = p) : p = a[3];
+	let m = o.fullName || "Your Name", h;
+	a[4] === m ? h = a[5] : (h = /* @__PURE__ */ t("h1", {
 		className: "atlas-hero__name",
-		children: /* @__PURE__ */ o("span", {
+		children: /* @__PURE__ */ t("span", {
 			className: "atlas-hero__name-inner",
 			children: m
 		})
-	}), n[4] = m, n[5] = h);
-	let g = i.headline || null, v;
-	n[6] === g ? v = n[7] : (v = /* @__PURE__ */ o("span", {
+	}), a[4] = m, a[5] = h);
+	let g = o.headline || null, _;
+	a[6] === g ? _ = a[7] : (_ = /* @__PURE__ */ t("span", {
 		className: "atlas-hero__role atlas-hero__reveal",
 		children: g
-	}), n[6] = g, n[7] = v);
-	let y = i.bio ?? "", b;
-	n[8] === y ? b = n[9] : (b = /* @__PURE__ */ o("p", {
+	}), a[6] = g, a[7] = _);
+	let v = o.bio ?? "", y;
+	a[8] === v ? y = a[9] : (y = /* @__PURE__ */ t("p", {
 		className: "atlas-hero__bio atlas-hero__reveal",
-		dangerouslySetInnerHTML: { __html: y }
-	}), n[8] = y, n[9] = b);
-	let C;
-	n[10] !== i.avatarUrl || n[11] !== i.fullName ? (C = i.avatarUrl && /* @__PURE__ */ o("img", {
+		dangerouslySetInnerHTML: { __html: v }
+	}), a[8] = v, a[9] = y);
+	let b;
+	a[10] !== o.avatarUrl || a[11] !== o.fullName ? (b = o.avatarUrl && /* @__PURE__ */ t("img", {
 		className: "atlas-hero__portrait",
-		src: i.avatarUrl,
-		alt: i.fullName
-	}), n[10] = i.avatarUrl, n[11] = i.fullName, n[12] = C) : C = n[12];
-	let w;
-	n[13] === i.location ? w = n[14] : (w = i.location && /* @__PURE__ */ o("span", { children: i.location }), n[13] = i.location, n[14] = w);
-	let T;
-	n[15] === c ? T = n[16] : (T = c && c.length > 0 && /* @__PURE__ */ o("nav", {
+		src: o.avatarUrl,
+		alt: o.fullName
+	}), a[10] = o.avatarUrl, a[11] = o.fullName, a[12] = b) : b = a[12];
+	let x;
+	a[13] === o.location ? x = a[14] : (x = o.location && /* @__PURE__ */ t("span", { children: o.location }), a[13] = o.location, a[14] = x);
+	let S;
+	a[15] === s ? S = a[16] : (S = s && s.length > 0 && /* @__PURE__ */ t("nav", {
 		className: "atlas-hero__socials",
 		"aria-label": "Social links",
-		children: c.map(x)
-	}), n[15] = c, n[16] = T);
-	let E;
-	n[17] === d ? E = n[18] : (E = d && /* @__PURE__ */ s("a", {
+		children: s.map(R)
+	}), a[15] = s, a[16] = S);
+	let C;
+	a[17] === d ? C = a[18] : (C = d && /* @__PURE__ */ n("a", {
 		className: "atlas-hero__resume",
 		href: d.href,
 		download: d.download,
@@ -163,45 +352,45 @@ function b(t) {
 			d.format ? ` — ${d.format}` : "",
 			" ↓"
 		]
-	}), n[17] = d, n[18] = E);
-	let D;
-	n[19] !== C || n[20] !== w || n[21] !== T || n[22] !== E ? (D = /* @__PURE__ */ s("div", {
+	}), a[17] = d, a[18] = C);
+	let w;
+	a[19] !== b || a[20] !== x || a[21] !== S || a[22] !== C ? (w = /* @__PURE__ */ n("div", {
 		className: "atlas-hero__meta atlas-hero__reveal",
 		children: [
-			C,
-			w,
-			T,
-			E
+			b,
+			x,
+			S,
+			C
 		]
-	}), n[19] = C, n[20] = w, n[21] = T, n[22] = E, n[23] = D) : D = n[23];
-	let O;
-	n[24] !== D || n[25] !== b ? (O = /* @__PURE__ */ s("div", {
+	}), a[19] = b, a[20] = x, a[21] = S, a[22] = C, a[23] = w) : w = a[23];
+	let T;
+	a[24] !== w || a[25] !== y ? (T = /* @__PURE__ */ n("div", {
 		className: "atlas-hero__grid",
-		children: [b, D]
-	}), n[24] = D, n[25] = b, n[26] = O) : O = n[26];
-	let k;
-	return n[27] !== O || n[28] !== h || n[29] !== v ? (k = /* @__PURE__ */ s("header", {
+		children: [y, w]
+	}), a[24] = w, a[25] = y, a[26] = T) : T = a[26];
+	let E;
+	return a[27] !== T || a[28] !== h || a[29] !== _ ? (E = /* @__PURE__ */ n("header", {
 		ref: l,
 		className: "atlas-hero",
 		children: [
 			p,
 			h,
-			v,
-			O
+			_,
+			T
 		]
-	}), n[27] = O, n[28] = h, n[29] = v, n[30] = k) : k = n[30], k;
+	}), a[27] = T, a[28] = h, a[29] = _, a[30] = E) : E = a[30], E;
 }
-function x(e) {
-	return /* @__PURE__ */ o("a", {
+function R(e) {
+	return /* @__PURE__ */ t("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
-		children: e.label ?? y[e.platform]
+		children: e.label ?? I[e.platform]
 	}, e.platform + e.url);
 }
-function S() {
+function z() {
 	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-		t.set([
+		o.set([
 			".atlas-hero__eyebrow",
 			".atlas-hero__name-inner",
 			".atlas-hero__reveal"
@@ -213,7 +402,7 @@ function S() {
 		});
 		return;
 	}
-	t.timeline({ defaults: { ease: "power4.out" } }).to(".atlas-hero__eyebrow", {
+	o.timeline({ defaults: { ease: "power4.out" } }).to(".atlas-hero__eyebrow", {
 		opacity: 1,
 		y: 0,
 		duration: .4
@@ -228,24 +417,11 @@ function S() {
 	}, .6);
 }
 //#endregion
-//#region src/rich-text.tsx
-function C(t) {
-	let n = e(5), { html: r, className: i } = t;
-	if (!r) return null;
-	let a;
-	n[0] === r ? a = n[1] : (a = { __html: r }, n[0] = r, n[1] = a);
-	let s;
-	return n[2] !== i || n[3] !== a ? (s = /* @__PURE__ */ o("div", {
-		className: i,
-		dangerouslySetInnerHTML: a
-	}), n[2] = i, n[3] = a, n[4] = s) : s = n[4], s;
-}
-//#endregion
 //#region src/templates/atlas/sections/KineticHeading.tsx
-function w(n) {
-	let i = e(9), { number: c, title: l } = n, u = r(null), d, f;
-	i[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches || t.to(u.current.querySelector(".atlas-heading__title-inner"), {
+function B(r) {
+	let a = e(9), { number: s, title: l } = r, u = i(null), d, f;
+	a[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches || o.to(u.current.querySelector(".atlas-heading__title-inner"), {
 			clipPath: "inset(0 0% 0 0)",
 			x: 0,
 			duration: .9,
@@ -256,41 +432,41 @@ function w(n) {
 				once: !0
 			}
 		});
-	}, f = { scope: u }, i[0] = d, i[1] = f) : (d = i[0], f = i[1]), a(d, f);
+	}, f = { scope: u }, a[0] = d, a[1] = f) : (d = a[0], f = a[1]), c(d, f);
 	let p;
-	i[2] === c ? p = i[3] : (p = /* @__PURE__ */ o("span", {
+	a[2] === s ? p = a[3] : (p = /* @__PURE__ */ t("span", {
 		className: "atlas-heading__number",
-		children: c
-	}), i[2] = c, i[3] = p);
+		children: s
+	}), a[2] = s, a[3] = p);
 	let m;
-	i[4] === l ? m = i[5] : (m = /* @__PURE__ */ o("h2", {
+	a[4] === l ? m = a[5] : (m = /* @__PURE__ */ t("h2", {
 		className: "atlas-heading__title",
-		children: /* @__PURE__ */ o("span", {
+		children: /* @__PURE__ */ t("span", {
 			className: "atlas-heading__title-inner",
 			children: l
 		})
-	}), i[4] = l, i[5] = m);
+	}), a[4] = l, a[5] = m);
 	let h;
-	return i[6] !== p || i[7] !== m ? (h = /* @__PURE__ */ s("div", {
+	return a[6] !== p || a[7] !== m ? (h = /* @__PURE__ */ n("div", {
 		ref: u,
 		className: "atlas-heading",
 		children: [p, m]
-	}), i[6] = p, i[7] = m, i[8] = h) : h = i[8], h;
+	}), a[6] = p, a[7] = m, a[8] = h) : h = a[8], h;
 }
 //#endregion
 //#region src/templates/atlas/sections/Experience.tsx
-function T(e) {
+function V(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function E(n) {
-	let c = e(19), { experience: l, index: u } = n, d = r(null), [f, p] = i(-1), m;
-	c[0] === l.length ? m = c[1] : (m = () => {
-		let e = d.current;
+function H(r) {
+	let s = e(19), { experience: l, index: d } = r, f = i(null), [p, m] = a(-1), h;
+	s[0] === l.length ? h = s[1] : (h = () => {
+		let e = f.current;
 		if (!e) return;
-		let n = e.querySelector(".atlas-experience__rule-fill");
-		if (!n) return;
-		let r = t.fromTo(n, { scaleY: 0 }, {
+		let t = e.querySelector(".atlas-experience__rule-fill");
+		if (!t) return;
+		let n = o.fromTo(t, { scaleY: 0 }, {
 			scaleY: 1,
 			ease: "none",
 			scrollTrigger: {
@@ -299,113 +475,113 @@ function E(n) {
 				end: "bottom 60%",
 				scrub: .5,
 				onUpdate: (e) => {
-					p(Math.min(l.length - 1, Math.floor(e.progress * l.length)));
+					m(Math.min(l.length - 1, Math.floor(e.progress * l.length)));
 				}
 			}
 		});
 		return () => {
-			r.scrollTrigger?.kill(), r.kill();
+			n.scrollTrigger?.kill(), n.kill();
 		};
-	}, c[0] = l.length, c[1] = m);
-	let h;
-	c[2] === l.length ? h = c[3] : (h = {
-		scope: d,
+	}, s[0] = l.length, s[1] = h);
+	let g;
+	s[2] === l.length ? g = s[3] : (g = {
+		scope: f,
 		dependencies: [l.length]
-	}, c[2] = l.length, c[3] = h), a(m, h);
-	let g = String(u), _;
-	c[4] === g ? _ = c[5] : (_ = g.padStart(2, "0"), c[4] = g, c[5] = _);
-	let v;
-	c[6] === _ ? v = c[7] : (v = /* @__PURE__ */ o(w, {
-		number: _,
-		title: "Experience"
-	}), c[6] = _, c[7] = v);
+	}, s[2] = l.length, s[3] = g), c(h, g);
+	let _ = String(d), v;
+	s[4] === _ ? v = s[5] : (v = _.padStart(2, "0"), s[4] = _, s[5] = v);
 	let y;
-	c[8] === Symbol.for("react.memo_cache_sentinel") ? (y = /* @__PURE__ */ o("div", {
-		className: "atlas-experience__rule",
-		children: /* @__PURE__ */ o("div", { className: "atlas-experience__rule-fill" })
-	}), c[8] = y) : y = c[8];
+	s[6] === v ? y = s[7] : (y = /* @__PURE__ */ t(B, {
+		number: v,
+		title: "Experience"
+	}), s[6] = v, s[7] = y);
 	let b;
-	if (c[9] !== f || c[10] !== l) {
+	s[8] === Symbol.for("react.memo_cache_sentinel") ? (b = /* @__PURE__ */ t("div", {
+		className: "atlas-experience__rule",
+		children: /* @__PURE__ */ t("div", { className: "atlas-experience__rule-fill" })
+	}), s[8] = b) : b = s[8];
+	let x;
+	if (s[9] !== p || s[10] !== l) {
 		let e;
-		c[12] === f ? e = c[13] : (e = (e, t) => /* @__PURE__ */ s("li", {
+		s[12] === p ? e = s[13] : (e = (e, r) => /* @__PURE__ */ n("li", {
 			className: "atlas-experience__item",
-			"data-active": t <= f,
-			children: [/* @__PURE__ */ o("span", {
+			"data-active": r <= p,
+			children: [/* @__PURE__ */ t("span", {
 				className: "atlas-experience__index",
-				children: String(t + 1).padStart(2, "0")
-			}), /* @__PURE__ */ s("div", { children: [
-				/* @__PURE__ */ s("div", {
+				children: String(r + 1).padStart(2, "0")
+			}), /* @__PURE__ */ n("div", { children: [
+				/* @__PURE__ */ n("div", {
 					className: "atlas-experience__row",
-					children: [/* @__PURE__ */ o("h3", {
+					children: [/* @__PURE__ */ t("h3", {
 						className: "atlas-experience__role",
 						children: e.role
-					}), /* @__PURE__ */ o("span", {
+					}), /* @__PURE__ */ t("span", {
 						className: "atlas-experience__range",
-						children: T(e.range)
+						children: V(e.range)
 					})]
 				}),
-				/* @__PURE__ */ o("p", {
+				/* @__PURE__ */ t("p", {
 					className: "atlas-experience__company",
-					children: e.companyUrl ? /* @__PURE__ */ o("a", {
+					children: e.companyUrl ? /* @__PURE__ */ t("a", {
 						href: e.companyUrl,
 						target: "_blank",
 						rel: "noreferrer noopener",
 						children: e.company
 					}) : e.company
 				}),
-				/* @__PURE__ */ o(C, {
+				/* @__PURE__ */ t(u, {
 					html: e.summary,
 					className: "atlas-experience__summary"
 				})
 			] })]
-		}, e.id), c[12] = f, c[13] = e), b = l.map(e), c[9] = f, c[10] = l, c[11] = b;
-	} else b = c[11];
-	let x;
-	c[14] === b ? x = c[15] : (x = /* @__PURE__ */ s("div", {
-		className: "atlas-experience",
-		children: [y, /* @__PURE__ */ o("ol", {
-			className: "atlas-experience__list",
-			children: b
-		})]
-	}), c[14] = b, c[15] = x);
+		}, e.id), s[12] = p, s[13] = e), x = l.map(e), s[9] = p, s[10] = l, s[11] = x;
+	} else x = s[11];
 	let S;
-	return c[16] !== v || c[17] !== x ? (S = /* @__PURE__ */ s("section", {
-		ref: d,
+	s[14] === x ? S = s[15] : (S = /* @__PURE__ */ n("div", {
+		className: "atlas-experience",
+		children: [b, /* @__PURE__ */ t("ol", {
+			className: "atlas-experience__list",
+			children: x
+		})]
+	}), s[14] = x, s[15] = S);
+	let C;
+	return s[16] !== y || s[17] !== S ? (C = /* @__PURE__ */ n("section", {
+		ref: f,
 		className: "atlas-section",
 		id: "experience",
-		children: [v, x]
-	}), c[16] = v, c[17] = x, c[18] = S) : S = c[18], S;
+		children: [y, S]
+	}), s[16] = y, s[17] = S, s[18] = C) : C = s[18], C;
 }
 //#endregion
 //#region src/templates/atlas/sections/Projects.tsx
-function D(t) {
-	let n = e(11), { projects: r, index: i } = t, a = String(i), c;
-	n[0] === a ? c = n[1] : (c = a.padStart(2, "0"), n[0] = a, n[1] = c);
+function U(r) {
+	let i = e(11), { projects: a, index: o } = r, s = String(o), c;
+	i[0] === s ? c = i[1] : (c = s.padStart(2, "0"), i[0] = s, i[1] = c);
 	let l;
-	n[2] === c ? l = n[3] : (l = /* @__PURE__ */ o(w, {
+	i[2] === c ? l = i[3] : (l = /* @__PURE__ */ t(B, {
 		number: c,
 		title: "Projects"
-	}), n[2] = c, n[3] = l);
+	}), i[2] = c, i[3] = l);
 	let u;
-	n[4] === r ? u = n[5] : (u = r.map(O), n[4] = r, n[5] = u);
+	i[4] === a ? u = i[5] : (u = a.map(W), i[4] = a, i[5] = u);
 	let d;
-	n[6] === u ? d = n[7] : (d = /* @__PURE__ */ o("div", {
+	i[6] === u ? d = i[7] : (d = /* @__PURE__ */ t("div", {
 		className: "atlas-projects",
 		children: u
-	}), n[6] = u, n[7] = d);
+	}), i[6] = u, i[7] = d);
 	let f;
-	return n[8] !== l || n[9] !== d ? (f = /* @__PURE__ */ s("section", {
+	return i[8] !== l || i[9] !== d ? (f = /* @__PURE__ */ n("section", {
 		className: "atlas-section",
 		id: "projects",
 		children: [l, d]
-	}), n[8] = l, n[9] = d, n[10] = f) : f = n[10], f;
+	}), i[8] = l, i[9] = d, i[10] = f) : f = i[10], f;
 }
-function O(e, t) {
-	return /* @__PURE__ */ s("article", {
+function W(e, r) {
+	return /* @__PURE__ */ n("article", {
 		className: "atlas-project",
-		children: [e.imageUrl && /* @__PURE__ */ o("div", {
+		children: [e.imageUrl && /* @__PURE__ */ t("div", {
 			className: "atlas-project__media",
-			children: /* @__PURE__ */ o(c.img, {
+			children: /* @__PURE__ */ t(l.img, {
 				src: e.imageUrl,
 				alt: e.title,
 				loading: "lazy",
@@ -425,75 +601,79 @@ function O(e, t) {
 					]
 				}
 			})
-		}), /* @__PURE__ */ s("div", {
+		}), /* @__PURE__ */ n("div", {
 			className: "atlas-project__body",
 			children: [
-				/* @__PURE__ */ o("span", {
+				/* @__PURE__ */ t("span", {
 					className: "atlas-project__index",
-					children: String(t + 1).padStart(2, "0")
+					children: String(r + 1).padStart(2, "0")
 				}),
-				/* @__PURE__ */ o("h3", {
+				/* @__PURE__ */ t("h3", {
 					className: "atlas-project__title",
 					children: e.title
 				}),
-				/* @__PURE__ */ o(C, {
+				/* @__PURE__ */ t(u, {
 					html: e.description,
 					className: "atlas-project__description"
 				}),
-				e.tags && e.tags.length > 0 && /* @__PURE__ */ o("div", {
+				e.tags && e.tags.length > 0 && /* @__PURE__ */ t("div", {
 					className: "atlas-project__tags",
-					children: e.tags.map(k)
+					children: e.tags.map(G)
 				}),
-				/* @__PURE__ */ s("div", {
+				/* @__PURE__ */ n("div", {
 					className: "atlas-project__links",
-					children: [e.liveUrl && /* @__PURE__ */ o("a", {
-						href: e.liveUrl,
-						target: "_blank",
-						rel: "noreferrer noopener",
-						children: "Live ↗"
-					}), e.repoUrl && /* @__PURE__ */ o("a", {
-						href: e.repoUrl,
-						target: "_blank",
-						rel: "noreferrer noopener",
-						children: "Source ↗"
-					})]
+					children: [
+						/* @__PURE__ */ t(d, { links: e.links }),
+						e.liveUrl && /* @__PURE__ */ t("a", {
+							href: e.liveUrl,
+							target: "_blank",
+							rel: "noreferrer noopener",
+							children: "Live ↗"
+						}),
+						e.repoUrl && /* @__PURE__ */ t("a", {
+							href: e.repoUrl,
+							target: "_blank",
+							rel: "noreferrer noopener",
+							children: "Source ↗"
+						})
+					]
 				})
 			]
 		})]
 	}, e.id);
 }
-function k(e) {
-	return /* @__PURE__ */ o("span", {
+function G(e) {
+	return /* @__PURE__ */ t("span", {
 		className: "atlas-chip",
 		children: e
 	}, e);
 }
 //#endregion
 //#region src/templates/atlas/sections/Skills.tsx
-function A(t) {
-	let n = e(11), { skills: r, index: i } = t, a = String(i), c;
-	n[0] === a ? c = n[1] : (c = a.padStart(2, "0"), n[0] = a, n[1] = c);
+function K(r) {
+	let i = e(11), { skills: a, index: o } = r, s = String(o), c;
+	i[0] === s ? c = i[1] : (c = s.padStart(2, "0"), i[0] = s, i[1] = c);
 	let l;
-	n[2] === c ? l = n[3] : (l = /* @__PURE__ */ o(w, {
+	i[2] === c ? l = i[3] : (l = /* @__PURE__ */ t(B, {
 		number: c,
 		title: "Skills"
-	}), n[2] = c, n[3] = l);
+	}), i[2] = c, i[3] = l);
 	let u;
-	n[4] === r ? u = n[5] : (u = r.map(j), n[4] = r, n[5] = u);
+	i[4] === a ? u = i[5] : (u = a.map(q), i[4] = a, i[5] = u);
 	let d;
-	n[6] === u ? d = n[7] : (d = /* @__PURE__ */ o("ul", {
+	i[6] === u ? d = i[7] : (d = /* @__PURE__ */ t("ul", {
 		className: "atlas-skills",
 		children: u
-	}), n[6] = u, n[7] = d);
+	}), i[6] = u, i[7] = d);
 	let f;
-	return n[8] !== l || n[9] !== d ? (f = /* @__PURE__ */ s("section", {
+	return i[8] !== l || i[9] !== d ? (f = /* @__PURE__ */ n("section", {
 		className: "atlas-section",
 		id: "skills",
 		children: [l, d]
-	}), n[8] = l, n[9] = d, n[10] = f) : f = n[10], f;
+	}), i[8] = l, i[9] = d, i[10] = f) : f = i[10], f;
 }
-function j(e, t) {
-	return /* @__PURE__ */ s(c.li, {
+function q(e, r) {
+	return /* @__PURE__ */ n(l.li, {
 		className: "atlas-skills__item",
 		initial: {
 			opacity: 0,
@@ -509,52 +689,52 @@ function j(e, t) {
 		},
 		transition: {
 			duration: .4,
-			delay: t % 8 * .03
+			delay: r % 8 * .03
 		},
-		children: [/* @__PURE__ */ o("span", {
+		children: [/* @__PURE__ */ t("span", {
 			className: "atlas-skills__index",
-			children: String(t + 1).padStart(2, "0")
+			children: String(r + 1).padStart(2, "0")
 		}), e.name]
 	}, e.id);
 }
 //#endregion
 //#region src/templates/atlas/sections/Footer.tsx
-function M(e) {
+function J(e) {
 	return `tel:${e.replace(/[^\d+]/g, "")}`;
 }
-function N(t) {
-	let n = e(22), { profile: r, socials: i, index: a } = t, c;
-	n[0] === Symbol.for("react.memo_cache_sentinel") ? (c = (/* @__PURE__ */ new Date()).getFullYear(), n[0] = c) : c = n[0];
+function Y(r) {
+	let i = e(22), { profile: a, socials: o, index: s } = r, c;
+	i[0] === Symbol.for("react.memo_cache_sentinel") ? (c = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = c) : c = i[0];
 	let l = c, u;
-	n[1] === Symbol.for("react.memo_cache_sentinel") ? (u = { opacity: 1 }, n[1] = u) : u = n[1];
-	let d = String(a), f;
-	n[2] === d ? f = n[3] : (f = d.padStart(2, "0"), n[2] = d, n[3] = f);
+	i[1] === Symbol.for("react.memo_cache_sentinel") ? (u = { opacity: 1 }, i[1] = u) : u = i[1];
+	let d = String(s), f;
+	i[2] === d ? f = i[3] : (f = d.padStart(2, "0"), i[2] = d, i[3] = f);
 	let p;
-	n[4] === f ? p = n[5] : (p = /* @__PURE__ */ s("span", {
+	i[4] === f ? p = i[5] : (p = /* @__PURE__ */ n("span", {
 		className: "atlas-hero__eyebrow",
 		style: u,
 		children: ["Contact — ", f]
-	}), n[4] = f, n[5] = p);
+	}), i[4] = f, i[5] = p);
 	let m;
-	n[6] === r.email ? m = n[7] : (m = r.email && /* @__PURE__ */ o("a", {
+	i[6] === a.email ? m = i[7] : (m = a.email && /* @__PURE__ */ t("a", {
 		className: "atlas-footer__cta",
-		href: `mailto:${r.email}`,
-		children: r.email
-	}), n[6] = r.email, n[7] = m);
+		href: `mailto:${a.email}`,
+		children: a.email
+	}), i[6] = a.email, i[7] = m);
 	let h;
-	n[8] === r.phone ? h = n[9] : (h = r.phone && /* @__PURE__ */ o("a", {
+	i[8] === a.phone ? h = i[9] : (h = a.phone && /* @__PURE__ */ t("a", {
 		className: "atlas-footer__phone",
-		href: M(r.phone),
-		children: r.phone
-	}), n[8] = r.phone, n[9] = h);
+		href: J(a.phone),
+		children: a.phone
+	}), i[8] = a.phone, i[9] = h);
 	let g;
-	n[10] === i ? g = n[11] : (g = i && i.length > 0 && /* @__PURE__ */ o("nav", {
+	i[10] === o ? g = i[11] : (g = o && o.length > 0 && /* @__PURE__ */ t("nav", {
 		className: "atlas-footer__socials",
 		"aria-label": "Social links",
-		children: i.map(P)
-	}), n[10] = i, n[11] = g);
-	let _ = r.fullName || "Your Name", v;
-	n[12] === _ ? v = n[13] : (v = /* @__PURE__ */ s("p", {
+		children: o.map(X)
+	}), i[10] = o, i[11] = g);
+	let _ = a.fullName || "Your Name", v;
+	i[12] === _ ? v = i[13] : (v = /* @__PURE__ */ n("p", {
 		className: "atlas-footer__copy",
 		children: [
 			"© ",
@@ -562,14 +742,14 @@ function N(t) {
 			" ",
 			_
 		]
-	}), n[12] = _, n[13] = v);
+	}), i[12] = _, i[13] = v);
 	let y;
-	n[14] !== v || n[15] !== g ? (y = /* @__PURE__ */ s("div", {
+	i[14] !== v || i[15] !== g ? (y = /* @__PURE__ */ n("div", {
 		className: "atlas-footer__row",
 		children: [g, v]
-	}), n[14] = v, n[15] = g, n[16] = y) : y = n[16];
+	}), i[14] = v, i[15] = g, i[16] = y) : y = i[16];
 	let b;
-	return n[17] !== y || n[18] !== p || n[19] !== m || n[20] !== h ? (b = /* @__PURE__ */ s("footer", {
+	return i[17] !== y || i[18] !== p || i[19] !== m || i[20] !== h ? (b = /* @__PURE__ */ n("footer", {
 		className: "atlas-footer",
 		children: [
 			p,
@@ -577,10 +757,10 @@ function N(t) {
 			h,
 			y
 		]
-	}), n[17] = y, n[18] = p, n[19] = m, n[20] = h, n[21] = b) : b = n[21], b;
+	}), i[17] = y, i[18] = p, i[19] = m, i[20] = h, i[21] = b) : b = i[21], b;
 }
-function P(e) {
-	return /* @__PURE__ */ o("a", {
+function X(e) {
+	return /* @__PURE__ */ t("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
@@ -589,10 +769,10 @@ function P(e) {
 }
 //#endregion
 //#region src/templates/atlas/sections/SectionIndexNav.tsx
-function F(t) {
-	let c = e(13), { entries: l } = t, [u, d] = i(null), f = r(null), p;
-	c[0] === l ? p = c[1] : (p = () => {
-		let e = l.map((e) => n.create({
+function Z(r) {
+	let o = e(13), { entries: l } = r, [u, d] = a(null), f = i(null), p;
+	o[0] === l ? p = o[1] : (p = () => {
+		let e = l.map((e) => s.create({
 			trigger: `#${e.id}`,
 			start: "top 55%",
 			end: "bottom 55%",
@@ -603,116 +783,126 @@ function F(t) {
 		return () => {
 			for (let t of e) t.kill();
 		};
-	}, c[0] = l, c[1] = p);
+	}, o[0] = l, o[1] = p);
 	let m;
-	c[2] === l ? m = c[3] : (m = l.map(I).join(","), c[2] = l, c[3] = m);
+	o[2] === l ? m = o[3] : (m = l.map(Q).join(","), o[2] = l, o[3] = m);
 	let h;
-	if (c[4] === m ? h = c[5] : (h = {
+	if (o[4] === m ? h = o[5] : (h = {
 		scope: f,
 		dependencies: [m]
-	}, c[4] = m, c[5] = h), a(p, h), l.length === 0) return null;
+	}, o[4] = m, o[5] = h), c(p, h), l.length === 0) return null;
 	let g;
-	if (c[6] !== u || c[7] !== l) {
+	if (o[6] !== u || o[7] !== l) {
 		let e;
-		c[9] === u ? e = c[10] : (e = (e, t) => /* @__PURE__ */ o("li", {
+		o[9] === u ? e = o[10] : (e = (e, r) => /* @__PURE__ */ t("li", {
 			"data-active": e.id === u,
-			children: /* @__PURE__ */ s("a", {
+			children: /* @__PURE__ */ n("a", {
 				href: `#${e.id}`,
-				children: [/* @__PURE__ */ o("span", {
+				children: [/* @__PURE__ */ t("span", {
 					className: "atlas-index__number",
-					children: String(t + 1).padStart(2, "0")
-				}), /* @__PURE__ */ o("span", {
+					children: String(r + 1).padStart(2, "0")
+				}), /* @__PURE__ */ t("span", {
 					className: "atlas-index__label",
 					children: e.label
 				})]
 			})
-		}, e.id), c[9] = u, c[10] = e), g = l.map(e), c[6] = u, c[7] = l, c[8] = g;
-	} else g = c[8];
+		}, e.id), o[9] = u, o[10] = e), g = l.map(e), o[6] = u, o[7] = l, o[8] = g;
+	} else g = o[8];
 	let _;
-	return c[11] === g ? _ = c[12] : (_ = /* @__PURE__ */ o("nav", {
+	return o[11] === g ? _ = o[12] : (_ = /* @__PURE__ */ t("nav", {
 		ref: f,
 		className: "atlas-index",
 		"aria-label": "Section index",
-		children: /* @__PURE__ */ o("ol", { children: g })
-	}), c[11] = g, c[12] = _), _;
+		children: /* @__PURE__ */ t("ol", { children: g })
+	}), o[11] = g, o[12] = _), _;
 }
-function I(e) {
+function Q(e) {
 	return e.id;
 }
 //#endregion
 //#region src/templates/atlas/Template.tsx
-t.registerPlugin(n);
-function L(t) {
-	let n = e(44), { data: r } = t, i = r.theme?.mode === "dark" ? "dark" : "light", a = r.theme?.accentColor ?? "#e0342a", c = (r.experience?.length ?? 0) > 0, l = (r.projects?.length ?? 0) > 0, u = (r.skills?.length ?? 0) > 0, d;
-	n[0] === c ? d = n[1] : (d = c && {
+o.registerPlugin(s);
+function $(r) {
+	let i = e(52), { data: a } = r, { mode: o, toggle: s } = w(a.theme, "light"), c = a.theme?.accentColor ?? "#e0342a", l = (a.experience?.length ?? 0) > 0, u = (a.projects?.length ?? 0) > 0, d = (a.skills?.length ?? 0) > 0, f;
+	i[0] === l ? f = i[1] : (f = l && {
 		id: "experience",
 		label: "Experience"
-	}, n[0] = c, n[1] = d);
-	let f;
-	n[2] === l ? f = n[3] : (f = l && {
+	}, i[0] = l, i[1] = f);
+	let p;
+	i[2] === u ? p = i[3] : (p = u && {
 		id: "projects",
 		label: "Projects"
-	}, n[2] = l, n[3] = f);
-	let p;
-	n[4] === u ? p = n[5] : (p = u && {
+	}, i[2] = u, i[3] = p);
+	let g;
+	i[4] === d ? g = i[5] : (g = d && {
 		id: "skills",
 		label: "Skills"
-	}, n[4] = u, n[5] = p);
-	let m;
-	n[6] !== d || n[7] !== f || n[8] !== p ? (m = [
-		d,
+	}, i[4] = d, i[5] = g);
+	let _;
+	i[6] !== a || i[7] !== f || i[8] !== p || i[9] !== g ? (_ = [
 		f,
-		p
-	].filter(R), n[6] = d, n[7] = f, n[8] = p, n[9] = m) : m = n[9];
-	let h = m, g;
-	n[10] === h ? g = n[11] : (g = (e) => h.findIndex((t) => t.id === e) + 2, n[10] = h, n[11] = g);
-	let _ = g, v;
-	n[12] === a ? v = n[13] : (v = { "--atlas-accent": a }, n[12] = a, n[13] = v);
-	let y = v, x;
-	n[14] === h ? x = n[15] : (x = /* @__PURE__ */ o(F, { entries: h }), n[14] = h, n[15] = x);
-	let S;
-	n[16] !== r.profile || n[17] !== r.socials ? (S = /* @__PURE__ */ o(b, {
-		profile: r.profile,
-		socials: r.socials
-	}), n[16] = r.profile, n[17] = r.socials, n[18] = S) : S = n[18];
-	let C;
-	n[19] !== r.experience || n[20] !== c || n[21] !== _ ? (C = c && r.experience && /* @__PURE__ */ o(E, {
-		experience: r.experience,
-		index: _("experience")
-	}), n[19] = r.experience, n[20] = c, n[21] = _, n[22] = C) : C = n[22];
-	let w;
-	n[23] !== r.projects || n[24] !== l || n[25] !== _ ? (w = l && r.projects && /* @__PURE__ */ o(D, {
-		projects: r.projects,
-		index: _("projects")
-	}), n[23] = r.projects, n[24] = l, n[25] = _, n[26] = w) : w = n[26];
-	let T;
-	n[27] !== r.skills || n[28] !== u || n[29] !== _ ? (T = u && r.skills && /* @__PURE__ */ o(A, {
-		skills: r.skills,
-		index: _("skills")
-	}), n[27] = r.skills, n[28] = u, n[29] = _, n[30] = T) : T = n[30];
-	let O = h.length + 2, k;
-	n[31] !== r.profile || n[32] !== r.socials || n[33] !== O ? (k = /* @__PURE__ */ o(N, {
-		profile: r.profile,
-		socials: r.socials,
-		index: O
-	}), n[31] = r.profile, n[32] = r.socials, n[33] = O, n[34] = k) : k = n[34];
+		p,
+		g,
+		...m(a)
+	].filter(ee), i[6] = a, i[7] = f, i[8] = p, i[9] = g, i[10] = _) : _ = i[10];
+	let v = _, y;
+	i[11] === v ? y = i[12] : (y = (e) => v.findIndex((t) => t.id === e) + 2, i[11] = v, i[12] = y);
+	let b = y, x;
+	i[13] === c ? x = i[14] : (x = { "--atlas-accent": c }, i[13] = c, i[14] = x);
+	let S = x, C;
+	i[15] === v ? C = i[16] : (C = /* @__PURE__ */ t(Z, { entries: v }), i[15] = v, i[16] = C);
+	let E;
+	i[17] !== a.profile || i[18] !== a.socials ? (E = /* @__PURE__ */ t(L, {
+		profile: a.profile,
+		socials: a.socials
+	}), i[17] = a.profile, i[18] = a.socials, i[19] = E) : E = i[19];
+	let D;
+	i[20] !== a.experience || i[21] !== l || i[22] !== b ? (D = l && a.experience && /* @__PURE__ */ t(H, {
+		experience: a.experience,
+		index: b("experience")
+	}), i[20] = a.experience, i[21] = l, i[22] = b, i[23] = D) : D = i[23];
+	let O;
+	i[24] !== a.projects || i[25] !== u || i[26] !== b ? (O = u && a.projects && /* @__PURE__ */ t(U, {
+		projects: a.projects,
+		index: b("projects")
+	}), i[24] = a.projects, i[25] = u, i[26] = b, i[27] = O) : O = i[27];
+	let k;
+	i[28] !== a.skills || i[29] !== d || i[30] !== b ? (k = d && a.skills && /* @__PURE__ */ t(K, {
+		skills: a.skills,
+		index: b("skills")
+	}), i[28] = a.skills, i[29] = d, i[30] = b, i[31] = k) : k = i[31];
+	let A;
+	i[32] === a ? A = i[33] : (A = /* @__PURE__ */ t(h, { data: a }), i[32] = a, i[33] = A);
 	let j;
-	return n[35] !== i || n[36] !== C || n[37] !== w || n[38] !== T || n[39] !== k || n[40] !== y || n[41] !== x || n[42] !== S ? (j = /* @__PURE__ */ s("div", {
+	i[34] !== o || i[35] !== s ? (j = /* @__PURE__ */ t(T, {
+		mode: o,
+		toggle: s
+	}), i[34] = o, i[35] = s, i[36] = j) : j = i[36];
+	let M = v.length + 2, N;
+	i[37] !== a.profile || i[38] !== a.socials || i[39] !== M ? (N = /* @__PURE__ */ t(Y, {
+		profile: a.profile,
+		socials: a.socials,
+		index: M
+	}), i[37] = a.profile, i[38] = a.socials, i[39] = M, i[40] = N) : N = i[40];
+	let P;
+	return i[41] !== o || i[42] !== D || i[43] !== O || i[44] !== k || i[45] !== A || i[46] !== j || i[47] !== N || i[48] !== S || i[49] !== C || i[50] !== E ? (P = /* @__PURE__ */ n("div", {
 		className: "atlas",
-		"data-theme": i,
-		style: y,
+		"data-theme": o,
+		style: S,
 		children: [
-			x,
-			S,
 			C,
-			w,
-			T,
-			k
+			E,
+			D,
+			O,
+			k,
+			A,
+			j,
+			N
 		]
-	}), n[35] = i, n[36] = C, n[37] = w, n[38] = T, n[39] = k, n[40] = y, n[41] = x, n[42] = S, n[43] = j) : j = n[43], j;
+	}), i[41] = o, i[42] = D, i[43] = O, i[44] = k, i[45] = A, i[46] = j, i[47] = N, i[48] = S, i[49] = C, i[50] = E, i[51] = P) : P = i[51], P;
 }
-function R(e) {
+function ee(e) {
 	return e !== !1;
 }
 //#endregion
-export { L as default };
+export { $ as default };

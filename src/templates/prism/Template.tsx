@@ -1,3 +1,5 @@
+import { PortfolioExtras } from "../../portfolio-extras.js";
+import { usePortfolioTheme, PortfolioThemeToggle } from "../../portfolio-theme.js";
 import type { CSSProperties } from "react";
 import type { PortfolioData } from "../../schema.js";
 import { Background } from "./sections/Background.js";
@@ -13,7 +15,7 @@ export interface TemplateProps {
 }
 
 export default function Template({ data }: TemplateProps) {
-	const mode = data.theme?.mode === "dark" ? "dark" : "light";
+	const { mode, toggle } = usePortfolioTheme(data.theme, "light");
 	const accent = data.theme?.accentColor ?? "#7c5cff";
 
 	return (
@@ -26,7 +28,9 @@ export default function Template({ data }: TemplateProps) {
 				)}
 				{data.projects && data.projects.length > 0 && <ProjectsSection projects={data.projects} />}
 				{data.skills && data.skills.length > 0 && <SkillsSection skills={data.skills} />}
-				<Footer profile={data.profile} socials={data.socials} />
+				<PortfolioExtras data={data} />
+            <PortfolioThemeToggle mode={mode} toggle={toggle} />
+            <Footer profile={data.profile} socials={data.socials} />
 			</div>
 		</div>
 	);

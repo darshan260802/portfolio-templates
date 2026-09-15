@@ -108,6 +108,11 @@ const experienceSchema = z.object({
     summary: z.string().max(4000).optional(),
     highlights: z.array(z.string().max(400)).max(20).optional(),
 });
+export const portfolioLinkSchema = z.object({
+    id: z.string(),
+    label: z.string().trim().min(1, "A link label is required").max(60),
+    url: z.string().url().refine((value) => /^https?:\/\//i.test(value), "Use an http or https URL"),
+});
 const projectSchema = z.object({
     id: z.string(),
     title: z.string().min(1).max(160),
@@ -116,6 +121,7 @@ const projectSchema = z.object({
     imageUrl: urlOrEmpty,
     liveUrl: urlOrEmpty,
     repoUrl: urlOrEmpty,
+    links: z.array(portfolioLinkSchema).max(10).optional(),
     tags: z.array(z.string().max(40)).max(15).optional(),
     featured: z.boolean().optional(),
 });
@@ -133,6 +139,21 @@ const educationSchema = z.object({
     range: dateRangeSchema.optional(),
     summary: z.string().max(1000).optional(),
 });
+const achievementSchema = z.object({
+    id: z.string(),
+    title: z.string().trim().min(1).max(160),
+    issuer: z.string().max(160).optional(),
+    date: dateOrEmpty,
+    description: z.string().max(4000).optional(),
+    links: z.array(portfolioLinkSchema).max(10).optional(),
+});
+const customSectionSchema = z.object({
+    id: z.string(),
+    title: z.string().trim().min(1).max(160),
+    content: z.string().max(8000).optional(),
+    links: z.array(portfolioLinkSchema).max(10).optional(),
+    visible: z.boolean().optional(),
+});
 const themeSchema = z.object({
     accentColor: hexColorOrEmpty,
     mode: z.enum(["light", "dark", "system"]).optional(),
@@ -149,6 +170,8 @@ export const portfolioDataSchema = z.object({
     projects: z.array(projectSchema).max(30).optional(),
     skills: z.array(skillSchema).max(60).optional(),
     education: z.array(educationSchema).max(10).optional(),
+    achievements: z.array(achievementSchema).max(30).optional(),
+    customSections: z.array(customSectionSchema).max(20).optional(),
     theme: themeSchema.optional(),
     seo: seoSchema.optional(),
 });
@@ -164,4 +187,6 @@ export const PORTFOLIO_SECTIONS = [
     "projects",
     "skills",
     "education",
+    "achievements",
+    "customSections",
 ];

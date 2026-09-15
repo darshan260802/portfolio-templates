@@ -1,3 +1,5 @@
+import { PortfolioExtras } from "../../portfolio-extras.js";
+import { usePortfolioTheme, PortfolioThemeToggle } from "../../portfolio-theme.js";
 import type { CSSProperties } from "react";
 import type { PortfolioData } from "../../schema.js";
 import { Hero } from "./sections/Hero.js";
@@ -19,7 +21,7 @@ export interface TemplateProps {
  *    for both the ZIP export and the hosted build
  */
 export default function Template({ data }: TemplateProps) {
-	const mode = data.theme?.mode === "light" ? "light" : "dark";
+	const { mode, toggle } = usePortfolioTheme(data.theme, "dark");
 	const accent = data.theme?.accentColor ?? "#7c3aed";
 
 	return (
@@ -36,7 +38,9 @@ export default function Template({ data }: TemplateProps) {
 				<ProjectsSection projects={data.projects} />
 			)}
 			{data.skills && data.skills.length > 0 && <SkillsSection skills={data.skills} />}
-			<Footer profile={data.profile} socials={data.socials} />
+			<PortfolioExtras data={data} />
+            <PortfolioThemeToggle mode={mode} toggle={toggle} />
+            <Footer profile={data.profile} socials={data.socials} />
 		</div>
 	);
 }

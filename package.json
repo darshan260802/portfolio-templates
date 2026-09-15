@@ -1,6 +1,6 @@
 {
   "name": "@pb/templates",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "type": "module",
   "description": "Portfolio Builder template registry: shared PortfolioData schema, prebuilt template components, and the build scaffold used for ZIP export and hosting.",
