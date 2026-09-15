@@ -1,3 +1,4 @@
+import { PortfolioLinks } from "../../../portfolio-extras.js";
 import { motion } from "motion/react";
 import type { Project } from "../../../schema.js";
 import { RichText } from "../../../rich-text.js";
@@ -41,7 +42,8 @@ export function ProjectsSection({ projects, index }: { projects: Project[]; inde
 								</div>
 							)}
 							<div className="atlas-project__links">
-								{project.liveUrl && (
+								<PortfolioLinks links={project.links} />
+                            {project.liveUrl && (
 									<a href={project.liveUrl} target="_blank" rel="noreferrer noopener">
 										Live ↗
 									</a>

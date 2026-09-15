@@ -1,3 +1,4 @@
+import { PortfolioLinks } from "../../../portfolio-extras.js";
 import type { MouseEvent } from "react";
 import type { Project } from "../../../schema.js";
 import { RichText } from "../../../rich-text.js";
@@ -54,9 +55,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 				</div>
 			)}
 
-			{(project.liveUrl || project.repoUrl) && (
+			{(project.liveUrl || project.repoUrl || project.links?.length) && (
 				<div className="ins-card__links">
-					{project.liveUrl && (
+					<PortfolioLinks links={project.links} />
+                            {project.liveUrl && (
 						<a href={project.liveUrl} target="_blank" rel="noreferrer noopener">
 							Live ↗
 						</a>

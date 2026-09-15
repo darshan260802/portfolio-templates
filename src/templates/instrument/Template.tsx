@@ -1,3 +1,5 @@
+import { PortfolioExtras, extraSectionEntries } from "../../portfolio-extras.js";
+import { usePortfolioTheme, PortfolioThemeToggle } from "../../portfolio-theme.js";
 import type { CSSProperties } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -25,7 +27,7 @@ export interface TemplateProps {
  * version the user never asked for.
  */
 export default function Template({ data }: TemplateProps) {
-	const mode = data.theme?.mode === "light" ? "light" : "dark";
+	const { mode, toggle } = usePortfolioTheme(data.theme, "dark");
 	// The signal is the single non-neutral value on the page. White by
 	// default keeps the design achromatic; an accent the user picked becomes
 	// the one color, which is exactly the role the design has for it.
@@ -43,6 +45,7 @@ export default function Template({ data }: TemplateProps) {
 		hasExperience && { id: "track-record", label: "Track Record" },
 		hasProjects && { id: "systems", label: "Systems" },
 		hasSkills && { id: "stack", label: "Stack" },
+		...extraSectionEntries(data),
 		{ id: "contact", label: "Contact" },
 	].filter((entry): entry is NavEntry => entry !== false);
 
@@ -61,7 +64,9 @@ export default function Template({ data }: TemplateProps) {
 			{hasExperience && data.experience && <TrackRecord experience={data.experience} />}
 			{hasProjects && data.projects && <Systems projects={data.projects} />}
 			{hasSkills && data.skills && <Stack skills={data.skills} />}
-			<Contact profile={data.profile} socials={data.socials} />
+			<PortfolioExtras data={data} />
+            <PortfolioThemeToggle mode={mode} toggle={toggle} />
+            <Contact profile={data.profile} socials={data.socials} />
 		</div>
 	);
 }

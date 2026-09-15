@@ -1,3 +1,5 @@
+import { PortfolioExtras } from "../../portfolio-extras.js";
+import { usePortfolioTheme, PortfolioThemeToggle } from "../../portfolio-theme.js";
 import type { CSSProperties } from "react";
 import type { PortfolioData } from "../../schema.js";
 import { Grain } from "./sections/Grain.js";
@@ -24,7 +26,7 @@ export default function Template({ data }: TemplateProps) {
 	// a dark-first design (the name says so) — a user picking it from the
 	// gallery should see its signature look without flipping a theme toggle
 	// first. Still honors an explicit theme.mode: "light" choice.
-	const mode = data.theme?.mode === "light" ? "light" : "dark";
+	const { mode, toggle } = usePortfolioTheme(data.theme, "dark");
 	const accent = data.theme?.accentColor ?? "#c9a24a";
 
 	return (
@@ -34,7 +36,9 @@ export default function Template({ data }: TemplateProps) {
 			{data.experience && data.experience.length > 0 && <ExperienceSection experience={data.experience} />}
 			{data.projects && data.projects.length > 0 && <ProjectsGallery projects={data.projects} />}
 			{data.skills && data.skills.length > 0 && <SkillsMarquee skills={data.skills} />}
-			<Footer profile={data.profile} socials={data.socials} />
+			<PortfolioExtras data={data} />
+            <PortfolioThemeToggle mode={mode} toggle={toggle} />
+            <Footer profile={data.profile} socials={data.socials} />
 		</div>
 	);
 }

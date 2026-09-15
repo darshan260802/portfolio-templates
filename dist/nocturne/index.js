@@ -1,12 +1,185 @@
+import "./index.css";
 import { c as e } from "react/compiler-runtime";
 import { jsx as t, jsxs as n } from "react/jsx-runtime";
-import { useRef as r } from "react";
-import { gsap as i } from "gsap";
-import { useGSAP as a } from "@gsap/react";
-import { motion as o } from "motion/react";
-import { ScrollTrigger as s } from "gsap/ScrollTrigger";
-import './index.css';//#region src/templates/nocturne/sections/Grain.tsx
-function c() {
+import { useEffect as r, useRef as i, useState as a } from "react";
+import { gsap as o } from "gsap";
+import { useGSAP as s } from "@gsap/react";
+import { motion as c } from "motion/react";
+import { ScrollTrigger as l } from "gsap/ScrollTrigger";
+//#region src/rich-text.tsx
+function u(n) {
+	let r = e(5), { html: i, className: a } = n;
+	if (!i) return null;
+	let o;
+	r[0] === i ? o = r[1] : (o = { __html: i }, r[0] = i, r[1] = o);
+	let s;
+	return r[2] !== a || r[3] !== o ? (s = /* @__PURE__ */ t("div", {
+		className: a,
+		dangerouslySetInnerHTML: o
+	}), r[2] = a, r[3] = o, r[4] = s) : s = r[4], s;
+}
+//#endregion
+//#region src/portfolio-extras.tsx
+function d(n) {
+	let r = e(4), { links: i } = n;
+	if (!i?.length) return null;
+	let a;
+	r[0] === i ? a = r[1] : (a = i.map(f), r[0] = i, r[1] = a);
+	let o;
+	return r[2] === a ? o = r[3] : (o = /* @__PURE__ */ t("div", {
+		className: "pb-extra-links",
+		children: a
+	}), r[2] = a, r[3] = o), o;
+}
+function f(e) {
+	return /^https?:\/\//i.test(e.url) && /* @__PURE__ */ n("a", {
+		href: e.url,
+		target: "_blank",
+		rel: "noopener noreferrer",
+		children: [e.label || "Visit link", " ↗"]
+	}, e.id);
+}
+function p(e) {
+	return `custom-${Array.from(e).map((e) => e.codePointAt(0).toString(16)).join("-")}`;
+}
+function m(r) {
+	let i = e(10), { data: a } = r, o;
+	i[0] === a.education ? o = i[1] : (o = !!a.education?.length && /* @__PURE__ */ n("section", {
+		id: "education",
+		className: "pb-extra-section",
+		"aria-labelledby": "education-heading",
+		children: [/* @__PURE__ */ t("h2", {
+			id: "education-heading",
+			children: "Education"
+		}), /* @__PURE__ */ t("div", {
+			className: "pb-extra-grid",
+			children: a.education.map(v)
+		})]
+	}), i[0] = a.education, i[1] = o);
+	let s;
+	i[2] === a.achievements ? s = i[3] : (s = !!a.achievements?.length && /* @__PURE__ */ n("section", {
+		id: "achievements",
+		className: "pb-extra-section",
+		"aria-labelledby": "achievements-heading",
+		children: [/* @__PURE__ */ t("h2", {
+			id: "achievements-heading",
+			children: "Achievements"
+		}), /* @__PURE__ */ t("div", {
+			className: "pb-extra-grid",
+			children: a.achievements.map(_)
+		})]
+	}), i[2] = a.achievements, i[3] = s);
+	let c;
+	i[4] === a.customSections ? c = i[5] : (c = (a.customSections ?? []).filter(g).map(h), i[4] = a.customSections, i[5] = c);
+	let l;
+	return i[6] !== o || i[7] !== s || i[8] !== c ? (l = /* @__PURE__ */ n("div", {
+		className: "pb-extras",
+		children: [
+			o,
+			s,
+			c
+		]
+	}), i[6] = o, i[7] = s, i[8] = c, i[9] = l) : l = i[9], l;
+}
+function h(e) {
+	return /* @__PURE__ */ n("section", {
+		id: p(e.id),
+		className: "pb-extra-section",
+		"aria-label": e.title,
+		children: [/* @__PURE__ */ t("h2", { children: e.title }), /* @__PURE__ */ n("div", {
+			className: "pb-extra-card",
+			children: [/* @__PURE__ */ t(u, { html: e.content }), /* @__PURE__ */ t(d, { links: e.links })]
+		})]
+	}, e.id);
+}
+function g(e) {
+	return e.visible !== !1 && e.title.trim();
+}
+function _(e) {
+	return /* @__PURE__ */ n("article", {
+		className: "pb-extra-card",
+		children: [
+			/* @__PURE__ */ t("h3", { children: e.title }),
+			/* @__PURE__ */ t("p", {
+				className: "pb-extra-meta",
+				children: [e.issuer, e.date].filter(Boolean).join(" · ")
+			}),
+			/* @__PURE__ */ t(u, { html: e.description }),
+			/* @__PURE__ */ t(d, { links: e.links })
+		]
+	}, e.id);
+}
+function v(e) {
+	return /* @__PURE__ */ n("article", {
+		className: "pb-extra-card",
+		children: [
+			/* @__PURE__ */ t("h3", { children: e.institution }),
+			(e.degree || e.fieldOfStudy) && /* @__PURE__ */ t("p", { children: [e.degree, e.fieldOfStudy].filter(Boolean).join(" · ") }),
+			e.range && /* @__PURE__ */ n("p", {
+				className: "pb-extra-meta",
+				children: [e.range.start, (e.range.current || e.range.end) && ` — ${e.range.current ? "Present" : e.range.end}`]
+			}),
+			/* @__PURE__ */ t(u, { html: e.summary })
+		]
+	}, e.id);
+}
+//#endregion
+//#region src/portfolio-theme.tsx
+var y = "pb-visitor-theme-v1";
+function b() {
+	return typeof window < "u" && window.self !== window.top;
+}
+function x() {
+	if (typeof window > "u" || b()) return null;
+	try {
+		let e = localStorage.getItem(y);
+		return e === "light" || e === "dark" ? e : null;
+	} catch {
+		return null;
+	}
+}
+function S() {
+	return typeof window < "u" && window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function C(t, n) {
+	let i = e(10), [o, s] = a(x), [c, l] = a(S), u = t?.mode, d, f;
+	i[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
+		let e = window.matchMedia("(prefers-color-scheme: dark)"), t = () => l(e.matches ? "dark" : "light");
+		return t(), e.addEventListener("change", t), () => e.removeEventListener("change", t);
+	}, f = [], i[0] = d, i[1] = f) : (d = i[0], f = i[1]), r(d, f);
+	let p;
+	i[2] === Symbol.for("react.memo_cache_sentinel") ? (p = () => {
+		b() && s(null);
+	}, i[2] = p) : p = i[2];
+	let m;
+	i[3] === u ? m = i[4] : (m = [u], i[3] = u, i[4] = m), r(p, m);
+	let h = o ?? (u === "system" ? c : u ?? n), g;
+	i[5] === h ? g = i[6] : (g = () => {
+		let e = h === "dark" ? "light" : "dark";
+		if (s(e), !b()) try {
+			localStorage.setItem(y, e);
+		} catch {}
+	}, i[5] = h, i[6] = g);
+	let _ = g, v;
+	return i[7] !== h || i[8] !== _ ? (v = {
+		mode: h,
+		toggle: _
+	}, i[7] = h, i[8] = _, i[9] = v) : v = i[9], v;
+}
+function w(n) {
+	let r = e(5), { mode: i, toggle: a } = n, o = `Switch to ${i === "dark" ? "light" : "dark"} mode`, s = i === "dark", c = i === "dark" ? "☀ Light" : "☾ Dark", l;
+	return r[0] !== o || r[1] !== s || r[2] !== c || r[3] !== a ? (l = /* @__PURE__ */ t("button", {
+		type: "button",
+		className: "pb-theme-toggle",
+		onClick: a,
+		"aria-label": o,
+		"aria-pressed": s,
+		children: c
+	}), r[0] = o, r[1] = s, r[2] = c, r[3] = a, r[4] = l) : l = r[4], l;
+}
+//#endregion
+//#region src/templates/nocturne/sections/Grain.tsx
+function T() {
 	let r = e(1), i;
 	return r[0] === Symbol.for("react.memo_cache_sentinel") ? (i = /* @__PURE__ */ n("svg", {
 		className: "nocturne-grain",
@@ -31,10 +204,10 @@ function c() {
 }
 //#endregion
 //#region src/uploads.ts
-function l(e) {
-	return v(e, "word/document.xml") !== -1;
+function E(e) {
+	return F(e, "word/document.xml") !== -1;
 }
-var u = {
+var D = {
 	kind: "resume",
 	noun: "résumé",
 	maxBytes: 5242880,
@@ -65,23 +238,23 @@ var u = {
 				4
 			]
 		}],
-		verify: l
+		verify: E
 	}]
 };
-function d(e, t) {
+function O(e, t) {
 	let n = t.toLowerCase();
 	return e.formats.find((e) => e.extensions.includes(n));
 }
-function f(e) {
+function k(e) {
 	if (!e) return;
 	let t = e.split(/[?#]/, 1)[0] ?? "";
 	return /\.([a-z0-9]+)$/i.exec(t)?.[1]?.toLowerCase();
 }
-function p(e) {
-	let t = f(e.resumeFilename) ?? f(e.resumeUrl);
-	if (t) return d(u, t)?.label;
+function A(e) {
+	let t = k(e.resumeFilename) ?? k(e.resumeUrl);
+	if (t) return O(D, t)?.label;
 }
-var m = {
+var j = {
 	"–": "-",
 	"—": "-",
 	"‘": "'",
@@ -91,28 +264,28 @@ var m = {
 	"…": "...",
 	"\xA0": " "
 };
-function h(e) {
-	return e.replace(/[\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00a0]/g, (e) => m[e] ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").replace(/\s+(?=\.[^.]*$)/, "").trim();
+function M(e) {
+	return e.replace(/[\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00a0]/g, (e) => j[e] ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").replace(/\s+(?=\.[^.]*$)/, "").trim();
 }
-function g(e) {
+function N(e) {
 	if (!e.resumeUrl) return;
 	if (e.resumeFilename) {
-		let t = h(e.resumeFilename);
+		let t = M(e.resumeFilename);
 		if (/[^.]/.test(t.replace(/\.[^.]*$/, ""))) return t;
 	}
-	let t = f(e.resumeUrl);
-	if (!t || !d(u, t)) return;
+	let t = k(e.resumeUrl);
+	if (!t || !O(D, t)) return;
 	let n = e.fullName.normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-");
 	return n ? `${n}-resume.${t}` : `resume.${t}`;
 }
-function _(e) {
+function P(e) {
 	return e.resumeUrl ? {
 		href: e.resumeUrl,
-		download: g(e),
-		format: p(e)
+		download: N(e),
+		format: A(e)
 	} : null;
 }
-function v(e, t) {
+function F(e, t) {
 	let n = new Uint8Array(t.length);
 	for (let e = 0; e < t.length; e++) n[e] = t.charCodeAt(e);
 	outer: for (let t = 0; t <= e.length - n.length; t++) {
@@ -123,7 +296,7 @@ function v(e, t) {
 }
 //#endregion
 //#region src/templates/nocturne/sections/Hero.tsx
-var y = {
+var I = {
 	github: "GitHub",
 	linkedin: "LinkedIn",
 	twitter: "X",
@@ -134,55 +307,55 @@ var y = {
 	website: "Site",
 	other: "Link"
 };
-function b(i) {
-	let o = e(30), { profile: s, socials: c } = i, l = r(null), u;
-	o[0] === s ? u = o[1] : (u = _(s), o[0] = s, o[1] = u);
+function L(r) {
+	let a = e(30), { profile: o, socials: c } = r, l = i(null), u;
+	a[0] === o ? u = a[1] : (u = P(o), a[0] = o, a[1] = u);
 	let d = u, f;
-	o[2] === Symbol.for("react.memo_cache_sentinel") ? (f = { scope: l }, o[2] = f) : f = o[2], a(S, f);
+	a[2] === Symbol.for("react.memo_cache_sentinel") ? (f = { scope: l }, a[2] = f) : f = a[2], s(z, f);
 	let p;
-	o[3] !== s.avatarUrl || o[4] !== s.fullName ? (p = s.avatarUrl && /* @__PURE__ */ t("img", {
+	a[3] !== o.avatarUrl || a[4] !== o.fullName ? (p = o.avatarUrl && /* @__PURE__ */ t("img", {
 		className: "nocturne-hero__portrait",
-		src: s.avatarUrl,
-		alt: s.fullName
-	}), o[3] = s.avatarUrl, o[4] = s.fullName, o[5] = p) : p = o[5];
+		src: o.avatarUrl,
+		alt: o.fullName
+	}), a[3] = o.avatarUrl, a[4] = o.fullName, a[5] = p) : p = a[5];
 	let m;
-	o[6] === Symbol.for("react.memo_cache_sentinel") ? (m = /* @__PURE__ */ t("span", {
+	a[6] === Symbol.for("react.memo_cache_sentinel") ? (m = /* @__PURE__ */ t("span", {
 		className: "nocturne-hero__eyebrow nocturne-eyebrow",
 		children: "Portfolio"
-	}), o[6] = m) : m = o[6];
-	let h = s.fullName || "Your Name", g;
-	o[7] === h ? g = o[8] : (g = /* @__PURE__ */ t("h1", {
+	}), a[6] = m) : m = a[6];
+	let h = o.fullName || "Your Name", g;
+	a[7] === h ? g = a[8] : (g = /* @__PURE__ */ t("h1", {
 		className: "nocturne-hero__name",
 		children: /* @__PURE__ */ t("span", {
 			className: "nocturne-hero__name-inner",
 			children: h
 		})
-	}), o[7] = h, o[8] = g);
-	let v;
-	o[9] === Symbol.for("react.memo_cache_sentinel") ? (v = /* @__PURE__ */ t("div", {
+	}), a[7] = h, a[8] = g);
+	let _;
+	a[9] === Symbol.for("react.memo_cache_sentinel") ? (_ = /* @__PURE__ */ t("div", {
 		className: "nocturne-hero__rule",
 		"aria-hidden": "true"
-	}), o[9] = v) : v = o[9];
-	let y = s.headline || null, b;
-	o[10] === y ? b = o[11] : (b = /* @__PURE__ */ t("p", {
+	}), a[9] = _) : _ = a[9];
+	let v = o.headline || null, y;
+	a[10] === v ? y = a[11] : (y = /* @__PURE__ */ t("p", {
 		className: "nocturne-hero__headline nocturne-hero__fade-in",
-		children: y
-	}), o[10] = y, o[11] = b);
-	let C = s.bio ?? "", w;
-	o[12] === C ? w = o[13] : (w = /* @__PURE__ */ t("p", {
+		children: v
+	}), a[10] = v, a[11] = y);
+	let b = o.bio ?? "", x;
+	a[12] === b ? x = a[13] : (x = /* @__PURE__ */ t("p", {
 		className: "nocturne-hero__bio nocturne-hero__fade-in",
-		dangerouslySetInnerHTML: { __html: C }
-	}), o[12] = C, o[13] = w);
-	let T;
-	o[14] === s.location ? T = o[15] : (T = s.location && /* @__PURE__ */ t("span", { children: s.location }), o[14] = s.location, o[15] = T);
-	let E;
-	o[16] === c ? E = o[17] : (E = c && c.length > 0 && /* @__PURE__ */ t("nav", {
+		dangerouslySetInnerHTML: { __html: b }
+	}), a[12] = b, a[13] = x);
+	let S;
+	a[14] === o.location ? S = a[15] : (S = o.location && /* @__PURE__ */ t("span", { children: o.location }), a[14] = o.location, a[15] = S);
+	let C;
+	a[16] === c ? C = a[17] : (C = c && c.length > 0 && /* @__PURE__ */ t("nav", {
 		className: "nocturne-hero__socials",
 		"aria-label": "Social links",
-		children: c.map(x)
-	}), o[16] = c, o[17] = E);
-	let D;
-	o[18] === d ? D = o[19] : (D = d && /* @__PURE__ */ n("a", {
+		children: c.map(R)
+	}), a[16] = c, a[17] = C);
+	let w;
+	a[18] === d ? w = a[19] : (w = d && /* @__PURE__ */ n("a", {
 		className: "nocturne-hero__resume",
 		href: d.href,
 		download: d.download,
@@ -193,41 +366,41 @@ function b(i) {
 			d.format ? ` — ${d.format}` : "",
 			" ↓"
 		]
-	}), o[18] = d, o[19] = D);
-	let O;
-	o[20] !== T || o[21] !== E || o[22] !== D ? (O = /* @__PURE__ */ n("div", {
+	}), a[18] = d, a[19] = w);
+	let T;
+	a[20] !== S || a[21] !== C || a[22] !== w ? (T = /* @__PURE__ */ n("div", {
 		className: "nocturne-hero__meta nocturne-hero__fade-in",
 		children: [
-			T,
-			E,
-			D
+			S,
+			C,
+			w
 		]
-	}), o[20] = T, o[21] = E, o[22] = D, o[23] = O) : O = o[23];
-	let k;
-	return o[24] !== w || o[25] !== O || o[26] !== p || o[27] !== g || o[28] !== b ? (k = /* @__PURE__ */ n("header", {
+	}), a[20] = S, a[21] = C, a[22] = w, a[23] = T) : T = a[23];
+	let E;
+	return a[24] !== x || a[25] !== T || a[26] !== p || a[27] !== g || a[28] !== y ? (E = /* @__PURE__ */ n("header", {
 		ref: l,
 		className: "nocturne-hero",
 		children: [
 			p,
 			m,
 			g,
-			v,
-			b,
-			w,
-			O
+			_,
+			y,
+			x,
+			T
 		]
-	}), o[24] = w, o[25] = O, o[26] = p, o[27] = g, o[28] = b, o[29] = k) : k = o[29], k;
+	}), a[24] = x, a[25] = T, a[26] = p, a[27] = g, a[28] = y, a[29] = E) : E = a[29], E;
 }
-function x(e) {
+function R(e) {
 	return /* @__PURE__ */ t("a", {
 		href: e.url,
 		target: "_blank",
 		rel: "noreferrer noopener",
-		children: e.label ?? y[e.platform]
+		children: e.label ?? I[e.platform]
 	}, e.platform + e.url);
 }
-function S() {
-	let e = window.matchMedia("(prefers-reduced-motion: reduce)").matches, t = i.timeline({ defaults: { ease: "power4.out" } });
+function z() {
+	let e = window.matchMedia("(prefers-reduced-motion: reduce)").matches, t = o.timeline({ defaults: { ease: "power4.out" } });
 	if (e) {
 		t.set([".nocturne-hero__eyebrow", ".nocturne-hero__fade-in"], {
 			opacity: 1,
@@ -252,32 +425,19 @@ function S() {
 	}, .9);
 }
 //#endregion
-//#region src/rich-text.tsx
-function C(n) {
-	let r = e(5), { html: i, className: a } = n;
-	if (!i) return null;
-	let o;
-	r[0] === i ? o = r[1] : (o = { __html: i }, r[0] = i, r[1] = o);
-	let s;
-	return r[2] !== a || r[3] !== o ? (s = /* @__PURE__ */ t("div", {
-		className: a,
-		dangerouslySetInnerHTML: o
-	}), r[2] = a, r[3] = o, r[4] = s) : s = r[4], s;
-}
-//#endregion
 //#region src/templates/nocturne/sections/Experience.tsx
-function w(e) {
+function B(e) {
 	let t = e.current ? "Present" : e.end ?? "";
 	return t ? `${e.start} — ${t}` : e.start;
 }
-function T(r) {
+function V(r) {
 	let i = e(5), { experience: a } = r, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ t("span", {
 		className: "nocturne-eyebrow",
 		children: "Experience"
 	}), i[0] = o) : o = i[0];
 	let s;
-	i[1] === a ? s = i[2] : (s = a.map(E), i[1] = a, i[2] = s);
+	i[1] === a ? s = i[2] : (s = a.map(H), i[1] = a, i[2] = s);
 	let c;
 	return i[3] === s ? c = i[4] : (c = /* @__PURE__ */ n("section", {
 		className: "nocturne-section",
@@ -288,8 +448,8 @@ function T(r) {
 		})]
 	}), i[3] = s, i[4] = c), c;
 }
-function E(e, r) {
-	return /* @__PURE__ */ n(o.li, {
+function H(e, r) {
+	return /* @__PURE__ */ n(c.li, {
 		className: "nocturne-timeline__item",
 		initial: {
 			opacity: 0,
@@ -310,7 +470,7 @@ function E(e, r) {
 		},
 		children: [/* @__PURE__ */ t("span", {
 			className: "nocturne-timeline__range",
-			children: w(e.range)
+			children: B(e.range)
 		}), /* @__PURE__ */ n("div", {
 			className: "nocturne-timeline__body",
 			children: [
@@ -327,30 +487,30 @@ function E(e, r) {
 						children: e.company
 					}) : e.company
 				}),
-				/* @__PURE__ */ t(C, {
+				/* @__PURE__ */ t(u, {
 					html: e.summary,
 					className: "nocturne-timeline__summary"
 				}),
 				e.highlights && e.highlights.length > 0 && /* @__PURE__ */ t("ul", {
 					className: "nocturne-timeline__highlights",
-					children: e.highlights.map(D)
+					children: e.highlights.map(U)
 				})
 			]
 		})]
 	}, e.id);
 }
-function D(e) {
+function U(e) {
 	return /* @__PURE__ */ t("li", { children: e }, e);
 }
 //#endregion
 //#region src/templates/nocturne/sections/ProjectsGallery.tsx
-i.registerPlugin(s);
-function O(o) {
-	let s = e(8), { projects: c } = o, l = r(null), u = r(null), d;
-	s[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
+o.registerPlugin(l);
+function W(r) {
+	let a = e(8), { projects: c } = r, l = i(null), u = i(null), d;
+	a[0] === Symbol.for("react.memo_cache_sentinel") ? (d = () => {
 		let e = l.current, t = u.current;
 		if (!e || !t || window.matchMedia("(prefers-reduced-motion: reduce)").matches || t.scrollWidth - e.clientWidth <= 0) return;
-		let n = i.to(t, {
+		let n = o.to(t, {
 			x: () => -(t.scrollWidth - e.clientWidth),
 			ease: "none",
 			scrollTrigger: {
@@ -365,24 +525,24 @@ function O(o) {
 		return () => {
 			n.scrollTrigger?.kill(), n.kill();
 		};
-	}, s[0] = d) : d = s[0];
+	}, a[0] = d) : d = a[0];
 	let f;
-	s[1] === c.length ? f = s[2] : (f = {
+	a[1] === c.length ? f = a[2] : (f = {
 		scope: l,
 		dependencies: [c.length]
-	}, s[1] = c.length, s[2] = f), a(d, f);
+	}, a[1] = c.length, a[2] = f), s(d, f);
 	let p;
-	s[3] === Symbol.for("react.memo_cache_sentinel") ? (p = /* @__PURE__ */ t("div", {
+	a[3] === Symbol.for("react.memo_cache_sentinel") ? (p = /* @__PURE__ */ t("div", {
 		className: "nocturne-gallery__heading",
 		children: /* @__PURE__ */ t("span", {
 			className: "nocturne-eyebrow",
 			children: "Selected work"
 		})
-	}), s[3] = p) : p = s[3];
+	}), a[3] = p) : p = a[3];
 	let m;
-	s[4] === c ? m = s[5] : (m = c.map(k), s[4] = c, s[5] = m);
+	a[4] === c ? m = a[5] : (m = c.map(G), a[4] = c, a[5] = m);
 	let h;
-	return s[6] === m ? h = s[7] : (h = /* @__PURE__ */ n("section", {
+	return a[6] === m ? h = a[7] : (h = /* @__PURE__ */ n("section", {
 		ref: l,
 		className: "nocturne-gallery",
 		id: "projects",
@@ -391,9 +551,9 @@ function O(o) {
 			className: "nocturne-gallery__track",
 			children: m
 		})]
-	}), s[6] = m, s[7] = h), h;
+	}), a[6] = m, a[7] = h), h;
 }
-function k(e) {
+function G(e) {
 	return /* @__PURE__ */ n("article", {
 		className: "nocturne-gallery__card",
 		children: [
@@ -412,32 +572,36 @@ function k(e) {
 				className: "nocturne-gallery__title",
 				children: e.title
 			}),
-			/* @__PURE__ */ t(C, {
+			/* @__PURE__ */ t(u, {
 				html: e.description,
 				className: "nocturne-gallery__description"
 			}),
 			e.tags && e.tags.length > 0 && /* @__PURE__ */ t("div", {
 				className: "nocturne-gallery__tags",
-				children: e.tags.map(A)
+				children: e.tags.map(K)
 			}),
 			/* @__PURE__ */ n("div", {
 				className: "nocturne-gallery__links",
-				children: [e.liveUrl && /* @__PURE__ */ t("a", {
-					href: e.liveUrl,
-					target: "_blank",
-					rel: "noreferrer noopener",
-					children: "View live ↗"
-				}), e.repoUrl && /* @__PURE__ */ t("a", {
-					href: e.repoUrl,
-					target: "_blank",
-					rel: "noreferrer noopener",
-					children: "Source ↗"
-				})]
+				children: [
+					/* @__PURE__ */ t(d, { links: e.links }),
+					e.liveUrl && /* @__PURE__ */ t("a", {
+						href: e.liveUrl,
+						target: "_blank",
+						rel: "noreferrer noopener",
+						children: "View live ↗"
+					}),
+					e.repoUrl && /* @__PURE__ */ t("a", {
+						href: e.repoUrl,
+						target: "_blank",
+						rel: "noreferrer noopener",
+						children: "Source ↗"
+					})
+				]
 			})
 		]
 	}, e.id);
 }
-function A(e) {
+function K(e) {
 	return /* @__PURE__ */ t("span", {
 		className: "nocturne-chip",
 		children: e
@@ -445,7 +609,7 @@ function A(e) {
 }
 //#endregion
 //#region src/templates/nocturne/sections/SkillsMarquee.tsx
-function j(r) {
+function q(r) {
 	let i = e(3), { skills: a } = r, o;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (o = /* @__PURE__ */ t("span", {
 		className: "nocturne-eyebrow nocturne-marquee-eyebrow",
@@ -461,12 +625,12 @@ function j(r) {
 			"aria-label": "Skills",
 			children: /* @__PURE__ */ t("div", {
 				className: "nocturne-marquee__track",
-				children: [...a, ...a].map(M)
+				children: [...a, ...a].map(J)
 			})
 		})]
 	}), i[1] = a, i[2] = s), s;
 }
-function M(e, n) {
+function J(e, n) {
 	return /* @__PURE__ */ t("span", {
 		className: "nocturne-marquee__item",
 		role: "listitem",
@@ -475,10 +639,10 @@ function M(e, n) {
 }
 //#endregion
 //#region src/templates/nocturne/sections/Footer.tsx
-function N(e) {
+function Y(e) {
 	return `tel:${e.replace(/[^\d+]/g, "")}`;
 }
-function P(r) {
+function X(r) {
 	let i = e(14), { profile: a, socials: o } = r, s;
 	i[0] === Symbol.for("react.memo_cache_sentinel") ? (s = (/* @__PURE__ */ new Date()).getFullYear(), i[0] = s) : s = i[0];
 	let c = s, l;
@@ -490,14 +654,14 @@ function P(r) {
 	let u;
 	i[3] === a.phone ? u = i[4] : (u = a.phone && /* @__PURE__ */ t("a", {
 		className: "nocturne-footer__phone",
-		href: N(a.phone),
+		href: Y(a.phone),
 		children: a.phone
 	}), i[3] = a.phone, i[4] = u);
 	let d;
 	i[5] === o ? d = i[6] : (d = o && o.length > 0 && /* @__PURE__ */ t("nav", {
 		className: "nocturne-footer__socials",
 		"aria-label": "Social links",
-		children: o.map(F)
+		children: o.map(Z)
 	}), i[5] = o, i[6] = d);
 	let f = a.fullName || "Your Name", p;
 	i[7] === f ? p = i[8] : (p = /* @__PURE__ */ n("p", {
@@ -520,7 +684,7 @@ function P(r) {
 		]
 	}), i[9] = l, i[10] = u, i[11] = d, i[12] = p, i[13] = m) : m = i[13], m;
 }
-function F(e) {
+function Z(e) {
 	return /* @__PURE__ */ t("a", {
 		href: e.url,
 		target: "_blank",
@@ -530,29 +694,36 @@ function F(e) {
 }
 //#endregion
 //#region src/templates/nocturne/Template.tsx
-function I(r) {
-	let i = e(23), { data: a } = r, o = a.theme?.mode === "light" ? "light" : "dark", s = a.theme?.accentColor ?? "#c9a24a", l;
-	i[0] === s ? l = i[1] : (l = { "--nocturne-accent": s }, i[0] = s, i[1] = l);
+function Q(r) {
+	let i = e(30), { data: a } = r, { mode: o, toggle: s } = C(a.theme, "dark"), c = a.theme?.accentColor ?? "#c9a24a", l;
+	i[0] === c ? l = i[1] : (l = { "--nocturne-accent": c }, i[0] = c, i[1] = l);
 	let u = l, d;
-	i[2] === Symbol.for("react.memo_cache_sentinel") ? (d = /* @__PURE__ */ t(c, {}), i[2] = d) : d = i[2];
+	i[2] === Symbol.for("react.memo_cache_sentinel") ? (d = /* @__PURE__ */ t(T, {}), i[2] = d) : d = i[2];
 	let f;
-	i[3] !== a.profile || i[4] !== a.socials ? (f = /* @__PURE__ */ t(b, {
+	i[3] !== a.profile || i[4] !== a.socials ? (f = /* @__PURE__ */ t(L, {
 		profile: a.profile,
 		socials: a.socials
 	}), i[3] = a.profile, i[4] = a.socials, i[5] = f) : f = i[5];
 	let p;
-	i[6] === a.experience ? p = i[7] : (p = a.experience && a.experience.length > 0 && /* @__PURE__ */ t(T, { experience: a.experience }), i[6] = a.experience, i[7] = p);
-	let m;
-	i[8] === a.projects ? m = i[9] : (m = a.projects && a.projects.length > 0 && /* @__PURE__ */ t(O, { projects: a.projects }), i[8] = a.projects, i[9] = m);
+	i[6] === a.experience ? p = i[7] : (p = a.experience && a.experience.length > 0 && /* @__PURE__ */ t(V, { experience: a.experience }), i[6] = a.experience, i[7] = p);
 	let h;
-	i[10] === a.skills ? h = i[11] : (h = a.skills && a.skills.length > 0 && /* @__PURE__ */ t(j, { skills: a.skills }), i[10] = a.skills, i[11] = h);
+	i[8] === a.projects ? h = i[9] : (h = a.projects && a.projects.length > 0 && /* @__PURE__ */ t(W, { projects: a.projects }), i[8] = a.projects, i[9] = h);
 	let g;
-	i[12] !== a.profile || i[13] !== a.socials ? (g = /* @__PURE__ */ t(P, {
+	i[10] === a.skills ? g = i[11] : (g = a.skills && a.skills.length > 0 && /* @__PURE__ */ t(q, { skills: a.skills }), i[10] = a.skills, i[11] = g);
+	let _;
+	i[12] === a ? _ = i[13] : (_ = /* @__PURE__ */ t(m, { data: a }), i[12] = a, i[13] = _);
+	let v;
+	i[14] !== o || i[15] !== s ? (v = /* @__PURE__ */ t(w, {
+		mode: o,
+		toggle: s
+	}), i[14] = o, i[15] = s, i[16] = v) : v = i[16];
+	let y;
+	i[17] !== a.profile || i[18] !== a.socials ? (y = /* @__PURE__ */ t(X, {
 		profile: a.profile,
 		socials: a.socials
-	}), i[12] = a.profile, i[13] = a.socials, i[14] = g) : g = i[14];
-	let _;
-	return i[15] !== o || i[16] !== u || i[17] !== f || i[18] !== p || i[19] !== m || i[20] !== h || i[21] !== g ? (_ = /* @__PURE__ */ n("div", {
+	}), i[17] = a.profile, i[18] = a.socials, i[19] = y) : y = i[19];
+	let b;
+	return i[20] !== o || i[21] !== y || i[22] !== u || i[23] !== f || i[24] !== p || i[25] !== h || i[26] !== g || i[27] !== _ || i[28] !== v ? (b = /* @__PURE__ */ n("div", {
 		className: "nocturne",
 		"data-theme": o,
 		style: u,
@@ -560,11 +731,13 @@ function I(r) {
 			d,
 			f,
 			p,
-			m,
 			h,
-			g
+			g,
+			_,
+			v,
+			y
 		]
-	}), i[15] = o, i[16] = u, i[17] = f, i[18] = p, i[19] = m, i[20] = h, i[21] = g, i[22] = _) : _ = i[22], _;
+	}), i[20] = o, i[21] = y, i[22] = u, i[23] = f, i[24] = p, i[25] = h, i[26] = g, i[27] = _, i[28] = v, i[29] = b) : b = i[29], b;
 }
 //#endregion
-export { I as default };
+export { Q as default };
