@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { RESUME_RULES, uploadExtensions, uploadFormatList } from "./uploads.js";
 /**
  * PortfolioData is the single source of truth for what a portfolio can contain.
